@@ -12,3 +12,7 @@ PodAgent, need to configure 1, or 3 speakers.
 MoonCast
 NUM=1 pip install flash-attn --no-build-isolation
 hours
+
+
+
+Lets hope this deplys"
