@@ -1,0 +1,32 @@
+```
+
+[
+{"audio_type": "music", "layout": "foreground", "vol": -35, "len": 30, "desc": "Upbeat, inspiring introductory talk show theme music"},
+{"audio_type": "speech", "index": 0},
+{"audio_type": "sound_effect", "layout": "foreground", "vol": -35, "len": 3, "desc": "Audience clapping"},
+{"audio_type": "speech", "index": 1},
+{"audio_type": "sound_effect", "layout": "background", "id":1, "action": "begin", "vol": -35, "desc": "Soft generic talk show background music"},
+{"audio_type": "speech", "index": 2},
+{"audio_type": "sound_effect", "layout": "foreground", "vol": -35, "len": 2, "desc": "Glass clinks lightly as guest settle in"},
+{"audio_type": "speech", "index": 3},
+{"audio_type": "speech", "index": 4},
+{"audio_type": "sound_effect", "layout": "foreground", "vol": -35, "len": 2, "desc": "Audience clapping"},
+{"audio_type": "speech", "index": 5},
+{"audio_type": "sound_effect", "layout": "background", "id":2, "action": "begin", "vol": -35, "desc": "Subtle background noise of rustling paper and pencil scribbling"},
+{"audio_type": "speech", "index": 6},
+{"audio_type": "sound_effect", "layout": "background", "id":2, "action": "end"},
+{"audio_type": "speech", "index": 7},
+{"audio_type": "speech", "index": 8},
+{"audio_type": "sound_effect", "layout": "foreground", "vol": -35, "len": 2, "desc": "Contemplative 'hmm' from the audience"},
+{"audio_type": "speech", "index": 9},
+{"audio_type": "sound_effect", "layout": "foreground", "vol": -35, "len": 1, "desc": "Quick intake of breath conveying interest"},
+{"audio_type": "speech", "index": 10},
+{"audio_type": "sound_effect", "layout": "foreground", "vol": -35, "len": 2, "desc": "Nodding agreement 'Mmm-hmms' from audience"},
+{"audio_type": "speech", "index": 11},
+{"audio_type": "sound_effect", "layout": "background", "id":1, "action": "end"},
+{"audio_type": "music", "layout": "foreground", "vol": -35, "len": 30, "desc": "Upbeat, cheerful closing talk show theme music"}
+]
+```
+The audio script above has format error: Speech item is less than provided.. Return the fixed script.
+
+Script:

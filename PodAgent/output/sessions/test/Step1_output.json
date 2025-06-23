@@ -1,0 +1,41 @@
+{
+    Guest_1: {
+        Name: "Dr. Albert Kohlman",
+        Age: "50",
+        Gender: "Male",
+        Occupation: "Plasma Physicist",
+        Educational_Background: {
+            Undergraduate: "Physics, Massachusetts Institute of Technology",
+            Postgraduate: "Quantum Physics, California Institute of Technology",
+            Doctorate: "Plasma Physics, Princeton University",
+        },
+        Notable_Experiences: [
+            "Contributed to understanding the characteristics of plasma behavior in a Tokamak",
+            "Published more than 30 papers on the intricacies of electron and ion diamagnetic drifts",
+            "Been awarded the E. O. Lawrence Award for his advancements in Plasma Physics",
+        ],
+    },
+    Guest_2: {
+        Name: "Dr. Emily Wang",
+        Age: "46",
+        Gender: "Female",
+        Occupation: "Astrophysicist",
+        Educational_Background: {
+            Undergraduate: "Mathematics, Harvard University",
+            Postgraduate: "Astrophysics, University of Cambridge",
+            Doctorate: "Astrophysics and Plasma Science, University of Chicago",
+        },
+        Notable_Experiences: [
+            "Participated in the international ITER project, bringing influence to the design of next-generation Tokamaks",
+            "Published more than 40 papers on plasma behavior in space",
+            "Been awarded the John Dawson Award for excellence in plasma physics research",
+        ],
+    },
+    Interview_Outline: [
+        "Describe your work on the influence of electron and ion diamagnetic drifts on kink modes in low-resistivity tokamak plasmas.",
+        "What are some of the latest developments or challenges in this field of study?",
+        "How does your research contribute to our understanding of tokamak plasmas and potential for fusion power?",
+        "In what ways has your work intersected with other areas of physics, if any?",
+        "What are potential future directions in the study of diamagnetic drifts in tokamak plasmas?",
+    ],
+}

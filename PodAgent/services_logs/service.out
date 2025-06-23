@@ -1,0 +1,155 @@
+/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/torch/nn/utils/weight_norm.py:28: UserWarning: torch.nn.utils.weight_norm is deprecated in favor of torch.nn.utils.parametrizations.weight_norm.
+  warnings.warn("torch.nn.utils.weight_norm is deprecated in favor of torch.nn.utils.parametrizations.weight_norm.")
+2025-06-20 17:11:22,845 - INFO - T5 will be evaluated with autocast as float32
+2025-06-20 17:11:25,466 - INFO - AudioGen (medium) is loaded ...
+2025-06-20 17:11:26,005 - INFO - T5 will be evaluated with autocast as float32
+/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/torch/nn/utils/weight_norm.py:28: UserWarning: torch.nn.utils.weight_norm is deprecated in favor of torch.nn.utils.parametrizations.weight_norm.
+  warnings.warn("torch.nn.utils.weight_norm is deprecated in favor of torch.nn.utils.parametrizations.weight_norm.")
+2025-06-20 17:11:27,875 - INFO - MusicGen (small) is loaded ...
+/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/diffusers/models/lora.py:393: FutureWarning: `LoRACompatibleLinear` is deprecated and will be removed in version 1.0.0. Use of `LoRACompatibleLinear` is deprecated. Please switch to PEFT backend by installing PEFT: `pip install peft`.
+  deprecate("LoRACompatibleLinear", "1.0.0", deprecation_message)
+2025-06-20 17:11:30,450 - INFO - input frame rate=25
+/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/torch/nn/utils/weight_norm.py:28: UserWarning: torch.nn.utils.weight_norm is deprecated in favor of torch.nn.utils.parametrizations.weight_norm.
+  warnings.warn("torch.nn.utils.weight_norm is deprecated in favor of torch.nn.utils.parametrizations.weight_norm.")
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
+[0;93m2025-06-20 17:11:31.708311936 [W:onnxruntime:, transformer_memcpy.cc:74 ApplyImpl] 8 Memcpy nodes are added to the graph main_graph for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+[0;93m2025-06-20 17:11:31.709906782 [W:onnxruntime:, session_state.cc:1166 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+[0;93m2025-06-20 17:11:31.709926647 [W:onnxruntime:, session_state.cc:1168 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+2025-06-20 17:11:31,995 WETEXT INFO building fst for zh_normalizer ...
+2025-06-20 17:11:31,995 - INFO - building fst for zh_normalizer ...
+2025-06-20 17:11:48,348 WETEXT INFO done
+2025-06-20 17:11:48,348 - INFO - done
+2025-06-20 17:11:48,348 WETEXT INFO fst path: /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/zh_tn_tagger.fst
+2025-06-20 17:11:48,348 - INFO - fst path: /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/zh_tn_tagger.fst
+2025-06-20 17:11:48,348 WETEXT INFO           /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/zh_tn_verbalizer.fst
+2025-06-20 17:11:48,348 - INFO -           /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/zh_tn_verbalizer.fst
+2025-06-20 17:11:48,351 WETEXT INFO found existing fst: /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/en_tn_tagger.fst
+2025-06-20 17:11:48,351 - INFO - found existing fst: /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/en_tn_tagger.fst
+2025-06-20 17:11:48,351 WETEXT INFO                     /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/en_tn_verbalizer.fst
+2025-06-20 17:11:48,351 - INFO -                     /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/en_tn_verbalizer.fst
+2025-06-20 17:11:48,351 WETEXT INFO skip building fst for en_normalizer ...
+2025-06-20 17:11:48,351 - INFO - skip building fst for en_normalizer ...
+2025-06-20 17:11:52,367 - INFO - CosyVoice2 model is loaded ...
+2025-06-20 17:11:54,961 - INFO - VoiceFixer is loaded ...
+failed to import ttsfrd, use WeTextProcessing instead
+ * Serving Flask app 'services'
+ * Debug mode: off
+2025-06-20 17:11:54,964 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8021
+2025-06-20 17:11:54,964 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-20 17:21:00,054 - INFO - TTS (CosyVoice2): Speaker: 0, Volume: -15.0 dB, Prompt: Good evening, everyone! Welcome to another thought-provoking episode of our talk show. I'm your host, and today we have some esteemed guests with us to delve into the intriguing world of plasma physics.
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-20 17:21:02,646 - INFO - synthesis text Good evening, everyone! Welcome to another thought-provoking episode of our talk show. I am your host, and today we have some esteemed guests with us to delve into the intriguing world of plasma physics.
+2025-06-20 17:21:10,591 - INFO - yield speech len 14.92, rtf 0.5324791327877914
+100%|██████████| 1/1 [00:10<00:00, 10.39s/it]100%|██████████| 1/1 [00:10<00:00, 10.39s/it]
+/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
+  warnings.warn("Possible clipped samples in output.")
+2025-06-20 17:21:10,625 - INFO - 127.0.0.1 - - [20/Jun/2025 17:21:10] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-20 17:21:10,627 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_0_Good_evening_everyone_Welcome_to.wav ...
+2025-06-20 17:21:11,729 - INFO - 127.0.0.1 - - [20/Jun/2025 17:21:11] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-20 17:21:11,772 - INFO - TTS (CosyVoice2): Speaker: 0, Volume: -15.0 dB, Prompt: Please welcome Dr. Albert Kohlman, a Plasma Physicist and a leading innovator in the field. Dr. Kohlman has been instrumental in furthering our understanding of plasma behavior, particularly in Tokamak, and has been honored with the E. O. Lawrence Award. Dr. Kohlman, we're thrilled to have you with us.
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-20 17:21:11,913 - INFO - synthesis text Please welcome doctor Albert Kohlman, a Plasma Physicist and a leading innovator in the field. doctor Kohlman has been instrumental in furthering our understanding of plasma behavior, particularly in Tokamak, and has been honored with the EO Lawrence Award. doctor Kohlman, we're thrilled to have you with us.
+2025-06-20 17:21:20,843 - INFO - yield speech len 17.44, rtf 0.512067659185567
+100%|██████████| 1/1 [00:08<00:00,  9.00s/it]100%|██████████| 1/1 [00:08<00:00,  9.00s/it]
+/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
+  warnings.warn("Possible clipped samples in output.")
+2025-06-20 17:21:20,893 - INFO - 127.0.0.1 - - [20/Jun/2025 17:21:20] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-20 17:21:20,894 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_1_Please_welcome_Dr_Albert_Kohlman.wav ...
+2025-06-20 17:21:21,458 - INFO - 127.0.0.1 - - [20/Jun/2025 17:21:21] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-20 17:21:21,473 - INFO - TTS (CosyVoice2): Speaker: 0, Volume: -15.0 dB, Prompt: Intriguing! You've talked about the myriad challenges, including the complex dynamics brought by these drifts and the predictive accuracy for larger systems like ITER. Could you elaborate more on this?
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-20 17:21:21,586 - INFO - synthesis text Intriguing! You've talked about the myriad challenges, including the complex dynamics brought by these drifts and the predictive accuracy for larger systems like ITER. Could you elaborate more on this?
+2025-06-20 17:21:28,180 - INFO - yield speech len 13.4, rtf 0.4920874602759062
+100%|██████████| 1/1 [00:06<00:00,  6.66s/it]100%|██████████| 1/1 [00:06<00:00,  6.66s/it]
+/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
+  warnings.warn("Possible clipped samples in output.")
+2025-06-20 17:21:28,222 - INFO - 127.0.0.1 - - [20/Jun/2025 17:21:28] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-20 17:21:28,224 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_3_Intriguing_Youve_talked_about_the.wav ...
+2025-06-20 17:21:28,665 - INFO - 127.0.0.1 - - [20/Jun/2025 17:21:28] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-20 17:21:28,714 - INFO - TTS (CosyVoice2): Speaker: 195, Volume: -15.0 dB, Prompt: Absolutely. Plasma stability in high-temperature conditions is a central challenge. Understanding diamagnetic drifts' influence is vital for improving plasma confinement and the efficiency of fusion power reactors. Moreover, correlating theoretical predictions with experimental observations is critical for our work.
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-20 17:21:30,814 - INFO - synthesis text Absolutely. Plasma stability in high-temperature conditions is a central challenge. Understanding diamagnetic drifts' influence is vital for improving plasma confinement and the efficiency of fusion power reactors. Moreover, correlating theoretical predictions with experimental observations is critical for our work.
+2025-06-20 17:21:41,086 - INFO - yield speech len 19.28, rtf 0.5327703176197669
+100%|██████████| 1/1 [00:12<00:00, 12.29s/it]100%|██████████| 1/1 [00:12<00:00, 12.29s/it]
+/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
+  warnings.warn("Possible clipped samples in output.")
+2025-06-20 17:21:41,128 - INFO - 127.0.0.1 - - [20/Jun/2025 17:21:41] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-20 17:21:41,130 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_4_Absolutely_Plasma_stability_in_hightemperature.wav ...
+2025-06-20 17:21:41,722 - INFO - 127.0.0.1 - - [20/Jun/2025 17:21:41] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-20 17:21:41,757 - INFO - TTS (CosyVoice2): Speaker: 0, Volume: -15.0 dB, Prompt: That's fascinating, Dr. Kohlman. Indeed, understanding these complexities opens avenues for advancements in plasma physics. But now, let's introduce our second guest. Please welcome Dr. Emily Wang, an accomplished Astrophysicist with significant contributions to plasma behavior in space. Welcome, Dr. Wang.
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-20 17:21:41,900 - INFO - synthesis text That's fascinating, doctor Kohlman. Indeed, understanding these complexities opens avenues for advancements in plasma physics. But now, let's introduce our second guest. Please welcome doctor Emily Wang, an accomplished Astrophysicist with significant contributions to plasma behavior in space. Welcome, doctor Wang.
+2025-06-20 17:21:51,168 - INFO - yield speech len 18.72, rtf 0.49508931035669446
+100%|██████████| 1/1 [00:09<00:00,  9.34s/it]100%|██████████| 1/1 [00:09<00:00,  9.34s/it]
+/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
+  warnings.warn("Possible clipped samples in output.")
+2025-06-20 17:21:51,206 - INFO - 127.0.0.1 - - [20/Jun/2025 17:21:51] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-20 17:21:51,207 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_5_Thats_fascinating_Dr_Kohlman_Indeed.wav ...
+2025-06-20 17:21:51,742 - INFO - 127.0.0.1 - - [20/Jun/2025 17:21:51] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-20 17:21:51,769 - INFO - TTS (CosyVoice2): Speaker: 144, Volume: -15.0 dB, Prompt: Hello! It's delightful to be here. I've devoted much of my studies to understand the relationship between diamagnetic drifts and kink mode instabilities, contributing to plasma stability and successful magnetic confinement fusion.
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-20 17:21:54,291 - INFO - synthesis text Hello! It's delightful to be here. I've devoted much of my studies to understand the relationship between diamagnetic drifts and kink mode instabilities, contributing to plasma stability and successful magnetic confinement fusion.
+2025-06-20 17:22:03,584 - INFO - yield speech len 16.04, rtf 0.5794067632527721
+100%|██████████| 1/1 [00:11<00:00, 11.76s/it]100%|██████████| 1/1 [00:11<00:00, 11.76s/it]
+/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
+  warnings.warn("Possible clipped samples in output.")
+2025-06-20 17:22:03,636 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:03] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-20 17:22:03,638 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_6_Hello_Its_delightful_to_be.wav ...
+2025-06-20 17:22:04,153 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:04] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-20 17:22:04,178 - INFO - TTS (CosyVoice2): Speaker: 0, Volume: -15.0 dB, Prompt: Indeed, your research is groundbreaking. In light of the challenges discussed, could you share your thoughts on the impact of micro-turbulence on plasma confinement and usage of advanced materials in Tokamak?
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-20 17:22:04,314 - INFO - synthesis text Indeed, your research is groundbreaking. In light of the challenges discussed, could you share your thoughts on the impact of micro-turbulence on plasma confinement and usage of advanced materials in Tokamak?
+2025-06-20 17:22:11,555 - INFO - yield speech len 14.72, rtf 0.49189217388629913
+100%|██████████| 1/1 [00:07<00:00,  7.31s/it]100%|██████████| 1/1 [00:07<00:00,  7.31s/it]
+/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
+  warnings.warn("Possible clipped samples in output.")
+2025-06-20 17:22:11,591 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:11] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-20 17:22:11,593 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_7_Indeed_your_research_is_groundbreaking.wav ...
+2025-06-20 17:22:12,024 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:12] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-20 17:22:12,050 - INFO - TTS (CosyVoice2): Speaker: 144, Volume: -15.0 dB, Prompt: Certainly. Micro-turbulence profoundly impacts plasma behavior, understanding which can improve plasma control significantly, while advanced materials too introduce new dynamics into plasma interaction with reactor walls. Addressing these challenges holds the key to better plasma stability and increased fusion power output.
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-20 17:22:12,208 - INFO - synthesis text Certainly. Micro-turbulence profoundly impacts plasma behavior, understanding which can improve plasma control significantly, while advanced materials too introduce new dynamics into plasma interaction with reactor walls. Addressing these challenges holds the key to better plasma stability and increased fusion power output.
+2025-06-20 17:22:23,718 - INFO - yield speech len 22.68, rtf 0.5074868652135186
+100%|██████████| 1/1 [00:11<00:00, 11.60s/it]100%|██████████| 1/1 [00:11<00:00, 11.60s/it]
+/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
+  warnings.warn("Possible clipped samples in output.")
+2025-06-20 17:22:23,758 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:23] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-20 17:22:23,759 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_8_Certainly_Microturbulence_profoundly_impacts_plasma.wav ...
+2025-06-20 17:22:24,415 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:24] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-20 17:22:24,447 - INFO - TTS (CosyVoice2): Speaker: 0, Volume: -15.0 dB, Prompt: The potential in this field is immense. Both of you suggested future directions for this field, including elaborate modeling techniques and better understanding of diamagnetic drifts. Do you believe that this research can yield significant breakthroughs in the future?
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-20 17:22:24,574 - INFO - synthesis text The potential in this field is immense. Both of you suggested future directions for this field, including elaborate modeling techniques and better understanding of diamagnetic drifts. Do you believe that this research can yield significant breakthroughs in the future?
+2025-06-20 17:22:32,709 - INFO - yield speech len 16.92, rtf 0.48074519380610037
+100%|██████████| 1/1 [00:08<00:00,  8.22s/it]100%|██████████| 1/1 [00:08<00:00,  8.22s/it]
+/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
+  warnings.warn("Possible clipped samples in output.")
+2025-06-20 17:22:32,771 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:32] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-20 17:22:32,772 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_9_The_potential_in_this_field.wav ...
+2025-06-20 17:22:33,308 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:33] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-20 17:22:33,331 - INFO - TTS (CosyVoice2): Speaker: 195, Volume: -15.0 dB, Prompt: Absolutely. Improving our understanding and predicting plasma behavior can make fusion power more feasible as an energy source for future generations.
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-20 17:22:33,441 - INFO - synthesis text Absolutely. Improving our understanding and predicting plasma behavior can make fusion power more feasible as an energy source for future generations.
+2025-06-20 17:22:38,402 - INFO - yield speech len 9.8, rtf 0.5061782866108174
+100%|██████████| 1/1 [00:05<00:00,  5.04s/it]100%|██████████| 1/1 [00:05<00:00,  5.04s/it]
+/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
+  warnings.warn("Possible clipped samples in output.")
+2025-06-20 17:22:38,441 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:38] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-20 17:22:38,442 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_10_Absolutely_Improving_our_understanding_and.wav ...
+2025-06-20 17:22:38,770 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:38] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-20 17:22:38,798 - INFO - TTS (CosyVoice2): Speaker: 144, Volume: -15.0 dB, Prompt: I concur. Be it exploring different drift scenarios or controlling plasma turbulence, each advancement brings us closer to sustaining fusion power, particularly in advanced Tokamak designs like ITER.
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-20 17:22:38,932 - INFO - synthesis text I concur. Be it exploring different drift scenarios or controlling plasma turbulence, each advancement brings us closer to sustaining fusion power, particularly in advanced Tokamak designs like ITER.
+2025-06-20 17:22:46,621 - INFO - yield speech len 12.96, rtf 0.5933374718383506
+100%|██████████| 1/1 [00:07<00:00,  7.77s/it]100%|██████████| 1/1 [00:07<00:00,  7.77s/it]
+/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
+  warnings.warn("Possible clipped samples in output.")
+2025-06-20 17:22:46,652 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:46] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-20 17:22:46,654 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_11_I_concur_Be_it_exploring.wav ...
+2025-06-20 17:22:47,041 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:47] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-20 17:22:47,081 - INFO - TTS (CosyVoice2): Speaker: 0, Volume: -15.0 dB, Prompt: Well, that concludes our enlightening discussion for today. I would like to extend my deepest gratitude to Dr. Kohlman and Dr. Wang for their invaluable insights. Join us next time as we continue to explore the frontiers of science. Goodnight, everyone!
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-20 17:22:47,199 - INFO - synthesis text Well, that concludes our enlightening discussion for today. I would like to extend my deepest gratitude to doctor Kohlman and doctor Wang for their invaluable insights. Join us next time as we continue to explore the frontiers of science. Goodnight, everyone!
+2025-06-20 17:22:58,076 - INFO - yield speech len 19.36, rtf 0.561830635405769
+100%|██████████| 1/1 [00:10<00:00, 10.94s/it]100%|██████████| 1/1 [00:10<00:00, 10.94s/it]
+/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
+  warnings.warn("Possible clipped samples in output.")
+2025-06-20 17:22:58,115 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:58] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-20 17:22:58,116 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_12_Well_that_concludes_our_enlightening.wav ...
+2025-06-20 17:22:58,700 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:58] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-20 17:22:58,904 - INFO - TTA (AudioGen): Prompt: Soft generic talk show background music, length: 176.16240625 seconds, volume: -35.0 dB
+2025-06-20 17:22:58,947 - INFO - New pattern, time steps: 500, sequence steps: 504
+2025-06-20 17:27:53,551 - INFO - New pattern, time steps: 408, sequence steps: 412
+2025-06-20 17:27:56,659 - INFO - 127.0.0.1 - - [20/Jun/2025 17:27:56] "POST /generate_audio HTTP/1.1" 200 -
+2025-06-20 17:27:56,662 - INFO - TTA (AudioGen): Prompt: Subtle background noise of rustling paper and pencil scribbling, length: 15.46671875 seconds, volume: -35.0 dB
+2025-06-20 17:28:19,259 - INFO - New pattern, time steps: 473, sequence steps: 477
+2025-06-20 17:28:21,727 - INFO - 127.0.0.1 - - [20/Jun/2025 17:28:21] "POST /generate_audio HTTP/1.1" 200 -
