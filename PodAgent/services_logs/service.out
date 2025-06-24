@@ -1,155 +1,315 @@
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/torch/nn/utils/weight_norm.py:28: UserWarning: torch.nn.utils.weight_norm is deprecated in favor of torch.nn.utils.parametrizations.weight_norm.
   warnings.warn("torch.nn.utils.weight_norm is deprecated in favor of torch.nn.utils.parametrizations.weight_norm.")
-2025-06-20 17:11:22,845 - INFO - T5 will be evaluated with autocast as float32
-2025-06-20 17:11:25,466 - INFO - AudioGen (medium) is loaded ...
-2025-06-20 17:11:26,005 - INFO - T5 will be evaluated with autocast as float32
+2025-06-24 16:27:11,047 - INFO - T5 will be evaluated with autocast as float32
+2025-06-24 16:27:14,242 - INFO - AudioGen (medium) is loaded ...
+2025-06-24 16:27:14,801 - INFO - T5 will be evaluated with autocast as float32
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/torch/nn/utils/weight_norm.py:28: UserWarning: torch.nn.utils.weight_norm is deprecated in favor of torch.nn.utils.parametrizations.weight_norm.
   warnings.warn("torch.nn.utils.weight_norm is deprecated in favor of torch.nn.utils.parametrizations.weight_norm.")
-2025-06-20 17:11:27,875 - INFO - MusicGen (small) is loaded ...
+2025-06-24 16:27:21,399 - INFO - MusicGen (small) is loaded ...
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/diffusers/models/lora.py:393: FutureWarning: `LoRACompatibleLinear` is deprecated and will be removed in version 1.0.0. Use of `LoRACompatibleLinear` is deprecated. Please switch to PEFT backend by installing PEFT: `pip install peft`.
   deprecate("LoRACompatibleLinear", "1.0.0", deprecation_message)
-2025-06-20 17:11:30,450 - INFO - input frame rate=25
+2025-06-24 16:27:24,221 - INFO - input frame rate=25
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/torch/nn/utils/weight_norm.py:28: UserWarning: torch.nn.utils.weight_norm is deprecated in favor of torch.nn.utils.parametrizations.weight_norm.
   warnings.warn("torch.nn.utils.weight_norm is deprecated in favor of torch.nn.utils.parametrizations.weight_norm.")
 Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
 Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
-[0;93m2025-06-20 17:11:31.708311936 [W:onnxruntime:, transformer_memcpy.cc:74 ApplyImpl] 8 Memcpy nodes are added to the graph main_graph for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
-[0;93m2025-06-20 17:11:31.709906782 [W:onnxruntime:, session_state.cc:1166 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
-[0;93m2025-06-20 17:11:31.709926647 [W:onnxruntime:, session_state.cc:1168 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
-2025-06-20 17:11:31,995 WETEXT INFO building fst for zh_normalizer ...
-2025-06-20 17:11:31,995 - INFO - building fst for zh_normalizer ...
-2025-06-20 17:11:48,348 WETEXT INFO done
-2025-06-20 17:11:48,348 - INFO - done
-2025-06-20 17:11:48,348 WETEXT INFO fst path: /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/zh_tn_tagger.fst
-2025-06-20 17:11:48,348 - INFO - fst path: /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/zh_tn_tagger.fst
-2025-06-20 17:11:48,348 WETEXT INFO           /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/zh_tn_verbalizer.fst
-2025-06-20 17:11:48,348 - INFO -           /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/zh_tn_verbalizer.fst
-2025-06-20 17:11:48,351 WETEXT INFO found existing fst: /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/en_tn_tagger.fst
-2025-06-20 17:11:48,351 - INFO - found existing fst: /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/en_tn_tagger.fst
-2025-06-20 17:11:48,351 WETEXT INFO                     /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/en_tn_verbalizer.fst
-2025-06-20 17:11:48,351 - INFO -                     /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/en_tn_verbalizer.fst
-2025-06-20 17:11:48,351 WETEXT INFO skip building fst for en_normalizer ...
-2025-06-20 17:11:48,351 - INFO - skip building fst for en_normalizer ...
-2025-06-20 17:11:52,367 - INFO - CosyVoice2 model is loaded ...
-2025-06-20 17:11:54,961 - INFO - VoiceFixer is loaded ...
+[0;93m2025-06-24 16:27:26.532744691 [W:onnxruntime:, transformer_memcpy.cc:74 ApplyImpl] 8 Memcpy nodes are added to the graph main_graph for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+[0;93m2025-06-24 16:27:26.534393991 [W:onnxruntime:, session_state.cc:1166 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+[0;93m2025-06-24 16:27:26.534418440 [W:onnxruntime:, session_state.cc:1168 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+2025-06-24 16:27:29,989 WETEXT INFO building fst for zh_normalizer ...
+2025-06-24 16:27:29,989 - INFO - building fst for zh_normalizer ...
+2025-06-24 16:28:00,271 WETEXT INFO done
+2025-06-24 16:28:00,271 - INFO - done
+2025-06-24 16:28:00,272 WETEXT INFO fst path: /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/zh_tn_tagger.fst
+2025-06-24 16:28:00,272 - INFO - fst path: /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/zh_tn_tagger.fst
+2025-06-24 16:28:00,272 WETEXT INFO           /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/zh_tn_verbalizer.fst
+2025-06-24 16:28:00,272 - INFO -           /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/zh_tn_verbalizer.fst
+2025-06-24 16:28:00,274 WETEXT INFO found existing fst: /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/en_tn_tagger.fst
+2025-06-24 16:28:00,274 - INFO - found existing fst: /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/en_tn_tagger.fst
+2025-06-24 16:28:00,274 WETEXT INFO                     /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/en_tn_verbalizer.fst
+2025-06-24 16:28:00,274 - INFO -                     /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/en_tn_verbalizer.fst
+2025-06-24 16:28:00,274 WETEXT INFO skip building fst for en_normalizer ...
+2025-06-24 16:28:00,274 - INFO - skip building fst for en_normalizer ...
+2025-06-24 16:28:15,480 - INFO - CosyVoice2 model is loaded ...
+2025-06-24 16:28:18,423 - INFO - VoiceFixer is loaded ...
 failed to import ttsfrd, use WeTextProcessing instead
  * Serving Flask app 'services'
  * Debug mode: off
-2025-06-20 17:11:54,964 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2025-06-24 16:28:18,429 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on http://127.0.0.1:8021
-2025-06-20 17:11:54,964 - INFO - [33mPress CTRL+C to quit[0m
-2025-06-20 17:21:00,054 - INFO - TTS (CosyVoice2): Speaker: 0, Volume: -15.0 dB, Prompt: Good evening, everyone! Welcome to another thought-provoking episode of our talk show. I'm your host, and today we have some esteemed guests with us to delve into the intriguing world of plasma physics.
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-20 17:21:02,646 - INFO - synthesis text Good evening, everyone! Welcome to another thought-provoking episode of our talk show. I am your host, and today we have some esteemed guests with us to delve into the intriguing world of plasma physics.
-2025-06-20 17:21:10,591 - INFO - yield speech len 14.92, rtf 0.5324791327877914
-100%|██████████| 1/1 [00:10<00:00, 10.39s/it]100%|██████████| 1/1 [00:10<00:00, 10.39s/it]
+2025-06-24 16:28:18,429 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-24 16:32:41,559 - INFO - 🎙️ Podcast Generation Request: Topic: What are the primary factors that influence consumer behavior?, Guests: 2, Session: test
+2025-06-24 16:32:41,559 - INFO - 🔧 Executing command: python podagent.py --topic What are the primary factors that influence consumer behavior? --guest-number 2 --session-id test
+2025-06-24 16:35:00,749 - INFO - 📊 Command completed with return code: 1
+2025-06-24 16:35:00,750 - INFO - 📤 Command stdout: New session created, session_id=test
+Session test is created.
+Language: English.
+【Step1】Generating guest info ...
+【Step2】Collecting guest response ...
+【Step3】Generating conversation script ...
+【Step4】Generating audio script ...
+    trying ...
+    ERROR: Speech item is out of index.
+【Step4】Generating audio script ...
+    trying ...
+    ERROR: Speech item is out of index.
+【Step4】Generating audio script ...
+    trying ...
+    ERROR: Speech index is not in order.
+
+2025-06-24 16:35:00,750 - WARNING - ⚠️ Command stderr: Traceback (most recent call last):
+  File "/home/ivan/github-repos/edtech/edtech/PodAgent/podagent.py", line 36, in <module>
+    asyncio.run(main())
+  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/asyncio/base_events.py", line 649, in run_until_complete
+    return future.result()
+  File "/home/ivan/github-repos/edtech/edtech/PodAgent/podagent.py", line 30, in main
+    await pipeline.full_steps(session_id, args.topic, args.guest_number, api_key)
+  File "/home/ivan/github-repos/edtech/edtech/PodAgent/pipeline.py", line 419, in full_steps
+    json_script = await generate_json_file(session_id, lang, topic, guest_number, api_key)
+  File "/home/ivan/github-repos/edtech/edtech/PodAgent/pipeline.py", line 381, in generate_json_file
+    audio_script = conversation_to_audio_script(conversation_script, output_path, api_key)
+  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/retrying.py", line 56, in wrapped_f
+    return Retrying(*dargs, **dkw).call(f, *args, **kw)
+  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/retrying.py", line 266, in call
+    raise attempt.get()
+  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/retrying.py", line 301, in get
+    six.reraise(self.value[0], self.value[1], self.value[2])
+  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/six.py", line 724, in reraise
+    raise value
+  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/retrying.py", line 251, in call
+    attempt = Attempt(fn(*args, **kwargs), attempt_number, False)
+  File "/home/ivan/github-repos/edtech/edtech/PodAgent/pipeline.py", line 314, in conversation_to_audio_script
+    raise err
+  File "/home/ivan/github-repos/edtech/edtech/PodAgent/pipeline.py", line 308, in conversation_to_audio_script
+    json_data = check_json_script(json_data, conversation_script)
+  File "/home/ivan/github-repos/edtech/edtech/PodAgent/utils.py", line 132, in check_json_script
+    raise ValueError(f"Speech index is not in order.")
+ValueError: Speech index is not in order.
+
+2025-06-24 16:35:00,750 - ERROR - ❌ Podcast generation failed: Traceback (most recent call last):
+  File "/home/ivan/github-repos/edtech/edtech/PodAgent/podagent.py", line 36, in <module>
+    asyncio.run(main())
+  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/asyncio/base_events.py", line 649, in run_until_complete
+    return future.result()
+  File "/home/ivan/github-repos/edtech/edtech/PodAgent/podagent.py", line 30, in main
+    await pipeline.full_steps(session_id, args.topic, args.guest_number, api_key)
+  File "/home/ivan/github-repos/edtech/edtech/PodAgent/pipeline.py", line 419, in full_steps
+    json_script = await generate_json_file(session_id, lang, topic, guest_number, api_key)
+  File "/home/ivan/github-repos/edtech/edtech/PodAgent/pipeline.py", line 381, in generate_json_file
+    audio_script = conversation_to_audio_script(conversation_script, output_path, api_key)
+  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/retrying.py", line 56, in wrapped_f
+    return Retrying(*dargs, **dkw).call(f, *args, **kw)
+  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/retrying.py", line 266, in call
+    raise attempt.get()
+  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/retrying.py", line 301, in get
+    six.reraise(self.value[0], self.value[1], self.value[2])
+  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/six.py", line 724, in reraise
+    raise value
+  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/retrying.py", line 251, in call
+    attempt = Attempt(fn(*args, **kwargs), attempt_number, False)
+  File "/home/ivan/github-repos/edtech/edtech/PodAgent/pipeline.py", line 314, in conversation_to_audio_script
+    raise err
+  File "/home/ivan/github-repos/edtech/edtech/PodAgent/pipeline.py", line 308, in conversation_to_audio_script
+    json_data = check_json_script(json_data, conversation_script)
+  File "/home/ivan/github-repos/edtech/edtech/PodAgent/utils.py", line 132, in check_json_script
+    raise ValueError(f"Speech index is not in order.")
+ValueError: Speech index is not in order.
+
+2025-06-24 16:35:00,751 - INFO - 127.0.0.1 - - [24/Jun/2025 16:35:00] "[35m[1mPOST /generate_podcast HTTP/1.1[0m" 500 -
+2025-06-24 16:37:15,046 - INFO - 🎙️ Podcast Generation Request: Topic: What are the primary factors that influence redditor behavior?, Guests: 2, Session: test
+2025-06-24 16:37:15,046 - INFO - 🔧 Executing command: python podagent.py --topic What are the primary factors that influence redditor behavior? --guest-number 2 --session-id test
+2025-06-24 16:42:33,684 - ERROR - ⏰ Podcast generation timed out after 5 minutes
+2025-06-24 16:42:33,685 - INFO - 127.0.0.1 - - [24/Jun/2025 16:42:33] "[35m[1mPOST /generate_podcast HTTP/1.1[0m" 500 -
+2025-06-24 16:42:33,694 - INFO - TTS (CosyVoice2): Speaker: 85, Volume: -15.0 dB, Prompt: Ladies and gentlemen, welcome to today's episode of 'Talk Show Night'! We'll be diving into a very intriguing topic: ‘What are the primary factors that influence redditor behavior?’ We have two eminent guests joining us. First let me introduce you to Dr. Emily Rosen, a well-respected social psychologist with extensive research on digital behavior.
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:42:36,546 - INFO - synthesis text Ladies and gentlemen, welcome to today's episode of 'Talk Show Night'! We'll be diving into a very intriguing topic: ‘What are the primary factors that influence redditor behavior?’ We have two eminent guests joining us. First let me introduce you to doctor Emily Rosen, a well-respected social psychologist with extensive research on digital behavior.
+2025-06-24 16:42:49,827 - INFO - yield speech len 20.36, rtf 0.6522783713162765
+100%|██████████| 1/1 [00:15<00:00, 15.89s/it]100%|██████████| 1/1 [00:15<00:00, 15.89s/it]
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
   warnings.warn("Possible clipped samples in output.")
-2025-06-20 17:21:10,625 - INFO - 127.0.0.1 - - [20/Jun/2025 17:21:10] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-20 17:21:10,627 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_0_Good_evening_everyone_Welcome_to.wav ...
-2025-06-20 17:21:11,729 - INFO - 127.0.0.1 - - [20/Jun/2025 17:21:11] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-20 17:21:11,772 - INFO - TTS (CosyVoice2): Speaker: 0, Volume: -15.0 dB, Prompt: Please welcome Dr. Albert Kohlman, a Plasma Physicist and a leading innovator in the field. Dr. Kohlman has been instrumental in furthering our understanding of plasma behavior, particularly in Tokamak, and has been honored with the E. O. Lawrence Award. Dr. Kohlman, we're thrilled to have you with us.
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-20 17:21:11,913 - INFO - synthesis text Please welcome doctor Albert Kohlman, a Plasma Physicist and a leading innovator in the field. doctor Kohlman has been instrumental in furthering our understanding of plasma behavior, particularly in Tokamak, and has been honored with the EO Lawrence Award. doctor Kohlman, we're thrilled to have you with us.
-2025-06-20 17:21:20,843 - INFO - yield speech len 17.44, rtf 0.512067659185567
-100%|██████████| 1/1 [00:08<00:00,  9.00s/it]100%|██████████| 1/1 [00:08<00:00,  9.00s/it]
+2025-06-24 16:42:49,885 - INFO - 127.0.0.1 - - [24/Jun/2025 16:42:49] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-24 16:42:49,887 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_0_Ladies_and_gentlemen_welcome_to.wav ...
+2025-06-24 16:42:55,904 - INFO - 127.0.0.1 - - [24/Jun/2025 16:42:55] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-24 16:42:55,926 - INFO - TTS (CosyVoice2): Speaker: 132, Volume: -15.0 dB, Prompt: Thank you for having me. I'm excited to delve into the factors that shape behavior on Reddit, from community-driven norms to the platform's unique features.
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:42:56,055 - INFO - synthesis text Thank you for having me. I am excited to delve into the factors that shape behavior on Reddit, from community-driven norms to the platform's unique features.
+2025-06-24 16:43:01,789 - INFO - yield speech len 10.88, rtf 0.5270701997420366
+100%|██████████| 1/1 [00:05<00:00,  5.81s/it]100%|██████████| 1/1 [00:05<00:00,  5.81s/it]
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
   warnings.warn("Possible clipped samples in output.")
-2025-06-20 17:21:20,893 - INFO - 127.0.0.1 - - [20/Jun/2025 17:21:20] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-20 17:21:20,894 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_1_Please_welcome_Dr_Albert_Kohlman.wav ...
-2025-06-20 17:21:21,458 - INFO - 127.0.0.1 - - [20/Jun/2025 17:21:21] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-20 17:21:21,473 - INFO - TTS (CosyVoice2): Speaker: 0, Volume: -15.0 dB, Prompt: Intriguing! You've talked about the myriad challenges, including the complex dynamics brought by these drifts and the predictive accuracy for larger systems like ITER. Could you elaborate more on this?
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-20 17:21:21,586 - INFO - synthesis text Intriguing! You've talked about the myriad challenges, including the complex dynamics brought by these drifts and the predictive accuracy for larger systems like ITER. Could you elaborate more on this?
-2025-06-20 17:21:28,180 - INFO - yield speech len 13.4, rtf 0.4920874602759062
-100%|██████████| 1/1 [00:06<00:00,  6.66s/it]100%|██████████| 1/1 [00:06<00:00,  6.66s/it]
+2025-06-24 16:43:01,830 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:01] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-24 16:43:01,831 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_1_Thank_you_for_having_me.wav ...
+2025-06-24 16:43:02,175 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:02] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-24 16:43:02,192 - INFO - TTS (CosyVoice2): Speaker: 85, Volume: -15.0 dB, Prompt: We're thrilled to have you. And let's also welcome our second guest, Mr. Samuel Hughes, a data scientist at Reddit who deals with user behavioral data firsthand!
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:43:02,288 - INFO - synthesis text We're thrilled to have you. And let's also welcome our second guest, Mister Samuel Hughes, a data scientist at Reddit who deals with user behavioral data firsthand!
+2025-06-24 16:43:06,498 - INFO - yield speech len 9.08, rtf 0.463594922935385
+100%|██████████| 1/1 [00:04<00:00,  4.26s/it]100%|██████████| 1/1 [00:04<00:00,  4.26s/it]
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
   warnings.warn("Possible clipped samples in output.")
-2025-06-20 17:21:28,222 - INFO - 127.0.0.1 - - [20/Jun/2025 17:21:28] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-20 17:21:28,224 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_3_Intriguing_Youve_talked_about_the.wav ...
-2025-06-20 17:21:28,665 - INFO - 127.0.0.1 - - [20/Jun/2025 17:21:28] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-20 17:21:28,714 - INFO - TTS (CosyVoice2): Speaker: 195, Volume: -15.0 dB, Prompt: Absolutely. Plasma stability in high-temperature conditions is a central challenge. Understanding diamagnetic drifts' influence is vital for improving plasma confinement and the efficiency of fusion power reactors. Moreover, correlating theoretical predictions with experimental observations is critical for our work.
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-20 17:21:30,814 - INFO - synthesis text Absolutely. Plasma stability in high-temperature conditions is a central challenge. Understanding diamagnetic drifts' influence is vital for improving plasma confinement and the efficiency of fusion power reactors. Moreover, correlating theoretical predictions with experimental observations is critical for our work.
-2025-06-20 17:21:41,086 - INFO - yield speech len 19.28, rtf 0.5327703176197669
-100%|██████████| 1/1 [00:12<00:00, 12.29s/it]100%|██████████| 1/1 [00:12<00:00, 12.29s/it]
+2025-06-24 16:43:06,528 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:06] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-24 16:43:06,529 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_2_Were_thrilled_to_have_you.wav ...
+2025-06-24 16:43:06,870 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:06] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-24 16:43:06,902 - INFO - TTS (CosyVoice2): Speaker: 217, Volume: -15.0 dB, Prompt: Thanks for having me on the show! Reddit's user behavior is a fascinating subject, and I look forward to sharing some insights from a data perspective.
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:43:07,013 - INFO - synthesis text Thanks for having me on the show! Reddit's user behavior is a fascinating subject, and I look forward to sharing some insights from a data perspective.
+2025-06-24 16:43:11,517 - INFO - yield speech len 8.8, rtf 0.5118570815433156
+100%|██████████| 1/1 [00:04<00:00,  4.58s/it]100%|██████████| 1/1 [00:04<00:00,  4.58s/it]
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
   warnings.warn("Possible clipped samples in output.")
-2025-06-20 17:21:41,128 - INFO - 127.0.0.1 - - [20/Jun/2025 17:21:41] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-20 17:21:41,130 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_4_Absolutely_Plasma_stability_in_hightemperature.wav ...
-2025-06-20 17:21:41,722 - INFO - 127.0.0.1 - - [20/Jun/2025 17:21:41] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-20 17:21:41,757 - INFO - TTS (CosyVoice2): Speaker: 0, Volume: -15.0 dB, Prompt: That's fascinating, Dr. Kohlman. Indeed, understanding these complexities opens avenues for advancements in plasma physics. But now, let's introduce our second guest. Please welcome Dr. Emily Wang, an accomplished Astrophysicist with significant contributions to plasma behavior in space. Welcome, Dr. Wang.
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-20 17:21:41,900 - INFO - synthesis text That's fascinating, doctor Kohlman. Indeed, understanding these complexities opens avenues for advancements in plasma physics. But now, let's introduce our second guest. Please welcome doctor Emily Wang, an accomplished Astrophysicist with significant contributions to plasma behavior in space. Welcome, doctor Wang.
-2025-06-20 17:21:51,168 - INFO - yield speech len 18.72, rtf 0.49508931035669446
-100%|██████████| 1/1 [00:09<00:00,  9.34s/it]100%|██████████| 1/1 [00:09<00:00,  9.34s/it]
+2025-06-24 16:43:11,547 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:11] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-24 16:43:11,549 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_3_Thanks_for_having_me_on.wav ...
+2025-06-24 16:43:11,764 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:11] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-24 16:43:11,784 - INFO - TTS (CosyVoice2): Speaker: 85, Volume: -15.0 dB, Prompt: To kick things off, Dr. Rosen, could you guide us through the primary factors that influence redditor behaviors?
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:43:11,873 - INFO - synthesis text To kick things off, doctor Rosen, could you guide us through the primary factors that influence redditor behaviors?
+2025-06-24 16:43:18,456 - INFO - yield speech len 8.56, rtf 0.768989435980253
+100%|██████████| 1/1 [00:06<00:00,  6.64s/it]100%|██████████| 1/1 [00:06<00:00,  6.64s/it]
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
   warnings.warn("Possible clipped samples in output.")
-2025-06-20 17:21:51,206 - INFO - 127.0.0.1 - - [20/Jun/2025 17:21:51] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-20 17:21:51,207 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_5_Thats_fascinating_Dr_Kohlman_Indeed.wav ...
-2025-06-20 17:21:51,742 - INFO - 127.0.0.1 - - [20/Jun/2025 17:21:51] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-20 17:21:51,769 - INFO - TTS (CosyVoice2): Speaker: 144, Volume: -15.0 dB, Prompt: Hello! It's delightful to be here. I've devoted much of my studies to understand the relationship between diamagnetic drifts and kink mode instabilities, contributing to plasma stability and successful magnetic confinement fusion.
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-20 17:21:54,291 - INFO - synthesis text Hello! It's delightful to be here. I've devoted much of my studies to understand the relationship between diamagnetic drifts and kink mode instabilities, contributing to plasma stability and successful magnetic confinement fusion.
-2025-06-20 17:22:03,584 - INFO - yield speech len 16.04, rtf 0.5794067632527721
-100%|██████████| 1/1 [00:11<00:00, 11.76s/it]100%|██████████| 1/1 [00:11<00:00, 11.76s/it]
+2025-06-24 16:43:18,487 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:18] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-24 16:43:18,489 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_4_To_kick_things_off_Dr.wav ...
+2025-06-24 16:43:18,772 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:18] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-24 16:43:18,792 - INFO - TTS (CosyVoice2): Speaker: 132, Volume: -15.0 dB, Prompt: Certainly. Some of the major elements include the community influence, the platform's design, and its anonymous nature. The hive-mind mentality fostered by the upvote-downvote system, for instance, greatly impacts content and discussions. Also, each subreddit has its own unique set of norms which shape user behaviors.
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:43:19,052 - INFO - synthesis text Certainly. Some of the major elements include the community influence, the platform's design, and its anonymous nature. The hive-mind mentality fostered by the upvote-downvote system, for instance, greatly impacts content and discussions. Also, each subreddit has its own unique set of norms which shape user behaviors.
+2025-06-24 16:43:29,490 - INFO - yield speech len 21.84, rtf 0.47793714773087276
+100%|██████████| 1/1 [00:10<00:00, 10.51s/it]100%|██████████| 1/1 [00:10<00:00, 10.51s/it]
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
   warnings.warn("Possible clipped samples in output.")
-2025-06-20 17:22:03,636 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:03] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-20 17:22:03,638 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_6_Hello_Its_delightful_to_be.wav ...
-2025-06-20 17:22:04,153 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:04] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-20 17:22:04,178 - INFO - TTS (CosyVoice2): Speaker: 0, Volume: -15.0 dB, Prompt: Indeed, your research is groundbreaking. In light of the challenges discussed, could you share your thoughts on the impact of micro-turbulence on plasma confinement and usage of advanced materials in Tokamak?
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-20 17:22:04,314 - INFO - synthesis text Indeed, your research is groundbreaking. In light of the challenges discussed, could you share your thoughts on the impact of micro-turbulence on plasma confinement and usage of advanced materials in Tokamak?
-2025-06-20 17:22:11,555 - INFO - yield speech len 14.72, rtf 0.49189217388629913
-100%|██████████| 1/1 [00:07<00:00,  7.31s/it]100%|██████████| 1/1 [00:07<00:00,  7.31s/it]
+2025-06-24 16:43:29,530 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:29] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-24 16:43:29,532 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_5_Certainly_Some_of_the_major.wav ...
+2025-06-24 16:43:30,093 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:30] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-24 16:43:30,118 - INFO - TTS (CosyVoice2): Speaker: 85, Volume: -15.0 dB, Prompt: Fascinating! How about you, Samuel? From a data science perspective, what would you say impacts user behavior?
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:43:30,199 - INFO - synthesis text Fascinating! How about you, Samuel? From a data science perspective, what would you say impacts user behavior?
+2025-06-24 16:43:33,619 - INFO - yield speech len 7.4, rtf 0.4622117893115894
+100%|██████████| 1/1 [00:03<00:00,  3.49s/it]100%|██████████| 1/1 [00:03<00:00,  3.49s/it]
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
   warnings.warn("Possible clipped samples in output.")
-2025-06-20 17:22:11,591 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:11] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-20 17:22:11,593 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_7_Indeed_your_research_is_groundbreaking.wav ...
-2025-06-20 17:22:12,024 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:12] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-20 17:22:12,050 - INFO - TTS (CosyVoice2): Speaker: 144, Volume: -15.0 dB, Prompt: Certainly. Micro-turbulence profoundly impacts plasma behavior, understanding which can improve plasma control significantly, while advanced materials too introduce new dynamics into plasma interaction with reactor walls. Addressing these challenges holds the key to better plasma stability and increased fusion power output.
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-20 17:22:12,208 - INFO - synthesis text Certainly. Micro-turbulence profoundly impacts plasma behavior, understanding which can improve plasma control significantly, while advanced materials too introduce new dynamics into plasma interaction with reactor walls. Addressing these challenges holds the key to better plasma stability and increased fusion power output.
-2025-06-20 17:22:23,718 - INFO - yield speech len 22.68, rtf 0.5074868652135186
-100%|██████████| 1/1 [00:11<00:00, 11.60s/it]100%|██████████| 1/1 [00:11<00:00, 11.60s/it]
+2025-06-24 16:43:33,657 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:33] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-24 16:43:33,659 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_6_Fascinating_How_about_you_Samuel.wav ...
+2025-06-24 16:43:33,917 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:33] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-24 16:43:33,941 - INFO - TTS (CosyVoice2): Speaker: 217, Volume: -15.0 dB, Prompt: Well, echoing Dr. Rosen's points, the community or subreddit that users choose to be a part of heavily influences their behavior. The content and thread that foster discussion also play a vital role in this aspect.
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:43:34,057 - INFO - synthesis text Well, echoing doctor Rosen's points, the community or subreddit that users choose to be a part of heavily influences their behavior. The content and thread that foster discussion also play a vital role in this aspect.
+2025-06-24 16:43:41,212 - INFO - yield speech len 14.96, rtf 0.4782856626306625
+100%|██████████| 1/1 [00:07<00:00,  7.23s/it]100%|██████████| 1/1 [00:07<00:00,  7.23s/it]
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
   warnings.warn("Possible clipped samples in output.")
-2025-06-20 17:22:23,758 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:23] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-20 17:22:23,759 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_8_Certainly_Microturbulence_profoundly_impacts_plasma.wav ...
-2025-06-20 17:22:24,415 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:24] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-20 17:22:24,447 - INFO - TTS (CosyVoice2): Speaker: 0, Volume: -15.0 dB, Prompt: The potential in this field is immense. Both of you suggested future directions for this field, including elaborate modeling techniques and better understanding of diamagnetic drifts. Do you believe that this research can yield significant breakthroughs in the future?
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-20 17:22:24,574 - INFO - synthesis text The potential in this field is immense. Both of you suggested future directions for this field, including elaborate modeling techniques and better understanding of diamagnetic drifts. Do you believe that this research can yield significant breakthroughs in the future?
-2025-06-20 17:22:32,709 - INFO - yield speech len 16.92, rtf 0.48074519380610037
-100%|██████████| 1/1 [00:08<00:00,  8.22s/it]100%|██████████| 1/1 [00:08<00:00,  8.22s/it]
+2025-06-24 16:43:41,253 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:41] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-24 16:43:41,254 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_7_Well_echoing_Dr_Rosens_points.wav ...
+2025-06-24 16:43:41,751 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:41] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-24 16:43:41,791 - INFO - TTS (CosyVoice2): Speaker: 85, Volume: -15.0 dB, Prompt: Dr. Rosen, what are some behavioral tendencies unique to Redditors compared to other social media users?
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:43:41,863 - INFO - synthesis text doctor Rosen, what are some behavioral tendencies unique to Redditors compared to other social media users?
+2025-06-24 16:43:46,264 - INFO - yield speech len 8.64, rtf 0.5093634404517986
+100%|██████████| 1/1 [00:04<00:00,  4.46s/it]100%|██████████| 1/1 [00:04<00:00,  4.46s/it]
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
   warnings.warn("Possible clipped samples in output.")
-2025-06-20 17:22:32,771 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:32] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-20 17:22:32,772 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_9_The_potential_in_this_field.wav ...
-2025-06-20 17:22:33,308 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:33] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-20 17:22:33,331 - INFO - TTS (CosyVoice2): Speaker: 195, Volume: -15.0 dB, Prompt: Absolutely. Improving our understanding and predicting plasma behavior can make fusion power more feasible as an energy source for future generations.
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-20 17:22:33,441 - INFO - synthesis text Absolutely. Improving our understanding and predicting plasma behavior can make fusion power more feasible as an energy source for future generations.
-2025-06-20 17:22:38,402 - INFO - yield speech len 9.8, rtf 0.5061782866108174
-100%|██████████| 1/1 [00:05<00:00,  5.04s/it]100%|██████████| 1/1 [00:05<00:00,  5.04s/it]
+2025-06-24 16:43:46,291 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:46] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-24 16:43:46,293 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_8_Dr_Rosen_what_are_some.wav ...
+2025-06-24 16:43:46,491 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:46] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-24 16:43:46,515 - INFO - TTS (CosyVoice2): Speaker: 132, Volume: -15.0 dB, Prompt: Reddit users generally appreciate meaningful content. Posts that showcase research, thoughtfulness or unique experiences usually receive high levels of interaction. Also, redditors blend humor and seriousness in their posts and comments. Plus, there's a significant element of supportiveness seen in many communities.
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:43:46,655 - INFO - synthesis text Reddit users generally appreciate meaningful content. Posts that showcase research, thoughtfulness or unique experiences usually receive high levels of interaction. Also, redditors blend humor and seriousness in their posts and comments. Plus, t here is a significant element of supportiveness seen in many communities.
+2025-06-24 16:43:57,721 - INFO - yield speech len 18.16, rtf 0.6093479463182356
+100%|██████████| 1/1 [00:11<00:00, 11.12s/it]100%|██████████| 1/1 [00:11<00:00, 11.12s/it]
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
   warnings.warn("Possible clipped samples in output.")
-2025-06-20 17:22:38,441 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:38] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-20 17:22:38,442 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_10_Absolutely_Improving_our_understanding_and.wav ...
-2025-06-20 17:22:38,770 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:38] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-20 17:22:38,798 - INFO - TTS (CosyVoice2): Speaker: 144, Volume: -15.0 dB, Prompt: I concur. Be it exploring different drift scenarios or controlling plasma turbulence, each advancement brings us closer to sustaining fusion power, particularly in advanced Tokamak designs like ITER.
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-20 17:22:38,932 - INFO - synthesis text I concur. Be it exploring different drift scenarios or controlling plasma turbulence, each advancement brings us closer to sustaining fusion power, particularly in advanced Tokamak designs like ITER.
-2025-06-20 17:22:46,621 - INFO - yield speech len 12.96, rtf 0.5933374718383506
-100%|██████████| 1/1 [00:07<00:00,  7.77s/it]100%|██████████| 1/1 [00:07<00:00,  7.77s/it]
+2025-06-24 16:43:57,767 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:57] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-24 16:43:57,770 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_9_Reddit_users_generally_appreciate_meaningful.wav ...
+2025-06-24 16:43:58,244 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:58] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-24 16:43:58,277 - INFO - TTS (CosyVoice2): Speaker: 85, Volume: -15.0 dB, Prompt: Samuel, could you weigh in on this aspect?
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:43:58,337 - INFO - synthesis text Samuel, could you weigh in on this aspect?
+2025-06-24 16:44:00,270 - INFO - yield speech len 3.6, rtf 0.536876983112759
+100%|██████████| 1/1 [00:01<00:00,  1.99s/it]100%|██████████| 1/1 [00:01<00:00,  1.99s/it]
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
   warnings.warn("Possible clipped samples in output.")
-2025-06-20 17:22:46,652 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:46] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-20 17:22:46,654 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_11_I_concur_Be_it_exploring.wav ...
-2025-06-20 17:22:47,041 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:47] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-20 17:22:47,081 - INFO - TTS (CosyVoice2): Speaker: 0, Volume: -15.0 dB, Prompt: Well, that concludes our enlightening discussion for today. I would like to extend my deepest gratitude to Dr. Kohlman and Dr. Wang for their invaluable insights. Join us next time as we continue to explore the frontiers of science. Goodnight, everyone!
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-20 17:22:47,199 - INFO - synthesis text Well, that concludes our enlightening discussion for today. I would like to extend my deepest gratitude to doctor Kohlman and doctor Wang for their invaluable insights. Join us next time as we continue to explore the frontiers of science. Goodnight, everyone!
-2025-06-20 17:22:58,076 - INFO - yield speech len 19.36, rtf 0.561830635405769
-100%|██████████| 1/1 [00:10<00:00, 10.94s/it]100%|██████████| 1/1 [00:10<00:00, 10.94s/it]
+2025-06-24 16:44:00,310 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:00] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-24 16:44:00,312 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_10_Samuel_could_you_weigh_in.wav ...
+2025-06-24 16:44:00,471 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:00] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-24 16:44:00,487 - INFO - TTS (CosyVoice2): Speaker: 217, Volume: -15.0 dB, Prompt: Absolutely. Redditors often engage in deep, specific fields, and communal learning - something unique to Reddit’s structure. Another behavioral aspect worth mentioning is the use of 'throwaway' accounts for discussing sensitive or controversial topics.
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:44:00,600 - INFO - synthesis text Absolutely. Redditors often engage in deep, specific fields, and communal learning - something unique to Reddit’s structure. Another behavioral aspect worth mentioning is the use of 'throwaway' accounts for discussing sensitive or controversial topics.
+2025-06-24 16:44:08,000 - INFO - yield speech len 15.0, rtf 0.49329636891682943
+100%|██████████| 1/1 [00:07<00:00,  7.46s/it]100%|██████████| 1/1 [00:07<00:00,  7.46s/it]
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
   warnings.warn("Possible clipped samples in output.")
-2025-06-20 17:22:58,115 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:58] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-20 17:22:58,116 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_12_Well_that_concludes_our_enlightening.wav ...
-2025-06-20 17:22:58,700 - INFO - 127.0.0.1 - - [20/Jun/2025 17:22:58] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-20 17:22:58,904 - INFO - TTA (AudioGen): Prompt: Soft generic talk show background music, length: 176.16240625 seconds, volume: -35.0 dB
-2025-06-20 17:22:58,947 - INFO - New pattern, time steps: 500, sequence steps: 504
-2025-06-20 17:27:53,551 - INFO - New pattern, time steps: 408, sequence steps: 412
-2025-06-20 17:27:56,659 - INFO - 127.0.0.1 - - [20/Jun/2025 17:27:56] "POST /generate_audio HTTP/1.1" 200 -
-2025-06-20 17:27:56,662 - INFO - TTA (AudioGen): Prompt: Subtle background noise of rustling paper and pencil scribbling, length: 15.46671875 seconds, volume: -35.0 dB
-2025-06-20 17:28:19,259 - INFO - New pattern, time steps: 473, sequence steps: 477
-2025-06-20 17:28:21,727 - INFO - 127.0.0.1 - - [20/Jun/2025 17:28:21] "POST /generate_audio HTTP/1.1" 200 -
+2025-06-24 16:44:08,031 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:08] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-24 16:44:08,032 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_11_Absolutely_Redditors_often_engage_in.wav ...
+2025-06-24 16:44:08,431 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:08] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-24 16:44:08,467 - INFO - TTS (CosyVoice2): Speaker: 85, Volume: -15.0 dB, Prompt: Indeed, the anonymous nature of Reddit seems to significantly impact user behaviors. Dr. Rosen, could you elaborate?
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:44:08,541 - INFO - synthesis text Indeed, the anonymous nature of Reddit seems to significantly impact user behaviors. doctor Rosen, could you elaborate?
+2025-06-24 16:44:13,084 - INFO - yield speech len 9.8, rtf 0.4635800390827412
+100%|██████████| 1/1 [00:04<00:00,  4.60s/it]100%|██████████| 1/1 [00:04<00:00,  4.60s/it]
+/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
+  warnings.warn("Possible clipped samples in output.")
+2025-06-24 16:44:13,128 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:13] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-24 16:44:13,129 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_12_Indeed_the_anonymous_nature_of.wav ...
+2025-06-24 16:44:13,433 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:13] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-24 16:44:13,454 - INFO - TTS (CosyVoice2): Speaker: 132, Volume: -15.0 dB, Prompt: Well, this anonymity provides users the freedom to voice personal or controversial views without fear of judgment. While this fosters diverse discussions, it can also instigate less empathic or decent behaviors.
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:44:13,556 - INFO - synthesis text Well, this anonymity provides users the freedom to voice personal or controversial views without fear of judgment. While this fosters diverse discussions, it can also instigate less empathic or decent behaviors.
+2025-06-24 16:44:19,898 - INFO - yield speech len 13.4, rtf 0.4733200927278889
+100%|██████████| 1/1 [00:06<00:00,  6.40s/it]100%|██████████| 1/1 [00:06<00:00,  6.40s/it]
+/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
+  warnings.warn("Possible clipped samples in output.")
+2025-06-24 16:44:19,939 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:19] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-24 16:44:19,940 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_13_Well_this_anonymity_provides_users.wav ...
+2025-06-24 16:44:20,322 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:20] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-24 16:44:20,350 - INFO - TTS (CosyVoice2): Speaker: 85, Volume: -15.0 dB, Prompt: Samuel, any thoughts?
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:44:20,405 - INFO - synthesis text Samuel, any thoughts?
+2025-06-24 16:44:21,564 - INFO - yield speech len 1.92, rtf 0.6037864834070206
+100%|██████████| 1/1 [00:01<00:00,  1.21s/it]100%|██████████| 1/1 [00:01<00:00,  1.21s/it]
+/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
+  warnings.warn("Possible clipped samples in output.")
+2025-06-24 16:44:21,595 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:21] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-24 16:44:21,598 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_14_Samuel_any_thoughts.wav ...
+2025-06-24 16:44:21,752 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:21] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-24 16:44:21,771 - INFO - TTS (CosyVoice2): Speaker: 217, Volume: -15.0 dB, Prompt: Anonymity on Reddit indeed encourages diverse dialogues. However, as Dr. Rosen mentioned, it can also lead to the rise of harmful behaviors which needs to be checked.
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:44:21,874 - INFO - synthesis text Anonymity on Reddit indeed encourages diverse dialogues. However, as doctor Rosen mentioned, it can also lead to the rise of harmful behaviors which needs to be checked.
+2025-06-24 16:44:29,439 - INFO - yield speech len 11.32, rtf 0.6682832754964121
+100%|██████████| 1/1 [00:07<00:00,  7.63s/it]100%|██████████| 1/1 [00:07<00:00,  7.63s/it]
+/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
+  warnings.warn("Possible clipped samples in output.")
+2025-06-24 16:44:29,464 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:29] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-24 16:44:29,466 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_15_Anonymity_on_Reddit_indeed_encourages.wav ...
+2025-06-24 16:44:29,797 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:29] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-24 16:44:29,833 - INFO - TTS (CosyVoice2): Speaker: 85, Volume: -15.0 dB, Prompt: Now, let's talk about fostering positive behavior on Reddit. Can you talk us through this Dr. Rosen?
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:44:29,910 - INFO - synthesis text Now, let's talk about fostering positive behavior on Reddit. Can you talk us through this doctor Rosen?
+2025-06-24 16:44:33,125 - INFO - yield speech len 6.8, rtf 0.47276921132031613
+100%|██████████| 1/1 [00:03<00:00,  3.27s/it]100%|██████████| 1/1 [00:03<00:00,  3.27s/it]
+/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
+  warnings.warn("Possible clipped samples in output.")
+2025-06-24 16:44:33,148 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:33] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-24 16:44:33,150 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_16_Now_lets_talk_about_fostering.wav ...
+2025-06-24 16:44:33,367 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:33] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-24 16:44:33,389 - INFO - TTS (CosyVoice2): Speaker: 132, Volume: -15.0 dB, Prompt: Reddit enforces clear site rules and relies heavily on moderators to manage each subreddit's norms. To foster positive interactions, I believe they could expand on the current Karma system to highlight good digital citizenship and promote more positive discussions and support.
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:44:33,501 - INFO - synthesis text Reddit enforces clear site rules and relies heavily on moderators to manage each subreddit's norms. To foster positive interactions, I believe they could expand on the current Karma system to highlight good digital citizenship and promote more positive discussions and support.
+2025-06-24 16:44:41,868 - INFO - yield speech len 18.84, rtf 0.44413313997272724
+100%|██████████| 1/1 [00:08<00:00,  8.41s/it]100%|██████████| 1/1 [00:08<00:00,  8.41s/it]
+/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
+  warnings.warn("Possible clipped samples in output.")
+2025-06-24 16:44:41,904 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:41] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-24 16:44:41,912 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_17_Reddit_enforces_clear_site_rules.wav ...
+2025-06-24 16:44:42,478 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:42] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-24 16:44:42,514 - INFO - TTS (CosyVoice2): Speaker: 85, Volume: -15.0 dB, Prompt: And what's your take on this, Samuel?
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:44:42,576 - INFO - synthesis text And what's your take on this, Samuel?
+2025-06-24 16:44:43,741 - INFO - yield speech len 2.04, rtf 0.5710109776141596
+100%|██████████| 1/1 [00:01<00:00,  1.23s/it]100%|██████████| 1/1 [00:01<00:00,  1.23s/it]
+/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
+  warnings.warn("Possible clipped samples in output.")
+2025-06-24 16:44:43,786 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:43] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-24 16:44:43,788 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_18_And_whats_your_take_on.wav ...
+2025-06-24 16:44:43,897 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:43] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-24 16:44:43,923 - INFO - TTS (CosyVoice2): Speaker: 217, Volume: -15.0 dB, Prompt: Reddit uses both human moderation and machine learning algorithms to enforce rules and take actions against inappropriate content. But yes, as Dr. Rosen suggested, enhancing user verifications could discourage trolling and incivility, thus fostering a more encouraging and open environment.
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:44:44,051 - INFO - synthesis text Reddit uses both human moderation and machine learning algorithms to enforce rules and take actions against inappropriate content. But yes, as doctor Rosen suggested, enhancing user verifications could discourage trolling and incivility, thus fostering a more encouraging and open environment.
+2025-06-24 16:44:52,641 - INFO - yield speech len 18.44, rtf 0.46581373814646954
+100%|██████████| 1/1 [00:08<00:00,  8.65s/it]100%|██████████| 1/1 [00:08<00:00,  8.65s/it]
+/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
+  warnings.warn("Possible clipped samples in output.")
+2025-06-24 16:44:52,667 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:52] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-24 16:44:52,668 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_19_Reddit_uses_both_human_moderation.wav ...
+2025-06-24 16:44:53,092 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:53] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-24 16:44:53,130 - INFO - TTS (CosyVoice2): Speaker: 85, Volume: -15.0 dB, Prompt: Thank you both for your incredibly insightful conversation today. Dear audience, we hope you found this discussion engaging and enlightening. Enjoy the rest of your evening!
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:44:53,221 - INFO - synthesis text Thank you both for your incredibly insightful conversation today. Dear audience, we hope you found this discussion engaging and enlightening. Enjoy the rest of your evening!
+2025-06-24 16:44:57,375 - INFO - yield speech len 8.64, rtf 0.4807922851156305
+100%|██████████| 1/1 [00:04<00:00,  4.21s/it]100%|██████████| 1/1 [00:04<00:00,  4.21s/it]
+/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
+  warnings.warn("Possible clipped samples in output.")
+2025-06-24 16:44:57,409 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:57] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-24 16:44:57,411 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_20_Thank_you_both_for_your.wav ...
+2025-06-24 16:44:57,619 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:57] "POST /fix_audio HTTP/1.1" 200 -

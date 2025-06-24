@@ -4,6 +4,7 @@ import logging
 import nltk
 import torch
 import torchaudio
+import subprocess
 from torchaudio.transforms import SpeedPerturbation
 from APIs import WRITE_AUDIO, LOUDNESS_NORM
 from utils import fade, get_service_port
@@ -177,6 +178,62 @@ def fix_audio():
     except Exception as e:
         # Return error message if something goes wrong
         return jsonify({'API error': str(e)}), 500
+
+@app.route('/generate_podcast', methods=['POST'])
+def generate_podcast():
+    data = request.json
+    topic = data.get('topic', '')
+    guest_number = data.get('guest_number', 2)
+    session_id = data.get('session_id', 'test')
+
+    logging.info(f'🎙️ Podcast Generation Request: Topic: {topic}, Guests: {guest_number}, Session: {session_id}')
+
+    if not topic:
+        logging.error('❌ Topic is required')
+        return jsonify({'API error': 'Topic is required'}), 400
+
+    try:
+        cmd = ['python', 'podagent.py', '--topic', topic, '--guest-number', str(guest_number), '--session-id', session_id]
+        logging.info(f'🔧 Executing command: {" ".join(cmd)}')
+        
+        result = subprocess.run(cmd, capture_output=True, text=True, cwd=os.getcwd(), timeout=1200)  # 20 minute timeout
+        
+        logging.info(f'📊 Command completed with return code: {result.returncode}')
+        logging.info(f'📤 Command stdout: {result.stdout}')
+        if result.stderr:
+            logging.warning(f'⚠️ Command stderr: {result.stderr}')
+        
+        if result.returncode == 0:
+            response_data = {
+                'message': f'Podcast generated successfully for topic: {topic}',
+                'session_id': session_id,
+                'guest_number': guest_number,
+                'output': result.stdout
+            }
+            logging.info(f'✅ Podcast generation successful: {response_data}')
+            return jsonify(response_data)
+        else:
+            error_msg = f'Podcast generation failed: {result.stderr}'
+            
+            # Provide more helpful error messages for common issues
+            if 'Speech index is not in order' in result.stderr:
+                error_msg = 'Podcast generation failed: Speech index ordering issue. This may be due to the AI generating non-sequential speech indices. Try using a simpler topic or different guest number.'
+            elif 'Speech item is out of index' in result.stderr:
+                error_msg = 'Podcast generation failed: Speech item index mismatch. The generated script has more speech items than expected.'
+            elif 'Speech item is less than provided' in result.stderr:
+                error_msg = 'Podcast generation failed: Missing speech items. The generated script has fewer speech items than expected.'
+            
+            logging.error(f'❌ {error_msg}')
+            return jsonify({'API error': error_msg}), 500
+
+    except subprocess.TimeoutExpired:
+        error_msg = 'Podcast generation timed out after 20 minutes'
+        logging.error(f'⏰ {error_msg}')
+        return jsonify({'API error': error_msg}), 500
+    except Exception as e:
+        error_msg = str(e)
+        logging.error(f'💥 Exception during podcast generation: {error_msg}')
+        return jsonify({'API error': error_msg}), 500
 
 
 if __name__ == '__main__':
