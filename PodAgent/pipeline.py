@@ -37,7 +37,7 @@ def chat_with_gpt(prompt, api_key, sys_info="You are a helpful assistant."):
     
     client = OpenAI(api_key=api_key, timeout=240.0, max_retries=0)
     chat = client.chat.completions.create(
-        model="gpt-4",
+        model="gpt-4o",
         messages=[
             {
                 "role": "system",
@@ -71,7 +71,7 @@ async def achat_with_gpt(prompt, api_key, sys_info="You are a helpful assistant.
 
     client = AsyncOpenAI(api_key=api_key)
     chat = await client.chat.completions.create(
-        model="gpt-4",
+        model="gpt-4o",
         messages=[
             {
                 "role": "system",
@@ -95,7 +95,7 @@ async def achat_with_gpt(prompt, api_key, sys_info="You are a helpful assistant.
 
     return chat.choices[0].message.content
 
-def count_tokens(text, model="gpt-4"):
+def count_tokens(text, model="gpt-4o"):
     encoding = tiktoken.encoding_for_model(model)
     tokens = encoding.encode(text)
     token_count = len(tokens)

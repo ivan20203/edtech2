@@ -1,315 +1,162 @@
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/torch/nn/utils/weight_norm.py:28: UserWarning: torch.nn.utils.weight_norm is deprecated in favor of torch.nn.utils.parametrizations.weight_norm.
   warnings.warn("torch.nn.utils.weight_norm is deprecated in favor of torch.nn.utils.parametrizations.weight_norm.")
-2025-06-24 16:27:11,047 - INFO - T5 will be evaluated with autocast as float32
-2025-06-24 16:27:14,242 - INFO - AudioGen (medium) is loaded ...
-2025-06-24 16:27:14,801 - INFO - T5 will be evaluated with autocast as float32
+2025-06-25 14:16:46,961 - INFO - T5 will be evaluated with autocast as float32
+2025-06-25 14:16:51,063 - INFO - AudioGen (medium) is loaded ...
+2025-06-25 14:16:51,816 - INFO - T5 will be evaluated with autocast as float32
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/torch/nn/utils/weight_norm.py:28: UserWarning: torch.nn.utils.weight_norm is deprecated in favor of torch.nn.utils.parametrizations.weight_norm.
   warnings.warn("torch.nn.utils.weight_norm is deprecated in favor of torch.nn.utils.parametrizations.weight_norm.")
-2025-06-24 16:27:21,399 - INFO - MusicGen (small) is loaded ...
+2025-06-25 14:16:54,646 - INFO - MusicGen (small) is loaded ...
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/diffusers/models/lora.py:393: FutureWarning: `LoRACompatibleLinear` is deprecated and will be removed in version 1.0.0. Use of `LoRACompatibleLinear` is deprecated. Please switch to PEFT backend by installing PEFT: `pip install peft`.
   deprecate("LoRACompatibleLinear", "1.0.0", deprecation_message)
-2025-06-24 16:27:24,221 - INFO - input frame rate=25
+2025-06-25 14:17:00,829 - INFO - input frame rate=25
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/torch/nn/utils/weight_norm.py:28: UserWarning: torch.nn.utils.weight_norm is deprecated in favor of torch.nn.utils.parametrizations.weight_norm.
   warnings.warn("torch.nn.utils.weight_norm is deprecated in favor of torch.nn.utils.parametrizations.weight_norm.")
 Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
 Special tokens have been added in the vocabulary, make sure the associated word embeddings are fine-tuned or trained.
-[0;93m2025-06-24 16:27:26.532744691 [W:onnxruntime:, transformer_memcpy.cc:74 ApplyImpl] 8 Memcpy nodes are added to the graph main_graph for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
-[0;93m2025-06-24 16:27:26.534393991 [W:onnxruntime:, session_state.cc:1166 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
-[0;93m2025-06-24 16:27:26.534418440 [W:onnxruntime:, session_state.cc:1168 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
-2025-06-24 16:27:29,989 WETEXT INFO building fst for zh_normalizer ...
-2025-06-24 16:27:29,989 - INFO - building fst for zh_normalizer ...
-2025-06-24 16:28:00,271 WETEXT INFO done
-2025-06-24 16:28:00,271 - INFO - done
-2025-06-24 16:28:00,272 WETEXT INFO fst path: /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/zh_tn_tagger.fst
-2025-06-24 16:28:00,272 - INFO - fst path: /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/zh_tn_tagger.fst
-2025-06-24 16:28:00,272 WETEXT INFO           /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/zh_tn_verbalizer.fst
-2025-06-24 16:28:00,272 - INFO -           /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/zh_tn_verbalizer.fst
-2025-06-24 16:28:00,274 WETEXT INFO found existing fst: /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/en_tn_tagger.fst
-2025-06-24 16:28:00,274 - INFO - found existing fst: /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/en_tn_tagger.fst
-2025-06-24 16:28:00,274 WETEXT INFO                     /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/en_tn_verbalizer.fst
-2025-06-24 16:28:00,274 - INFO -                     /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/en_tn_verbalizer.fst
-2025-06-24 16:28:00,274 WETEXT INFO skip building fst for en_normalizer ...
-2025-06-24 16:28:00,274 - INFO - skip building fst for en_normalizer ...
-2025-06-24 16:28:15,480 - INFO - CosyVoice2 model is loaded ...
-2025-06-24 16:28:18,423 - INFO - VoiceFixer is loaded ...
+[0;93m2025-06-25 14:17:02.817770605 [W:onnxruntime:, transformer_memcpy.cc:74 ApplyImpl] 8 Memcpy nodes are added to the graph main_graph for CUDAExecutionProvider. It might have negative impact on performance (including unable to run CUDA graph). Set session_options.log_severity_level=1 to see the detail logs before this message.[m
+[0;93m2025-06-25 14:17:02.819985009 [W:onnxruntime:, session_state.cc:1166 VerifyEachNodeIsAssignedToAnEp] Some nodes were not assigned to the preferred execution providers which may or may not have an negative impact on performance. e.g. ORT explicitly assigns shape related ops to CPU to improve perf.[m
+[0;93m2025-06-25 14:17:02.820019520 [W:onnxruntime:, session_state.cc:1168 VerifyEachNodeIsAssignedToAnEp] Rerunning with verbose output on a non-minimal build will show node assignments.[m
+2025-06-25 14:17:03,212 WETEXT INFO building fst for zh_normalizer ...
+2025-06-25 14:17:03,212 - INFO - building fst for zh_normalizer ...
+2025-06-25 14:17:30,483 WETEXT INFO done
+2025-06-25 14:17:30,483 - INFO - done
+2025-06-25 14:17:30,483 WETEXT INFO fst path: /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/zh_tn_tagger.fst
+2025-06-25 14:17:30,483 - INFO - fst path: /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/zh_tn_tagger.fst
+2025-06-25 14:17:30,483 WETEXT INFO           /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/zh_tn_verbalizer.fst
+2025-06-25 14:17:30,483 - INFO -           /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/zh_tn_verbalizer.fst
+2025-06-25 14:17:30,490 WETEXT INFO found existing fst: /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/en_tn_tagger.fst
+2025-06-25 14:17:30,490 - INFO - found existing fst: /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/en_tn_tagger.fst
+2025-06-25 14:17:30,490 WETEXT INFO                     /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/en_tn_verbalizer.fst
+2025-06-25 14:17:30,490 - INFO -                     /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/tn/en_tn_verbalizer.fst
+2025-06-25 14:17:30,490 WETEXT INFO skip building fst for en_normalizer ...
+2025-06-25 14:17:30,490 - INFO - skip building fst for en_normalizer ...
+2025-06-25 14:17:39,157 - INFO - CosyVoice2 model is loaded ...
+2025-06-25 14:17:43,405 - INFO - VoiceFixer is loaded ...
 failed to import ttsfrd, use WeTextProcessing instead
  * Serving Flask app 'services'
  * Debug mode: off
-2025-06-24 16:28:18,429 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+2025-06-25 14:17:43,411 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on http://127.0.0.1:8021
-2025-06-24 16:28:18,429 - INFO - [33mPress CTRL+C to quit[0m
-2025-06-24 16:32:41,559 - INFO - 🎙️ Podcast Generation Request: Topic: What are the primary factors that influence consumer behavior?, Guests: 2, Session: test
-2025-06-24 16:32:41,559 - INFO - 🔧 Executing command: python podagent.py --topic What are the primary factors that influence consumer behavior? --guest-number 2 --session-id test
-2025-06-24 16:35:00,749 - INFO - 📊 Command completed with return code: 1
-2025-06-24 16:35:00,750 - INFO - 📤 Command stdout: New session created, session_id=test
-Session test is created.
-Language: English.
-【Step1】Generating guest info ...
-【Step2】Collecting guest response ...
-【Step3】Generating conversation script ...
-【Step4】Generating audio script ...
-    trying ...
-    ERROR: Speech item is out of index.
-【Step4】Generating audio script ...
-    trying ...
-    ERROR: Speech item is out of index.
-【Step4】Generating audio script ...
-    trying ...
-    ERROR: Speech index is not in order.
-
-2025-06-24 16:35:00,750 - WARNING - ⚠️ Command stderr: Traceback (most recent call last):
-  File "/home/ivan/github-repos/edtech/edtech/PodAgent/podagent.py", line 36, in <module>
-    asyncio.run(main())
-  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/asyncio/runners.py", line 44, in run
-    return loop.run_until_complete(main)
-  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/asyncio/base_events.py", line 649, in run_until_complete
-    return future.result()
-  File "/home/ivan/github-repos/edtech/edtech/PodAgent/podagent.py", line 30, in main
-    await pipeline.full_steps(session_id, args.topic, args.guest_number, api_key)
-  File "/home/ivan/github-repos/edtech/edtech/PodAgent/pipeline.py", line 419, in full_steps
-    json_script = await generate_json_file(session_id, lang, topic, guest_number, api_key)
-  File "/home/ivan/github-repos/edtech/edtech/PodAgent/pipeline.py", line 381, in generate_json_file
-    audio_script = conversation_to_audio_script(conversation_script, output_path, api_key)
-  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/retrying.py", line 56, in wrapped_f
-    return Retrying(*dargs, **dkw).call(f, *args, **kw)
-  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/retrying.py", line 266, in call
-    raise attempt.get()
-  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/retrying.py", line 301, in get
-    six.reraise(self.value[0], self.value[1], self.value[2])
-  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/six.py", line 724, in reraise
-    raise value
-  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/retrying.py", line 251, in call
-    attempt = Attempt(fn(*args, **kwargs), attempt_number, False)
-  File "/home/ivan/github-repos/edtech/edtech/PodAgent/pipeline.py", line 314, in conversation_to_audio_script
-    raise err
-  File "/home/ivan/github-repos/edtech/edtech/PodAgent/pipeline.py", line 308, in conversation_to_audio_script
-    json_data = check_json_script(json_data, conversation_script)
-  File "/home/ivan/github-repos/edtech/edtech/PodAgent/utils.py", line 132, in check_json_script
-    raise ValueError(f"Speech index is not in order.")
-ValueError: Speech index is not in order.
-
-2025-06-24 16:35:00,750 - ERROR - ❌ Podcast generation failed: Traceback (most recent call last):
-  File "/home/ivan/github-repos/edtech/edtech/PodAgent/podagent.py", line 36, in <module>
-    asyncio.run(main())
-  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/asyncio/runners.py", line 44, in run
-    return loop.run_until_complete(main)
-  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/asyncio/base_events.py", line 649, in run_until_complete
-    return future.result()
-  File "/home/ivan/github-repos/edtech/edtech/PodAgent/podagent.py", line 30, in main
-    await pipeline.full_steps(session_id, args.topic, args.guest_number, api_key)
-  File "/home/ivan/github-repos/edtech/edtech/PodAgent/pipeline.py", line 419, in full_steps
-    json_script = await generate_json_file(session_id, lang, topic, guest_number, api_key)
-  File "/home/ivan/github-repos/edtech/edtech/PodAgent/pipeline.py", line 381, in generate_json_file
-    audio_script = conversation_to_audio_script(conversation_script, output_path, api_key)
-  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/retrying.py", line 56, in wrapped_f
-    return Retrying(*dargs, **dkw).call(f, *args, **kw)
-  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/retrying.py", line 266, in call
-    raise attempt.get()
-  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/retrying.py", line 301, in get
-    six.reraise(self.value[0], self.value[1], self.value[2])
-  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/six.py", line 724, in reraise
-    raise value
-  File "/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/retrying.py", line 251, in call
-    attempt = Attempt(fn(*args, **kwargs), attempt_number, False)
-  File "/home/ivan/github-repos/edtech/edtech/PodAgent/pipeline.py", line 314, in conversation_to_audio_script
-    raise err
-  File "/home/ivan/github-repos/edtech/edtech/PodAgent/pipeline.py", line 308, in conversation_to_audio_script
-    json_data = check_json_script(json_data, conversation_script)
-  File "/home/ivan/github-repos/edtech/edtech/PodAgent/utils.py", line 132, in check_json_script
-    raise ValueError(f"Speech index is not in order.")
-ValueError: Speech index is not in order.
-
-2025-06-24 16:35:00,751 - INFO - 127.0.0.1 - - [24/Jun/2025 16:35:00] "[35m[1mPOST /generate_podcast HTTP/1.1[0m" 500 -
-2025-06-24 16:37:15,046 - INFO - 🎙️ Podcast Generation Request: Topic: What are the primary factors that influence redditor behavior?, Guests: 2, Session: test
-2025-06-24 16:37:15,046 - INFO - 🔧 Executing command: python podagent.py --topic What are the primary factors that influence redditor behavior? --guest-number 2 --session-id test
-2025-06-24 16:42:33,684 - ERROR - ⏰ Podcast generation timed out after 5 minutes
-2025-06-24 16:42:33,685 - INFO - 127.0.0.1 - - [24/Jun/2025 16:42:33] "[35m[1mPOST /generate_podcast HTTP/1.1[0m" 500 -
-2025-06-24 16:42:33,694 - INFO - TTS (CosyVoice2): Speaker: 85, Volume: -15.0 dB, Prompt: Ladies and gentlemen, welcome to today's episode of 'Talk Show Night'! We'll be diving into a very intriguing topic: ‘What are the primary factors that influence redditor behavior?’ We have two eminent guests joining us. First let me introduce you to Dr. Emily Rosen, a well-respected social psychologist with extensive research on digital behavior.
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:42:36,546 - INFO - synthesis text Ladies and gentlemen, welcome to today's episode of 'Talk Show Night'! We'll be diving into a very intriguing topic: ‘What are the primary factors that influence redditor behavior?’ We have two eminent guests joining us. First let me introduce you to doctor Emily Rosen, a well-respected social psychologist with extensive research on digital behavior.
-2025-06-24 16:42:49,827 - INFO - yield speech len 20.36, rtf 0.6522783713162765
-100%|██████████| 1/1 [00:15<00:00, 15.89s/it]100%|██████████| 1/1 [00:15<00:00, 15.89s/it]
+2025-06-25 14:17:43,411 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-25 14:18:49,501 - INFO - TTS (CosyVoice2): Speaker: 11, Volume: -15.0 dB, Prompt: Hello and welcome to the Talk Show of Ideas! I'm your host, Steve, and today we have a fascinating topic: spherical geometry. It's more than just a mathematical curiosity; it influences our technology and science in profound ways. To help us explore this, I'm thrilled to have with us two extraordinary guests—Dr. Hannah Cheng, a professor of mathematics with a focus on spherical geometry, and Mr. Alan Martinez, a senior software engineer specializing in geometric algorithms. Welcome both of you to the show!
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-25 14:18:54,185 - INFO - synthesis text Hello and welcome to the Talk Show of Ideas! I am your host, Steve, and today we have a fascinating topic: spherical geometry. It's more than just a mathematical curiosity; it influences our technology and science in profound ways. To help us explore this, I am thrilled to have with us two extraordinary guests—doctor Hannah Cheng, a professor of mathematics with a focus on spherical geometry, and Mister Alan Martinez, a senior software engineer specializing in geometric algorithms. Welcome both of you to the show!
+2025-06-25 14:19:24,349 - INFO - yield speech len 29.64, rtf 1.0176698045048476
+100%|██████████| 1/1 [00:34<00:00, 34.51s/it]100%|██████████| 1/1 [00:34<00:00, 34.52s/it]
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
   warnings.warn("Possible clipped samples in output.")
-2025-06-24 16:42:49,885 - INFO - 127.0.0.1 - - [24/Jun/2025 16:42:49] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-24 16:42:49,887 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_0_Ladies_and_gentlemen_welcome_to.wav ...
-2025-06-24 16:42:55,904 - INFO - 127.0.0.1 - - [24/Jun/2025 16:42:55] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-24 16:42:55,926 - INFO - TTS (CosyVoice2): Speaker: 132, Volume: -15.0 dB, Prompt: Thank you for having me. I'm excited to delve into the factors that shape behavior on Reddit, from community-driven norms to the platform's unique features.
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:42:56,055 - INFO - synthesis text Thank you for having me. I am excited to delve into the factors that shape behavior on Reddit, from community-driven norms to the platform's unique features.
-2025-06-24 16:43:01,789 - INFO - yield speech len 10.88, rtf 0.5270701997420366
-100%|██████████| 1/1 [00:05<00:00,  5.81s/it]100%|██████████| 1/1 [00:05<00:00,  5.81s/it]
+2025-06-25 14:19:24,463 - INFO - 127.0.0.1 - - [25/Jun/2025 14:19:24] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-25 14:19:24,466 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_0_Hello_and_welcome_to_the.wav ...
+2025-06-25 14:19:26,861 - INFO - 127.0.0.1 - - [25/Jun/2025 14:19:26] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-25 14:19:26,932 - INFO - TTS (CosyVoice2): Speaker: 82, Volume: -15.0 dB, Prompt: Thank you, Steve. It's great to be here to talk about spherical geometry, one of the more intriguing branches of mathematics where traditional Euclidean rules don’t quite apply!
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-25 14:19:27,168 - INFO - synthesis text Thank you, Steve. It's great to be here to talk about spherical geometry, one of the more intriguing branches of mathematics where traditional Euclidean rules don’t quite apply!
+2025-06-25 14:19:35,670 - INFO - yield speech len 10.24, rtf 0.8302526082843542
+100%|██████████| 1/1 [00:08<00:00,  8.72s/it]100%|██████████| 1/1 [00:08<00:00,  8.72s/it]
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
   warnings.warn("Possible clipped samples in output.")
-2025-06-24 16:43:01,830 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:01] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-24 16:43:01,831 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_1_Thank_you_for_having_me.wav ...
-2025-06-24 16:43:02,175 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:02] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-24 16:43:02,192 - INFO - TTS (CosyVoice2): Speaker: 85, Volume: -15.0 dB, Prompt: We're thrilled to have you. And let's also welcome our second guest, Mr. Samuel Hughes, a data scientist at Reddit who deals with user behavioral data firsthand!
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:43:02,288 - INFO - synthesis text We're thrilled to have you. And let's also welcome our second guest, Mister Samuel Hughes, a data scientist at Reddit who deals with user behavioral data firsthand!
-2025-06-24 16:43:06,498 - INFO - yield speech len 9.08, rtf 0.463594922935385
-100%|██████████| 1/1 [00:04<00:00,  4.26s/it]100%|██████████| 1/1 [00:04<00:00,  4.26s/it]
+2025-06-25 14:19:35,769 - INFO - 127.0.0.1 - - [25/Jun/2025 14:19:35] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-25 14:19:35,778 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_1_Thank_you_Steve_Its_great.wav ...
+2025-06-25 14:19:36,272 - INFO - 127.0.0.1 - - [25/Jun/2025 14:19:36] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-25 14:19:36,297 - INFO - TTS (CosyVoice2): Speaker: 114, Volume: -15.0 dB, Prompt: Thanks, Steve! I'm excited to discuss the practical applications of spherical geometry, especially in the tech industry.
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-25 14:19:36,421 - INFO - synthesis text Thanks, Steve! I am excited to discuss the practical applications of spherical geometry, especially in the tech industry.
+2025-06-25 14:19:41,339 - INFO - yield speech len 6.68, rtf 0.7362272211177621
+100%|██████████| 1/1 [00:05<00:00,  5.02s/it]100%|██████████| 1/1 [00:05<00:00,  5.02s/it]
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
   warnings.warn("Possible clipped samples in output.")
-2025-06-24 16:43:06,528 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:06] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-24 16:43:06,529 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_2_Were_thrilled_to_have_you.wav ...
-2025-06-24 16:43:06,870 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:06] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-24 16:43:06,902 - INFO - TTS (CosyVoice2): Speaker: 217, Volume: -15.0 dB, Prompt: Thanks for having me on the show! Reddit's user behavior is a fascinating subject, and I look forward to sharing some insights from a data perspective.
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:43:07,013 - INFO - synthesis text Thanks for having me on the show! Reddit's user behavior is a fascinating subject, and I look forward to sharing some insights from a data perspective.
-2025-06-24 16:43:11,517 - INFO - yield speech len 8.8, rtf 0.5118570815433156
-100%|██████████| 1/1 [00:04<00:00,  4.58s/it]100%|██████████| 1/1 [00:04<00:00,  4.58s/it]
+2025-06-25 14:19:41,395 - INFO - 127.0.0.1 - - [25/Jun/2025 14:19:41] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-25 14:19:41,397 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_2_Thanks_Steve_Im_excited_to.wav ...
+2025-06-25 14:19:41,738 - INFO - 127.0.0.1 - - [25/Jun/2025 14:19:41] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-25 14:19:41,770 - INFO - TTA (AudioGen): Prompt: Glass clinks lightly as guests settle in, length: 2.0 seconds, volume: -35.0 dB
+2025-06-25 14:19:41,850 - INFO - New pattern, time steps: 100, sequence steps: 104
+2025-06-25 14:19:49,148 - INFO - 127.0.0.1 - - [25/Jun/2025 14:19:49] "POST /generate_audio HTTP/1.1" 200 -
+2025-06-25 14:19:49,151 - INFO - TTS (CosyVoice2): Speaker: 11, Volume: -15.0 dB, Prompt: Let's dive right into it. Dr. Cheng, could you start by explaining what distinguishes spherical geometry from regular Euclidean geometry?
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-25 14:19:49,322 - INFO - synthesis text Let's dive right into it. doctor Cheng, could you start by explaining what distinguishes spherical geometry from regular Euclidean geometry?
+2025-06-25 14:19:55,982 - INFO - yield speech len 7.92, rtf 0.8408000974944143
+100%|██████████| 1/1 [00:06<00:00,  6.80s/it]100%|██████████| 1/1 [00:06<00:00,  6.80s/it]
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
   warnings.warn("Possible clipped samples in output.")
-2025-06-24 16:43:11,547 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:11] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-24 16:43:11,549 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_3_Thanks_for_having_me_on.wav ...
-2025-06-24 16:43:11,764 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:11] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-24 16:43:11,784 - INFO - TTS (CosyVoice2): Speaker: 85, Volume: -15.0 dB, Prompt: To kick things off, Dr. Rosen, could you guide us through the primary factors that influence redditor behaviors?
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:43:11,873 - INFO - synthesis text To kick things off, doctor Rosen, could you guide us through the primary factors that influence redditor behaviors?
-2025-06-24 16:43:18,456 - INFO - yield speech len 8.56, rtf 0.768989435980253
-100%|██████████| 1/1 [00:06<00:00,  6.64s/it]100%|██████████| 1/1 [00:06<00:00,  6.64s/it]
+2025-06-25 14:19:56,057 - INFO - 127.0.0.1 - - [25/Jun/2025 14:19:56] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-25 14:19:56,060 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_3_Lets_dive_right_into_it.wav ...
+2025-06-25 14:19:56,441 - INFO - 127.0.0.1 - - [25/Jun/2025 14:19:56] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-25 14:19:56,466 - INFO - TTS (CosyVoice2): Speaker: 82, Volume: -15.0 dB, Prompt: Certainly! Spherical geometry deals with figures on the surface of a sphere, where the rules are quite different from those on a flat plane. For example, in Euclidean geometry, parallel lines never meet, but on a sphere, all 'lines'—which we call great circles—eventually intersect. An interesting result of this is that the sum of the angles in a spherical triangle exceeds 180 degrees due to the sphere's curvature.
+  0%|          | 0/2 [00:00<?, ?it/s]2025-06-25 14:19:56,749 - INFO - synthesis text Certainly! Spherical geometry deals with figures on the surface of a sphere, where the rules are quite different from those on a flat plane. For example, in Euclidean geometry, parallel lines never meet, but on a sphere, all 'lines'—which we call great circles—eventually intersect.
+2025-06-25 14:20:09,859 - INFO - yield speech len 16.72, rtf 0.7840899759502503
+ 50%|█████     | 1/2 [00:13<00:13, 13.26s/it]2025-06-25 14:20:10,029 - INFO - synthesis text  An interesting result of this is that the sum of the angles in a spherical triangle exceeds one hundred and eighty degrees due to the sp here is curvature.
+2025-06-25 14:20:16,420 - INFO - yield speech len 9.32, rtf 0.6857656613951588
+100%|██████████| 2/2 [00:19<00:00,  9.29s/it]100%|██████████| 2/2 [00:19<00:00,  9.89s/it]
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
   warnings.warn("Possible clipped samples in output.")
-2025-06-24 16:43:18,487 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:18] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-24 16:43:18,489 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_4_To_kick_things_off_Dr.wav ...
-2025-06-24 16:43:18,772 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:18] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-24 16:43:18,792 - INFO - TTS (CosyVoice2): Speaker: 132, Volume: -15.0 dB, Prompt: Certainly. Some of the major elements include the community influence, the platform's design, and its anonymous nature. The hive-mind mentality fostered by the upvote-downvote system, for instance, greatly impacts content and discussions. Also, each subreddit has its own unique set of norms which shape user behaviors.
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:43:19,052 - INFO - synthesis text Certainly. Some of the major elements include the community influence, the platform's design, and its anonymous nature. The hive-mind mentality fostered by the upvote-downvote system, for instance, greatly impacts content and discussions. Also, each subreddit has its own unique set of norms which shape user behaviors.
-2025-06-24 16:43:29,490 - INFO - yield speech len 21.84, rtf 0.47793714773087276
-100%|██████████| 1/1 [00:10<00:00, 10.51s/it]100%|██████████| 1/1 [00:10<00:00, 10.51s/it]
+2025-06-25 14:20:16,469 - INFO - 127.0.0.1 - - [25/Jun/2025 14:20:16] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-25 14:20:16,471 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_4_Certainly_Spherical_geometry_deals_with.wav ...
+2025-06-25 14:20:17,598 - INFO - 127.0.0.1 - - [25/Jun/2025 14:20:17] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-25 14:20:17,643 - INFO - TTS (CosyVoice2): Speaker: 11, Volume: -15.0 dB, Prompt: That’s quite fascinating. Mr. Martinez, how do these unique properties of spherical geometry translate into the tech world, particularly in your field?
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-25 14:20:17,788 - INFO - synthesis text That’s quite fascinating. Mister Martinez, how do these unique properties of spherical geometry translate into the tech world, particularly in your field?
+2025-06-25 14:20:25,137 - INFO - yield speech len 8.56, rtf 0.8584843339207016
+100%|██████████| 1/1 [00:07<00:00,  7.50s/it]100%|██████████| 1/1 [00:07<00:00,  7.50s/it]
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
   warnings.warn("Possible clipped samples in output.")
-2025-06-24 16:43:29,530 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:29] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-24 16:43:29,532 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_5_Certainly_Some_of_the_major.wav ...
-2025-06-24 16:43:30,093 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:30] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-24 16:43:30,118 - INFO - TTS (CosyVoice2): Speaker: 85, Volume: -15.0 dB, Prompt: Fascinating! How about you, Samuel? From a data science perspective, what would you say impacts user behavior?
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:43:30,199 - INFO - synthesis text Fascinating! How about you, Samuel? From a data science perspective, what would you say impacts user behavior?
-2025-06-24 16:43:33,619 - INFO - yield speech len 7.4, rtf 0.4622117893115894
-100%|██████████| 1/1 [00:03<00:00,  3.49s/it]100%|██████████| 1/1 [00:03<00:00,  3.49s/it]
+2025-06-25 14:20:25,246 - INFO - 127.0.0.1 - - [25/Jun/2025 14:20:25] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-25 14:20:25,249 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_5_Thats_quite_fascinating_Mr_Martinez.wav ...
+2025-06-25 14:20:25,667 - INFO - 127.0.0.1 - - [25/Jun/2025 14:20:25] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-25 14:20:25,727 - INFO - TTS (CosyVoice2): Speaker: 114, Volume: -15.0 dB, Prompt: Great question, Steve! In computer graphics and virtual reality, we often need to accurately render curved surfaces or simulate real-world environments, which inherently involves spherical geometry. For example, when creating 3D models of planets or simulating immersive environments in VR, understanding how to map and calculate on a sphere is critical for realism and precision.
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-25 14:20:25,950 - INFO - synthesis text Great question, Steve! In computer graphics and virtual reality, we often need to accurately render curved surfaces or simulate real-world environments, which inherently involves spherical geometry. For example, when creating three D models of planets or simulating immersive environments in VR, understanding how to map and calculate on a sphere is critical for realism and precision.
+2025-06-25 14:20:43,630 - INFO - yield speech len 23.36, rtf 0.7568562990182067
+100%|██████████| 1/1 [00:17<00:00, 17.80s/it]100%|██████████| 1/1 [00:17<00:00, 17.80s/it]
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
   warnings.warn("Possible clipped samples in output.")
-2025-06-24 16:43:33,657 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:33] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-24 16:43:33,659 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_6_Fascinating_How_about_you_Samuel.wav ...
-2025-06-24 16:43:33,917 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:33] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-24 16:43:33,941 - INFO - TTS (CosyVoice2): Speaker: 217, Volume: -15.0 dB, Prompt: Well, echoing Dr. Rosen's points, the community or subreddit that users choose to be a part of heavily influences their behavior. The content and thread that foster discussion also play a vital role in this aspect.
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:43:34,057 - INFO - synthesis text Well, echoing doctor Rosen's points, the community or subreddit that users choose to be a part of heavily influences their behavior. The content and thread that foster discussion also play a vital role in this aspect.
-2025-06-24 16:43:41,212 - INFO - yield speech len 14.96, rtf 0.4782856626306625
-100%|██████████| 1/1 [00:07<00:00,  7.23s/it]100%|██████████| 1/1 [00:07<00:00,  7.23s/it]
+2025-06-25 14:20:43,738 - INFO - 127.0.0.1 - - [25/Jun/2025 14:20:43] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-25 14:20:43,739 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_6_Great_question_Steve_In_computer.wav ...
+2025-06-25 14:20:44,708 - INFO - 127.0.0.1 - - [25/Jun/2025 14:20:44] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-25 14:20:44,740 - INFO - TTS (CosyVoice2): Speaker: 11, Volume: -15.0 dB, Prompt: Dr. Cheng, you've mentioned that spherical geometry has a long historical journey. Can you touch on some of the key contributors and how this field has evolved over time?
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-25 14:20:44,994 - INFO - synthesis text doctor Cheng, you've mentioned that spherical geometry has a long historical journey. Can you touch on some of the key contributors and how this field has evolved over time?
+2025-06-25 14:20:52,887 - INFO - yield speech len 9.56, rtf 0.8256693016036285
+100%|██████████| 1/1 [00:08<00:00,  8.09s/it]100%|██████████| 1/1 [00:08<00:00,  8.09s/it]
+2025-06-25 14:20:52,973 - INFO - 127.0.0.1 - - [25/Jun/2025 14:20:52] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-25 14:20:52,986 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_7_Dr_Cheng_youve_mentioned_that.wav ...
+2025-06-25 14:20:53,449 - INFO - 127.0.0.1 - - [25/Jun/2025 14:20:53] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-25 14:20:53,477 - INFO - TTS (CosyVoice2): Speaker: 82, Volume: -15.0 dB, Prompt: Of course! The study of spherical geometry dates back to ancient Greece with figures like Euclid and Ptolemy, but significant progress was made during the Islamic Golden Age by scholars such as Al-Khwarizmi. In the modern era, Carl Friedrich Gauss and Bernhard Riemann laid essential groundwork for understanding the intrinsic properties of curved surfaces. Their contributions have influenced both theoretical and practical applications across various scientific fields.
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-25 14:20:53,818 - INFO - synthesis text Of course! The study of spherical geometry dates back to ancient Greece with figures like Euclid and Ptolemy, but significant progress was made during the Islamic Golden Age by scholars such as Al-Khwarizmi. In the modern era, Carl Friedrich Gauss and Bernhard Riemann laid essential groundwork for understanding the intrinsic properties of curved surfaces. Their contributions have influenced both theoretical and practical applications across various scientific fields.
+2025-06-25 14:21:16,200 - INFO - yield speech len 26.64, rtf 0.8401706949010626
+100%|██████████| 1/1 [00:22<00:00, 22.54s/it]100%|██████████| 1/1 [00:22<00:00, 22.54s/it]
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
   warnings.warn("Possible clipped samples in output.")
-2025-06-24 16:43:41,253 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:41] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-24 16:43:41,254 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_7_Well_echoing_Dr_Rosens_points.wav ...
-2025-06-24 16:43:41,751 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:41] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-24 16:43:41,791 - INFO - TTS (CosyVoice2): Speaker: 85, Volume: -15.0 dB, Prompt: Dr. Rosen, what are some behavioral tendencies unique to Redditors compared to other social media users?
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:43:41,863 - INFO - synthesis text doctor Rosen, what are some behavioral tendencies unique to Redditors compared to other social media users?
-2025-06-24 16:43:46,264 - INFO - yield speech len 8.64, rtf 0.5093634404517986
-100%|██████████| 1/1 [00:04<00:00,  4.46s/it]100%|██████████| 1/1 [00:04<00:00,  4.46s/it]
+2025-06-25 14:21:16,305 - INFO - 127.0.0.1 - - [25/Jun/2025 14:21:16] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-25 14:21:16,307 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_8_Of_course_The_study_of.wav ...
+2025-06-25 14:21:17,352 - INFO - 127.0.0.1 - - [25/Jun/2025 14:21:17] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-25 14:21:17,399 - INFO - TTA (AudioGen): Prompt: Audience murmuring in appreciation, length: 2.0 seconds, volume: -35.0 dB
+2025-06-25 14:21:22,540 - INFO - 127.0.0.1 - - [25/Jun/2025 14:21:22] "POST /generate_audio HTTP/1.1" 200 -
+2025-06-25 14:21:22,552 - INFO - TTS (CosyVoice2): Speaker: 11, Volume: -15.0 dB, Prompt: It’s incredible to see how ancient knowledge still impacts modern science. Alan, what’s on the horizon for spherical geometry in terms of future applications and challenges?
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-25 14:21:22,741 - INFO - synthesis text It’s incredible to see how ancient knowledge still impacts modern science. Alan, what’s on the horizon for spherical geometry in terms of future applications and challenges?
+2025-06-25 14:21:30,462 - INFO - yield speech len 10.16, rtf 0.7599478162179781
+100%|██████████| 1/1 [00:07<00:00,  7.87s/it]100%|██████████| 1/1 [00:07<00:00,  7.87s/it]
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
   warnings.warn("Possible clipped samples in output.")
-2025-06-24 16:43:46,291 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:46] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-24 16:43:46,293 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_8_Dr_Rosen_what_are_some.wav ...
-2025-06-24 16:43:46,491 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:46] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-24 16:43:46,515 - INFO - TTS (CosyVoice2): Speaker: 132, Volume: -15.0 dB, Prompt: Reddit users generally appreciate meaningful content. Posts that showcase research, thoughtfulness or unique experiences usually receive high levels of interaction. Also, redditors blend humor and seriousness in their posts and comments. Plus, there's a significant element of supportiveness seen in many communities.
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:43:46,655 - INFO - synthesis text Reddit users generally appreciate meaningful content. Posts that showcase research, thoughtfulness or unique experiences usually receive high levels of interaction. Also, redditors blend humor and seriousness in their posts and comments. Plus, t here is a significant element of supportiveness seen in many communities.
-2025-06-24 16:43:57,721 - INFO - yield speech len 18.16, rtf 0.6093479463182356
-100%|██████████| 1/1 [00:11<00:00, 11.12s/it]100%|██████████| 1/1 [00:11<00:00, 11.12s/it]
+2025-06-25 14:21:30,566 - INFO - 127.0.0.1 - - [25/Jun/2025 14:21:30] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-25 14:21:30,569 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_9_Its_incredible_to_see_how.wav ...
+2025-06-25 14:21:30,953 - INFO - 127.0.0.1 - - [25/Jun/2025 14:21:30] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-25 14:21:30,999 - INFO - TTS (CosyVoice2): Speaker: 114, Volume: -15.0 dB, Prompt: As technology evolves, we’re seeing more use of spherical geometry in machine learning, where it helps model complex data and improve simulations in geospatial analysis and robotics. However, a major challenge remains in developing efficient algorithms to handle these calculations, particularly for real-time systems, which is crucial for things like augmented reality and more intuitive user interfaces.
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-25 14:21:31,211 - INFO - synthesis text As technology evolves, we’re seeing more use of spherical geometry in machine learning, where it helps model complex data and improve simulations in geospatial analysis and robotics. However, a major challenge remains in developing efficient algorithms to handle these calculations, particularly for real-time systems, which is crucial for things like augmented reality and more intuitive user interfaces.
+2025-06-25 14:21:55,062 - INFO - yield speech len 26.44, rtf 0.9020719964637698
+100%|██████████| 1/1 [00:23<00:00, 23.96s/it]100%|██████████| 1/1 [00:23<00:00, 23.96s/it]
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
   warnings.warn("Possible clipped samples in output.")
-2025-06-24 16:43:57,767 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:57] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-24 16:43:57,770 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_9_Reddit_users_generally_appreciate_meaningful.wav ...
-2025-06-24 16:43:58,244 - INFO - 127.0.0.1 - - [24/Jun/2025 16:43:58] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-24 16:43:58,277 - INFO - TTS (CosyVoice2): Speaker: 85, Volume: -15.0 dB, Prompt: Samuel, could you weigh in on this aspect?
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:43:58,337 - INFO - synthesis text Samuel, could you weigh in on this aspect?
-2025-06-24 16:44:00,270 - INFO - yield speech len 3.6, rtf 0.536876983112759
-100%|██████████| 1/1 [00:01<00:00,  1.99s/it]100%|██████████| 1/1 [00:01<00:00,  1.99s/it]
+2025-06-25 14:21:55,161 - INFO - 127.0.0.1 - - [25/Jun/2025 14:21:55] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-25 14:21:55,164 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_10_As_technology_evolves_were_seeing.wav ...
+2025-06-25 14:21:56,005 - INFO - 127.0.0.1 - - [25/Jun/2025 14:21:56] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-25 14:21:56,067 - INFO - TTS (CosyVoice2): Speaker: 82, Volume: -15.0 dB, Prompt: To add to that, I believe the intersection of spherical geometry with other non-Euclidean geometries offers exciting potential. It could lead to new theoretical insights and practical applications, especially as we advance in fields like artificial intelligence and data visualization.
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-25 14:21:56,273 - INFO - synthesis text To add to that, I believe the intersection of spherical geometry with other non-Euclidean geometries offers exciting potential. It could lead to new theoretical insights and practical applications, especially as we advance in fields like artificial intelligence and data visualization.
+2025-06-25 14:22:12,396 - INFO - yield speech len 19.28, rtf 0.8362951862366862
+100%|██████████| 1/1 [00:16<00:00, 16.29s/it]100%|██████████| 1/1 [00:16<00:00, 16.29s/it]
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
   warnings.warn("Possible clipped samples in output.")
-2025-06-24 16:44:00,310 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:00] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-24 16:44:00,312 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_10_Samuel_could_you_weigh_in.wav ...
-2025-06-24 16:44:00,471 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:00] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-24 16:44:00,487 - INFO - TTS (CosyVoice2): Speaker: 217, Volume: -15.0 dB, Prompt: Absolutely. Redditors often engage in deep, specific fields, and communal learning - something unique to Reddit’s structure. Another behavioral aspect worth mentioning is the use of 'throwaway' accounts for discussing sensitive or controversial topics.
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:44:00,600 - INFO - synthesis text Absolutely. Redditors often engage in deep, specific fields, and communal learning - something unique to Reddit’s structure. Another behavioral aspect worth mentioning is the use of 'throwaway' accounts for discussing sensitive or controversial topics.
-2025-06-24 16:44:08,000 - INFO - yield speech len 15.0, rtf 0.49329636891682943
-100%|██████████| 1/1 [00:07<00:00,  7.46s/it]100%|██████████| 1/1 [00:07<00:00,  7.46s/it]
+2025-06-25 14:22:12,540 - INFO - 127.0.0.1 - - [25/Jun/2025 14:22:12] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-25 14:22:12,544 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_11_To_add_to_that_I.wav ...
+2025-06-25 14:22:13,321 - INFO - 127.0.0.1 - - [25/Jun/2025 14:22:13] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-25 14:22:13,348 - INFO - TTS (CosyVoice2): Speaker: 11, Volume: -15.0 dB, Prompt: Thank you both for such enlightening perspectives. This has been a truly insightful discussion on how spherical geometry shapes not only our understanding of mathematics but also its impact on technology and future innovations. Thank you for joining us today, Dr. Cheng and Mr. Martinez!
+  0%|          | 0/1 [00:00<?, ?it/s]2025-06-25 14:22:13,590 - INFO - synthesis text Thank you both for such enlightening perspectives. This has been a truly insightful discussion on how spherical geometry shapes not only our understanding of mathematics but also its impact on technology and future innovations. Thank you for joining us today, doctor Cheng and Mister Martinez!
+2025-06-25 14:22:27,941 - INFO - yield speech len 15.8, rtf 0.90828537940979
+100%|██████████| 1/1 [00:14<00:00, 14.49s/it]100%|██████████| 1/1 [00:14<00:00, 14.49s/it]
 /home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
   warnings.warn("Possible clipped samples in output.")
-2025-06-24 16:44:08,031 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:08] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-24 16:44:08,032 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_11_Absolutely_Redditors_often_engage_in.wav ...
-2025-06-24 16:44:08,431 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:08] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-24 16:44:08,467 - INFO - TTS (CosyVoice2): Speaker: 85, Volume: -15.0 dB, Prompt: Indeed, the anonymous nature of Reddit seems to significantly impact user behaviors. Dr. Rosen, could you elaborate?
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:44:08,541 - INFO - synthesis text Indeed, the anonymous nature of Reddit seems to significantly impact user behaviors. doctor Rosen, could you elaborate?
-2025-06-24 16:44:13,084 - INFO - yield speech len 9.8, rtf 0.4635800390827412
-100%|██████████| 1/1 [00:04<00:00,  4.60s/it]100%|██████████| 1/1 [00:04<00:00,  4.60s/it]
-/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
-  warnings.warn("Possible clipped samples in output.")
-2025-06-24 16:44:13,128 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:13] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-24 16:44:13,129 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_12_Indeed_the_anonymous_nature_of.wav ...
-2025-06-24 16:44:13,433 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:13] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-24 16:44:13,454 - INFO - TTS (CosyVoice2): Speaker: 132, Volume: -15.0 dB, Prompt: Well, this anonymity provides users the freedom to voice personal or controversial views without fear of judgment. While this fosters diverse discussions, it can also instigate less empathic or decent behaviors.
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:44:13,556 - INFO - synthesis text Well, this anonymity provides users the freedom to voice personal or controversial views without fear of judgment. While this fosters diverse discussions, it can also instigate less empathic or decent behaviors.
-2025-06-24 16:44:19,898 - INFO - yield speech len 13.4, rtf 0.4733200927278889
-100%|██████████| 1/1 [00:06<00:00,  6.40s/it]100%|██████████| 1/1 [00:06<00:00,  6.40s/it]
-/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
-  warnings.warn("Possible clipped samples in output.")
-2025-06-24 16:44:19,939 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:19] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-24 16:44:19,940 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_13_Well_this_anonymity_provides_users.wav ...
-2025-06-24 16:44:20,322 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:20] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-24 16:44:20,350 - INFO - TTS (CosyVoice2): Speaker: 85, Volume: -15.0 dB, Prompt: Samuel, any thoughts?
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:44:20,405 - INFO - synthesis text Samuel, any thoughts?
-2025-06-24 16:44:21,564 - INFO - yield speech len 1.92, rtf 0.6037864834070206
-100%|██████████| 1/1 [00:01<00:00,  1.21s/it]100%|██████████| 1/1 [00:01<00:00,  1.21s/it]
-/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
-  warnings.warn("Possible clipped samples in output.")
-2025-06-24 16:44:21,595 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:21] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-24 16:44:21,598 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_14_Samuel_any_thoughts.wav ...
-2025-06-24 16:44:21,752 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:21] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-24 16:44:21,771 - INFO - TTS (CosyVoice2): Speaker: 217, Volume: -15.0 dB, Prompt: Anonymity on Reddit indeed encourages diverse dialogues. However, as Dr. Rosen mentioned, it can also lead to the rise of harmful behaviors which needs to be checked.
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:44:21,874 - INFO - synthesis text Anonymity on Reddit indeed encourages diverse dialogues. However, as doctor Rosen mentioned, it can also lead to the rise of harmful behaviors which needs to be checked.
-2025-06-24 16:44:29,439 - INFO - yield speech len 11.32, rtf 0.6682832754964121
-100%|██████████| 1/1 [00:07<00:00,  7.63s/it]100%|██████████| 1/1 [00:07<00:00,  7.63s/it]
-/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
-  warnings.warn("Possible clipped samples in output.")
-2025-06-24 16:44:29,464 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:29] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-24 16:44:29,466 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_15_Anonymity_on_Reddit_indeed_encourages.wav ...
-2025-06-24 16:44:29,797 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:29] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-24 16:44:29,833 - INFO - TTS (CosyVoice2): Speaker: 85, Volume: -15.0 dB, Prompt: Now, let's talk about fostering positive behavior on Reddit. Can you talk us through this Dr. Rosen?
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:44:29,910 - INFO - synthesis text Now, let's talk about fostering positive behavior on Reddit. Can you talk us through this doctor Rosen?
-2025-06-24 16:44:33,125 - INFO - yield speech len 6.8, rtf 0.47276921132031613
-100%|██████████| 1/1 [00:03<00:00,  3.27s/it]100%|██████████| 1/1 [00:03<00:00,  3.27s/it]
-/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
-  warnings.warn("Possible clipped samples in output.")
-2025-06-24 16:44:33,148 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:33] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-24 16:44:33,150 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_16_Now_lets_talk_about_fostering.wav ...
-2025-06-24 16:44:33,367 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:33] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-24 16:44:33,389 - INFO - TTS (CosyVoice2): Speaker: 132, Volume: -15.0 dB, Prompt: Reddit enforces clear site rules and relies heavily on moderators to manage each subreddit's norms. To foster positive interactions, I believe they could expand on the current Karma system to highlight good digital citizenship and promote more positive discussions and support.
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:44:33,501 - INFO - synthesis text Reddit enforces clear site rules and relies heavily on moderators to manage each subreddit's norms. To foster positive interactions, I believe they could expand on the current Karma system to highlight good digital citizenship and promote more positive discussions and support.
-2025-06-24 16:44:41,868 - INFO - yield speech len 18.84, rtf 0.44413313997272724
-100%|██████████| 1/1 [00:08<00:00,  8.41s/it]100%|██████████| 1/1 [00:08<00:00,  8.41s/it]
-/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
-  warnings.warn("Possible clipped samples in output.")
-2025-06-24 16:44:41,904 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:41] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-24 16:44:41,912 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_17_Reddit_enforces_clear_site_rules.wav ...
-2025-06-24 16:44:42,478 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:42] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-24 16:44:42,514 - INFO - TTS (CosyVoice2): Speaker: 85, Volume: -15.0 dB, Prompt: And what's your take on this, Samuel?
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:44:42,576 - INFO - synthesis text And what's your take on this, Samuel?
-2025-06-24 16:44:43,741 - INFO - yield speech len 2.04, rtf 0.5710109776141596
-100%|██████████| 1/1 [00:01<00:00,  1.23s/it]100%|██████████| 1/1 [00:01<00:00,  1.23s/it]
-/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
-  warnings.warn("Possible clipped samples in output.")
-2025-06-24 16:44:43,786 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:43] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-24 16:44:43,788 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_18_And_whats_your_take_on.wav ...
-2025-06-24 16:44:43,897 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:43] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-24 16:44:43,923 - INFO - TTS (CosyVoice2): Speaker: 217, Volume: -15.0 dB, Prompt: Reddit uses both human moderation and machine learning algorithms to enforce rules and take actions against inappropriate content. But yes, as Dr. Rosen suggested, enhancing user verifications could discourage trolling and incivility, thus fostering a more encouraging and open environment.
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:44:44,051 - INFO - synthesis text Reddit uses both human moderation and machine learning algorithms to enforce rules and take actions against inappropriate content. But yes, as doctor Rosen suggested, enhancing user verifications could discourage trolling and incivility, thus fostering a more encouraging and open environment.
-2025-06-24 16:44:52,641 - INFO - yield speech len 18.44, rtf 0.46581373814646954
-100%|██████████| 1/1 [00:08<00:00,  8.65s/it]100%|██████████| 1/1 [00:08<00:00,  8.65s/it]
-/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
-  warnings.warn("Possible clipped samples in output.")
-2025-06-24 16:44:52,667 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:52] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-24 16:44:52,668 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_19_Reddit_uses_both_human_moderation.wav ...
-2025-06-24 16:44:53,092 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:53] "POST /fix_audio HTTP/1.1" 200 -
-2025-06-24 16:44:53,130 - INFO - TTS (CosyVoice2): Speaker: 85, Volume: -15.0 dB, Prompt: Thank you both for your incredibly insightful conversation today. Dear audience, we hope you found this discussion engaging and enlightening. Enjoy the rest of your evening!
-  0%|          | 0/1 [00:00<?, ?it/s]2025-06-24 16:44:53,221 - INFO - synthesis text Thank you both for your incredibly insightful conversation today. Dear audience, we hope you found this discussion engaging and enlightening. Enjoy the rest of your evening!
-2025-06-24 16:44:57,375 - INFO - yield speech len 8.64, rtf 0.4807922851156305
-100%|██████████| 1/1 [00:04<00:00,  4.21s/it]100%|██████████| 1/1 [00:04<00:00,  4.21s/it]
-/home/ivan/miniconda3/envs/podcast/lib/python3.10/site-packages/pyloudnorm/normalize.py:62: UserWarning: Possible clipped samples in output.
-  warnings.warn("Possible clipped samples in output.")
-2025-06-24 16:44:57,409 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:57] "POST /generate_speech HTTP/1.1" 200 -
-2025-06-24 16:44:57,411 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_20_Thank_you_both_for_your.wav ...
-2025-06-24 16:44:57,619 - INFO - 127.0.0.1 - - [24/Jun/2025 16:44:57] "POST /fix_audio HTTP/1.1" 200 -
+2025-06-25 14:22:28,010 - INFO - 127.0.0.1 - - [25/Jun/2025 14:22:28] "POST /generate_speech HTTP/1.1" 200 -
+2025-06-25 14:22:28,013 - INFO - Fixing /home/ivan/github-repos/edtech/edtech/PodAgent/output/sessions/test/audio/fg_speech_12_Thank_you_both_for_such.wav ...
+2025-06-25 14:22:28,717 - INFO - 127.0.0.1 - - [25/Jun/2025 14:22:28] "POST /fix_audio HTTP/1.1" 200 -
