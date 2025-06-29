@@ -4,10 +4,10 @@ import { join } from 'path';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { sessionId: string; fileName: string } }
+  { params }: { params: Promise<{ sessionId: string; fileName: string }> }
 ) {
   try {
-    const { sessionId, fileName } = params;
+    const { sessionId, fileName } = await params;
     
     // Construct the path to the audio file in PodAgent output directory
     const audioPath = join(process.cwd(), 'PodAgent', 'output', 'sessions', sessionId, 'audio', fileName);

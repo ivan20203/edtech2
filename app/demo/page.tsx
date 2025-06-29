@@ -36,6 +36,15 @@ const audioTracks: AudioTrack[] = [
   },
   {
     id: '3',
+    title: 'DIA24sec',
+    artist: 'Audio Track',
+    duration: '0:00',
+    file: '/audio/DIA24sec.wav',
+    fileType: 'wav',
+    waveform: [0.4, 0.6, 0.8, 0.9, 0.7, 0.5, 0.3, 0.6, 0.8, 0.9, 0.7, 0.4, 0.2, 0.5, 0.7, 0.9]
+  },
+  {
+    id: '4',
     title: 'Mooncast',
     artist: 'Podcast Audio',
     duration: '0:00',
@@ -44,7 +53,7 @@ const audioTracks: AudioTrack[] = [
     waveform: [0.1, 0.3, 0.6, 0.8, 0.9, 0.7, 0.4, 0.2, 0.6, 0.9, 0.8, 0.5, 0.3, 0.7, 0.9, 0.6]
   },
   {
-    id: '4',
+    id: '5',
     title: 'Mooncast2',
     artist: 'Podcast Audio',
     duration: '0:00',
@@ -53,7 +62,16 @@ const audioTracks: AudioTrack[] = [
     waveform: [0.2, 0.4, 0.6, 0.7, 0.8, 0.6, 0.4, 0.3, 0.5, 0.7, 0.8, 0.6, 0.4, 0.2, 0.5, 0.7]
   },
   {
-    id: '5',
+    id: '6',
+    title: 'MoonCast39sec',
+    artist: 'Podcast Audio',
+    duration: '0:00',
+    file: '/audio/MoonCast39sec.mp3',
+    fileType: 'mp3',
+    waveform: [0.3, 0.5, 0.7, 0.8, 0.9, 0.6, 0.4, 0.2, 0.6, 0.8, 0.9, 0.7, 0.5, 0.3, 0.7, 0.9]
+  },
+  {
+    id: '7',
     title: 'PodAgent',
     artist: 'Podcast Agent',
     duration: '0:00',
@@ -62,7 +80,7 @@ const audioTracks: AudioTrack[] = [
     waveform: [0.4, 0.6, 0.8, 0.9, 0.7, 0.5, 0.3, 0.6, 0.8, 0.9, 0.7, 0.4, 0.2, 0.5, 0.7, 0.9]
   },
   {
-    id: '6',
+    id: '8',
     title: 'PodAgent2',
     artist: 'Podcast Agent',
     duration: '0:00',

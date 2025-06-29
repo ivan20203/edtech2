@@ -13,9 +13,9 @@ export const Navbar = () => {
             Home
           </Button>
         </Link>
-        <Link href="/podagent-demo">
+        <Link href="/demo">
           <Button variant="ghost" size="sm">
-            PodAgent Demo
+            Demos
           </Button>
         </Link>
       </div>
