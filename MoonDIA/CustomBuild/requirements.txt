@@ -1,0 +1,13 @@
+torch>=2.0.0
+torchaudio>=2.0.0
+transformers>=4.30.0
+numpy>=1.21.0
+sentencepiece>=0.2.0
+protobuf
+safetensors
+accelerate>=0.26.0
+huggingface_hub>=0.16.0
+einops
+scipy
+timm>=1.0.7
+flash-attn 
