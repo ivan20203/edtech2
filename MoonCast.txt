@@ -1,0 +1,1115 @@
+Abstract
+Recent advances in text-to-speech synthesis have
+achieved notable success in generating high-
+quality short utterances for individual speak-
+ers. However, these systems still face challenges
+when extending their capabilities to long, multi-
+speaker, and spontaneous dialogues, typical of
+real-world scenarios such as podcasts. These limi-
+tations arise from two primary challenges: 1) long
+speech: podcasts typically span several minutes,
+exceeding the upper limit of most existing work;
+2) spontaneity: podcasts are marked by their spon-
+taneous, oral nature, which sharply contrasts with
+formal, written contexts; existing works often fall
+short in capturing this spontaneity. In this paper,
+we propose MoonCast, a solution for high-quality
+zero-shot podcast generation, aiming to synthe-
+size natural podcast-style speech from text-only
+sources (e.g., stories, technical reports, news in
+TXT, PDF, or Web URL formats) using the voices
+of unseen speakers. To generate long audio, we
+adopt a long-context language model-based au-
+dio modeling approach utilizing large-scale long-
+context speech data. To enhance spontaneity, we
+utilize a podcast generation module to generate
+scripts with spontaneous details, which have been
+empirically shown to be as crucial as the text-to-
+speech modeling itself. Experiments demonstrate
+that MoonCast outperforms baselines, with partic-
+ularly notable improvements in spontaneity and
+coherence.
+1. Introduction
+In recent years, significant advancements in large language
+models (LLMs) and speech codec technologies have sub-
+stantially enhanced the performance of text-to-speech (TTS)
+(^1) University of Science and Technology of China (^2) Moonshot
+AI^3 The Chinese University of Hongkong^4 Microsoft Research.
+Correspondence to: Xu Tantanxu@moonshot.cn.
+synthesis, improving its naturalness, expressiveness, and
+tonal richness. These advancements have led to widespread
+adoption in industries such as customer service and short
+video production. As TTS technology continues to evolve,
+there is a growing demand for generating long-duration
+podcast content from text-only sources, such as news, tech-
+nical reports, and stories. Podcast speech requires not only
+extended audio lengths but also highly spontaneous expres-
+sions, often involving multiple speakers and dynamic inter-
+action.
+The limitations of previous efforts in generating high-quality
+podcasts stem from two key challenges. First, long-context
+audio modeling presents significant challenges. Podcasts
+typically span over several minutes, featuring numerous
+utterances from multiple speakers. This requires the sys-
+tem to generate not only realistic individual speech but also
+seamless transitions between utterances. Furthermore, high-
+quality podcast generation must account for the contextual
+coherence of each speaker, encompassing aspects such as
+prosody and timbre. Second, podcasts are highly sponta-
+neous, typified by the fluid and casual flow of human con-
+versation. They often contain human-like details, including
+filler words such as ”um,” occasional hesitations, and minor
+mistakes. In the multiple-speaker scenario, the system must
+also account for the interactions between speakers. How-
+ever, the TTS community has largely focused on improving
+short individual utterance generation, with limited efforts
+exploring long-context, spontaneous scenarios. Specifically,
+academic research has primarily focused on short conversa-
+tional speech (Nguyen et al., 2023; Mitsui et al., 2023), but
+these efforts often face difficulties when applied to longer,
+more complex podcast scenarios, particularly in capturing
+spontaneity and naturalness within inter-sentence interac-
+tions. Recently, industrial solutions like NotebookLM^1
+have emerged to facilitate podcast creation from various
+knowledge sources. However, these solutions often lack
+transparency in their technical details, limiting their adapt-
+ability.
+To overcome these limitations, we propose a high-quality
+podcast generation system MoonCast. On one hand, in-
+(^1) https://notebooklm.google.com/
+
+arXiv:2503.14345v2 [eess.AS] 19 Mar 2025
+spired by the remarkable success of LLMs, we adopt a
+language model-based approach for speech modeling, lever-
+aging its powerful in-context learning capabilities, scala-
+bility, and, notably, its ability to effectively manage long
+contexts. We gather large-scale long-context speech data
+from diverse sources and scale both model parameters and
+context length to enhance long-context capability. We em-
+ploy a curriculum learning approach to progressively equip
+the model with zero-shot, long-context, and spontaneous
+speech generation capabilities in three stages. Furthermore,
+we employ a chunk-wise autoregressive speech detokenizer
+to ensure effective inference in the long-context scenario.
+
+On the other hand, to further enhance the spontaneity of the
+generated podcast, we use an LLM-powered podcast script
+generation module to transform complex information from
+input text-only sources into a conversational podcast script
+format. Building on our empirical finding that the spon-
+taneity of the generated audio is significantly influenced not
+only by text-to-speech modeling but also by the podcast
+script text itself, we provide specific examples and guid-
+ance to facilitate the LLM in generating spontaneous details
+in the script. This helps bridge the gap between the input
+text used for audio modeling during inference and training,
+thereby activating the model’s spontaneous generation capa-
+bilities developed through large-scale multi-domain speech
+training.
+
+With this design, we can generate a spontaneous podcast
+of up to ten minutes from text-only input sources in a com-
+prehensive manner. The experimental results show that
+the proposed system consistently outperforms the concate-
+nate baselines in terms of intelligibility, coherence, and
+spontaneity for multi-lingual podcast generation. Specif-
+ically, MoonCast achieves subjective evaluation improve-
+ments of 0.40 in spontaneity, 0.33 in coherence, 0.05 in
+intelligibility, 0.10 in speech quality and 0.20 in speaker
+similarity for Chinese, and 0.85 in spontaneity, 0.70 in
+coherence, and 0.08 in intelligibility for English podcast
+generation. We invite readers to listen to audio samples
+athttps://mooncastdemo.github.iofor a more
+intuitive experience.
+
+We open-source MoonCast, including the prompts^2 for
+script generation and the audio modeling module^3 for
+speech generation, to support future research.
+
+2. Background
+2.1. Zero-Shot TTS
+
+Zero-shot text-to-Speech synthesis aims to synthesize
+speech that mimics the characteristics of a target speaker
+
+(^2) Refer to Appendix C
+(^3) https://github.com/jzq2000/MoonCast
+using only a brief prompt speech, without requiring addi-
+tional fine-tuning (Shen et al., 2023; Ju et al., 2024; Chen
+et al., 2024). Recent advancements in zero-shot TTS can be
+broadly categorized into two types based on the representa-
+tion: discrete code or continuous latent. For the code-based
+method, VALL-E (Wang et al., 2023) utilizes neural codec
+language models and achieves high fidelity in zero-shot TTS.
+Seed-TTS (Anastassiou et al., 2024) and CosyVoice (Du
+et al., 2024a;b) leverage a single semantic codebook to
+reduce the difficulty on discrete code generation. Also, dis-
+crete diffusion can be leveraged to enable code generation in
+a non-autoregressive manner (Borsos et al., 2023; Ju et al.,
+2024). For the latent-based method, Naturalspeech 2 (Shen
+et al., 2023) leverages latent diffusion to predict the latent
+of a speech codec conditioned on a short prompt speech.
+VoiceBox (Le et al., 2024) utilizes flow matching to model
+Mel-spectrogram of a speech. In this paper, we adopt a
+pipeline that combines both the code-based and latent-based
+methods. Rather than focusing on speech that contains only
+a single speaker, we consider zero-shot two-speaker podcast
+speech generation.
+2.2. Dialogue and Conversation Generation
+Most works in zero-shot TTS focus on the speech synthe-
+sis of one speaker. However, many scenarios such as dia-
+logues, conversations, and podcasts require the TTS model
+to be able to synthesize speech with multi-speaker at the
+same time. Generating spoken dialogues (Schuller et al.,
+
+that include natural turn-taking, laughter, and other
+paralinguistic cues (Zhang et al., 2020; Adiwardana et al.,
+2020; Lewis et al., 2020; Xu, 2021) is non-trivial. Recent
+work has explored various approaches to address this chal-
+lenge. DGSLM (Nguyen et al., 2023) uses a dual-tower
+transformer architecture to capture the turn-taking dynamics
+and non-verbal vocalizations in spoken dialogues, aiming
+to generating naturalistic spoken dialogues. Built on the
+top of dGSLM, CHATS (Mitsui et al., 2023) makes the
+generated dialogues more interactive and fluid by incor-
+porating backchannels, laughter, and smooth turn-taking.
+To enable dialogue generation with diverse timbre, CoV-
+oMix (Zhang et al., 2024) proposes zero-shot dialogue gen-
+eration to support zero-shot, multi-speaker, multi-round
+dialogue speech generation. Thanks to the progress in large
+language model (Achiam et al., 2023; Yang et al., 2024),
+we can generate speech dialogue with more spontaneous
+content (Lu et al., 2025). Despite these advancements, most
+prior works rely on datasets of approximately 2000 hours
+(such as the Fisher dataset (Cieri, 2004)) and are limited
+to generating dialogues of less than 90 seconds. These
+limitations stem from the challenges in maintaining coher-
+ence and naturalness over longer contexts. In this paper,
+we address these limitations by proposing a long-context
+text-to-semantic autoregressive architecture to model the
+Knowledge Sources
+Script Generation
+Module
+Spontaneous Audio
+Audio Modeling
+Module
+Spontaneous Scripts
+Figure 1.The overall pipeline of the proposed system.
+inter-sentence prosody, speaker change, and paragraph-level
+spontaneity.
+
+2.3. Spontaneous TTS
+
+Spontaneous TTS refers to the synthesis of speech that mim-
+ics natural, conversational speaking styles, as opposed to
+more formal or read speech. It aims to generate speech with
+characteristics such as filler words (e.g., “um” and “uh”),
+diverse rhythms, and natural prosody variations (Yan et al.,
+2021; Li et al., 2024b). SponTTS (Li et al., 2024a) proposes
+a neural bottleneck to help TTS model better model and
+transfer spontaneous style. Other works (Li et al., 2024b)
+utilizes LLM to systematically categorize the spontaneous
+behaviors and then uniformly model these behaviors in TTS
+model. BaseTTS (Łajszczak et al., 2024) finds out that the
+spontaneity can come from emergence. Once the TTS model
+has been trained on a large number of speech data (Anastas-
+siou et al., 2024), it can acquire emergent abilities, such as
+expressing emotions. Along this direction, in our paper, we
+further find out that the spontaneity of the generated audio is
+significantly influenced not only by text-to-speech modeling
+but also by the script text itself.
+
+3. Method
+3.1. Overall
+
+In this section, we describe the method for podcast speech
+generation. Conceptually, a podcast consists of multi-
+speaker, multi-turn spoken dialogues in a spontaneous man-
+ner. Unlike traditional zero-shot speech synthesis methods
+that focus on a single speaker and fixed textual inputs, we
+divide the podcast generation process into two stages: 1)
+spontaneous script generation, which converts input knowl-
+edge sources into spontaneous text for podcast creation, and
+
+spontaneous podcast speech generation, which involves
+multiple speakers and turns following the generated script.
+In this paper, we focus on generating two-speaker podcasts.
+The overall system pipeline is illustrated in Figure 1. To
+generate a spontaneous podcast, we first employ an LLM-
+powered podcast script generation module to produce pod-
+cast scripts from input knowledge sources. Subsequently,
+we utilize a long context audio modeling module to gener-
+ate podcast speech according to the scripts, using unseen
+
+speakers’ voices. In specific, for the novel task of pod-
+cast speech generation, we represent each audio frame as a
+single discrete semantic audio code, thereby decomposing
+the task into text-to-semantic generation and semantic-to-
+audio reconstruction sub-tasks, using the discrete semantic
+code sequence as the intermediate representation. Specifi-
+cally, we use a speech semantic codec for speech semantic
+representation, a text-to-semantic model for semantic code
+modeling, a speech detokenizer for semantic-to-mel recon-
+struction, and a pre-trained vocoder for mel-to-waveform
+reconstruction.
+3.2. Audio Modeling Module
+3.2.1. LONG-CONTEXTTWO-SPEAKER
+TEXT-TO-SEMANTICMODEL
+The zero-shot two-speaker podcast generation task aims to
+synthesize each turn of the podcast using the corresponding
+speaker’s voice, based on the provided reference speech
+from two speakers. A significant challenge arises from the
+length of speech code sequences. For example, with a 50
+Hz single-layer speech codec (i.e., using a single code to
+represent a 20 ms speech frame), a common codec setting,
+a 5-minute podcast corresponds to a sequence length of
+15,000. The long sequence length increases the modeling
+complexity. Additionally, unlike single-speaker zero-shot
+speech synthesis, this task must also ensure contextual co-
+herence and smooth transitions between individual speech
+segments.
+Motivated by the remarkable success of LLMs, we adopt a
+language model-based approach to generate discrete speech
+codes from podcast script text. This choice is driven by the
+language models’ powerful in-context learning capabilities,
+their scalability in terms of both data and model size, and,
+notably, their ability to effectively manage long contexts,
+which is crucial for our task. Specifically, we utilize a
+unified language model to model the entire speech code
+sequence, including all speech segments of both speakers
+and the transition audio between segments, for superior
+contextual coherence.
+Sequence Design.Sequence design plays a crucial role in
+overall performance. Our goal is to preserve the continuity
+of speech as a coherent whole. To achieve this, we adopt
+a full-text-to-full-audio interleaving approach, rather than
+interleaving on a per-turn basis. Specifically, we merge
+adjacent segments from the same speaker to ensure alter-
+nating turns between speakers and incorporate a special
+speaker-change token after each turn’s speech and prompt.
+This token indicates the change of speaker, thereby enhanc-
+ing speaker robustness. Formally, we denote the prompt
+speech codes bysˆiand the corresponding text byˆtifor
+speakerSi, wherei∈{ 1 , 2 }. The podcast is represented as
+a list[(spkj,tj,sj)]consisting ofMdialogue turns, where
+spkj,tjandsjcorrespond to the speaker, the script text
+and the speech for the turnj, wherej∈ { 1 ,...,M}. To
+construct the two-speaker data sequence, we start from
+creating four sub-sequences by prepending the speaker
+identifier to each prompt and podcast turn: prompt text
+TP ={S^1 ,ˆt^1 ,S^2 ,ˆt^2 }, prompt speechSP ={sˆ^1 ,ˆs^2 },
+podcast textT ={spk 1 ,t 1 ,...,spkM,tM}, and podcast
+speechS={s 1 ,...,sM}. These sequences are concate-
+nated in the order{TP,T,SP,S}. We use the language
+model to estimate the probabilityp(S|TP,T,SP). During
+training, we compute the average cross-entropy loss for each
+turn, taking into account both the speech codes and the spe-
+cial speaker-change token. During inference, the predicted
+speaker-change token allows us to select the appropriate
+prompt speech for reconstructing the speech.
+
+Curriculum Learning. To enhance the model’s long-
+context capability and spontaneous audio generation, we
+select a larger model size (2.5B parameters) compared to
+the single-speaker scenario (usually less than 1B parame-
+ters) and collect a large-scale, long-context speech training
+dataset from diverse sources. Given the limited availabil-
+ity of high-quality long-form spontaneous speech data, we
+employ the curriculum learning technique to progressively
+enhance the model’s capabilities across three distinct stages,
+gradually increasing the complexity of the training data to
+optimize learning efficiency.
+
+In the first stage, we segment the entire audio from all data
+sources according to the annotations. Each segment contains
+a single-turn utterance from only one speaker. Specifically,
+we do not explicitly specify speech prompts, but instead
+implicitly assume that any prefix of the sequence serves as
+the prompt for the remainder. We train the model on these
+individual segments to initially develop its zero-shot TTS
+capability.
+
+In the second stage, we begin modeling entire audio se-
+quences involving two speakers and multiple turns. Given
+that non-conversational scenarios, such as audiobooks, typi-
+cally involve less interaction between speakers and feature
+simpler text with fewer spontaneous details, we start from
+these data sources, which are easier to learn from. Specifi-
+cally, we use the first turn from each speaker as the prompt
+for zero-shot generation and scale the context length to
+40,000 tokens (equivalent to 800 seconds in our setting) to
+accommodate long-context scenarios. This approach aims to
+enhance the model’s consistency in speaker representation
+and robustness in long-context, two-speaker scenarios.
+
+In the final stage, we refine the model’s ability to generate
+spontaneous speech using conversational data from sources
+such as podcasts, which feature two speakers and multiple
+turns. These sources are characterized by dynamic, natural
+interactions between speakers and the presence of sponta-
+neous speech elements, essential for capturing the nuances
+
+of real-world conversations. Similar to the second stage,
+we use the first turn from each speaker as the prompt for
+zero-shot generation while maintaining the context length
+at 40,000 tokens to support long-context modeling. By ex-
+posing the model to this type of data, we aim to improve its
+ability to generate both spontaneous and engaging speech.
+3.2.2. CHUNK-WISEAUTOREGRESSIVESPEECH
+DETOKENIZER
+To decode the generated speech codes and produce the final
+podcast, several naive approaches may come to mind, each
+with its own limitations.
+One approach might involve reconstructing the entire se-
+quence at once. However, this method faces two major
+challenges. First, waiting for all tokens to be generated can
+be prohibitively slow, especially for long speech segments
+typical in podcast scenarios. Additionally, the large memory
+footprint required for processing such long sequences often
+exceeds the available GPU memory, making this approach
+impractical.
+Another naive method is to split the speech into fixed-length
+segments (e.g., 30 seconds), reconstruct each segment indi-
+vidually, and then concatenate them. While this approach
+mitigates the memory issue by reducing the sequence length,
+it introduces a new problem: discontinuities at the bound-
+aries between chunks. These discontinuities can lead to less
+fluent and consistent speech, as each segment is generated
+independently without considering the context of adjacent
+segments.
+To address these limitations, we propose a more efficient
+solution: a chunk-wise autoregressive detokenizer. This
+method divides the speech tokens into small chunks (e.g.,
+3 seconds per chunk), enabling more efficient processing
+of long speech segments. By processing the sequence in
+smaller, manageable chunks, we significantly reduce both
+computational overhead and memory requirements. Addi-
+tionally, we apply a chunk-wise causal mask, which allows
+each chunk to reference the history of previously gener-
+ated speech chunks. This approach not only improves the
+fluency and consistency of the generated speech but also
+ensures more stable boundaries between chunks, effectively
+resolving the continuity issues that arise from directly con-
+catenating fixed-length segments.
+Flow Matching Model. Our detokenizer is based on a
+DiT (Peebles & Xie, 2023)-based flow-matching model,
+which conditions on speech codes and generates the mel-
+spectrogram from random Gaussian noise. Firstly, we take
+the chunkiand all previous chunks< iwhere the chunkiis
+for generation and chunks< iis the prompt for clarification
+(i∈[0,N], where N is the chunk amount). We assume
+the chunki’s mel-spectrogram isMiand speech codesCi
+(M<iandC<ifor previous chunks< ias well). The flow-
+matching approach involves the forward process to add noise
+to the data, and the backward process to remove the noise in
+reverse. In training, we apply forward process to obtain the
+noised dataMi(t) =t∗Mi+(1−(1−σmin)t)Mˆby mixing
+the sampled gaussian noiseMˆ∼N(0,1)with clean data
+Miat timestampt∈[0,1], whereσminis a hyper-parameter.
+The flow-matching modelfθ, parameterize byθ, is adopted
+to learn the mappingfθ(Mi(t)) =dMi(t)/dt=Mi−(1−
+σmin)Mˆwith the conditionCi. In addition, theM<iand
+C<iare adopted as the prompts for in-context learning. At
+inference, we start backward process from another sampled
+Gaussian noiseMi(0)∼N(0,1)and recover the clean data
+through the ODE:dMi(t) =fθ(Mi(t))dt.
+
+M!"#M!"$ M!M!%$M′!"#M′!"$ M′!M′!%$
+M!&%$
+M!&
+M!&"$
+M!&"#
+M!%$
+M!
+M!"$
+M!"#
+`
+Figure 2.The attention mask design for chunk-wise autoregressive
+speech detokenizer.Mimeans the clean mel-spectrogram andM′i
+means noisy mel-spectrogram. Yellow means allow to attend, and
+gray means not allowed to attend. Attention is conducted among
+row-wise in figure.
+
+Chunk-wise Causal Mask.For training the chunk-wise au-
+toregressive flow-matching model, inspired by ARDit (Liu
+et al., 2024), we first segment the long speech into chunks
+and apply a chunk-wise causal attention mask, where chunk
+ican access information from both the current and previ-
+ous chunks to facilitate effective training. As shown in
+Fig. 2, we assume the prompt chunk asMi(clean mel-
+spectrogram) and the chunk for generation asM′i(noisy
+mel-spectrogram). During training, we put all chunksMi
+andM′iin a whole sequence, thus there are 2 Nchunks. The
+attention mask follows: 1) there is no mask in the current
+chunk; 2) for the left half chunks whereMi∈[0,N)(i.e.,
+lower rows in Fig. 2), we apply attention mask whereMi
+can only attend to the chunksMjwherej∈[0,i]; 3) for
+the right half chunks whereM′i∈[N, 2 N)(i.e., upper rows
+in Fig. 2), we apply attention mask where chunkM′ican
+only attend to clean chunksMjwherej∈[0,i−1]and
+noisy chunkM′iitself.
+
+Following this design, during inference, when the LLM
+generates a chunk, we use the flow-matching model to deto-
+kenize it and generate the corresponding mel-spectrogram
+M. We then apply additional prefilling for this chunk with
+Mand a timestep of 0. 999 to generate the kv-cache for
+efficient inference.
+
+3.3. LLM-Powered Script Generation Module
+In this section, we present an LLM-powered podcast script
+generation module, enabling users to create rich and diverse
+scripts from different knowledge sources. This module
+consists of three components:
+(1) Content analysis:For any type of user input (e.g., Web
+URL, PDF), we combine LLMs to recognize the content in
+the input. For example, if the user’s input is a Web URL, we
+use the search function in ChatGPT to retrieve the content
+from the link.
+(2) Briefing document generation: In our preliminary
+experiments, we find that directly asking LLM to generate
+scripts based on the original content often results in ill-
+suited, vague, and general scripts, which leads to the loss of
+significant information. To address this issue, we propose
+generating a briefing document first, which covers the key
+points in the original content. Specifically, the briefing
+document includes five components: the title with authors,
+an abstract, main topics, key citations and a conclusion.
+Each component includes an additional paragraph to explain
+technical terms, concepts, or methods that might confuse
+readers unfamiliar with the field.
+(3) Scripts generation:Based on the briefing document,
+we use LLM to generate a podcast script that features co-
+herent logic, comprehensive content, and rich mood words.
+Specifically, We guide the LLM in three key areas: pod-
+cast structure, format, and content. For structure, we ask
+the LLM to create engaging openings and closings that set
+the tone and effectively wrap up the podcast. Regarding
+format, the script must be in JSON format and feature two
+speakers: a host who controls the pace of the conversation
+and a guest who primarily introduces the content of the
+document. In terms of content, the script includes key ci-
+tations and explanations of technical terms in a coherent
+manner, ensuring logical connections between topics and
+maintaining a moderate information density. Furthermore,
+we empirically find that the spontaneity of the script is cru-
+cial for generating spontaneous audio. To align with the
+conversational nature of our training dataset, which contains
+transcripts derived from spontaneous speech, we guide the
+LLM to incorporate spontaneous details such as filler words
+(e.g., ‘um’, ‘uh’, ‘like’, ‘you know’, ‘so’), response words
+(e.g., ‘yeah’, ‘right’, ‘okay’), repetitions, informal gram-
+mar, and other conversational expressions. Moreover, we
+provide formatting tips, such as using spaces and commas
+within sentences to indicate pauses, and also offer a specific
+example to further illustrate our overall requirements.
+4. Experiments and Results
+4.1. Experimental Settings
+
+In this section, we present a overview of the experimental
+setup, including detailed descriptions of the data preparation,
+the model architecture, and the evaluation setting.
+
+4.1.1. DATAPREPARATION
+We conduct our experiments on a large-scale internal Chi-
+nese and English audio dataset comprising approximately
+1.0 million hours of audio from diverse sources, including
+podcasts, audiobooks, and audio clips from shows. Fol-
+lowing previous works (Yu et al., 2024; He et al., 2024),
+we apply a data processing pipeline to process these audio
+source. The final dataset comprises 300,000 hours from
+Chinese audiobook sources, 15,000 hours from Chinese
+conversational sources, and 200,000 hours from English
+conversational sources. Refer to Appendix B for more de-
+tails.
+
+4.1.2. MODELDETAILS
+Speech Semantic Codec.For the speech semantic codec,
+both the encoder and decoder consist of 12 ConvNext blocks,
+each with a kernel size of 7 and a hidden size of 384.
+The 1024-dimensional SSL feature is projected into an 8-
+dimensional space for quantization using an 8192-entry
+codebook. We train the codec for 200,000 steps.
+
+Text-to-Semantic ModelFor the text-to-semantic model,
+we use a 2.5B-parameter, 16-layer Llama-style Transformer
+with a hidden size of 3072 and 24 attention heads. We train
+it using the Megatron framework on 64 A100 80GB GPUs
+with a tensor parallelism degree of 8, over a maximum se-
+quence length of 40k, a batch size of 600, and for 2,
+steps in each curriculum learning stage. We use a top-k
+value of 30, a top-p value of 0.8, and a temperature of 0.
+for inference. We use Byte-Pair Encoding (BPE) for text
+tokenization. The model undergoes curriculum learning in
+three stages. In the first two stages, it is trained on Chinese
+data to support zero-shot long-context speech generation. In
+the third stage, we mix both Chinese and English conversa-
+tional data to handle multilingual spontaneous generation
+tasks.
+
+Speech DetokenizerFor the speech detokenizer, we adopt
+a 0.8B-parameter, 10-layer Dit-style Transformer with a
+hidden size of 2048 and 16 attention heads. During training,
+the chunk size is dynamically set between 0.5 and 3 seconds
+to support flexible inference. For inference, we specifically
+use a chunk size of 3 seconds to achieve better quality. The
+backward ODE for each chunk is solved using 30 steps with
+the torchdyn toolkit (Poli et al.). In addition, we adopt a
+250M-parameter BigVGAN (Lee et al., 2022) to reconstruct
+waveforms from mel-spectrograms.
+
+4.1.3. EVALUATIONDETAILS
+Evaluation Dataset. For podcast generation, we curate
+an evaluation dataset comprising two knowledge sources
+in PDF format and two in web URL format, encompass-
+ing domains such as computer science papers, economics
+papers, technology blogs, and news articles. To verify the
+importance of spontaneous text, we select seven two-speaker
+Chinese podcasts, with speakers not present in the training
+data, totaling 125 turns, to assess the impact of scripted
+text on generation quality. For both datasets, we use 3-
+seconds of speech as the prompt for each speaker.
+Model Comparison. We employ a concatenation base-
+line, whose text-to-semantic model is trained exclusively on
+single-speaker, single-turn data while other models remain
+the same. We also utilize Cosyvoice2 (Du et al., 2024b), a
+powerful open-sourced multi-lingual single-speaker zero-
+shot TTS model, as another baseline. For these two single-
+speaker baselines, we first generate each dialogue turn indi-
+vidually in a zero-shot manner, and then concatenate these
+turns to form the complete podcast.
+Evaluation Metric.We employ both subjective and objec-
+tive metrics for a comprehensive evaluation.
+1) For the subjective evaluation, we involve five evaluators
+to assess three specific aspects of the generated podcast: the
+entire audio, transitions between segments and individual
+segments. Specifically, we consider 1) spontaneity of the
+entire generated podcast and 2) coherence of transitions
+between segments. Additionally, for individual segments,
+we focus on three metrics: 3) intelligibility, 4) speech quality
+and 5) speaker similarity.
+2) For the objective evaluation, we employ SIM-O to as-
+sess speaker similarity and the Character Error Rate (CER)
+to evaluate robustness. In detail, we apply the pretrained
+WavLM-TDCNN^4 speaker embedding model to assess
+speaker cosine similarity between generated samples and
+the prompt speech. We average the SIM-O scores for each
+round according to the audio length. We utilize the FunASR
+toolkit to transcribe the generated speech, leveraging its
+robust capabilities in Mandarin speech recognition.
+4.2. Experimental Results
+In this section, we first evaluate MoonCast by comparing
+it with existing baselines on the podcast generation task,
+thus confirming its superior performance. Subsequently,
+we empirically validate a key aspect of our system: the
+spontaneity of the generated audio is significantly influenced
+by the spontaneity of the script text itself.
+(^4) https://huggingface.co/microsoft/
+wavlm-base-plus-sv
+
+Table 1.The performance comparison on the Chinese podcast generation.Boldfor the best result, andunderlinefor the second-best
+result.
+Subjective Objective
+Models Spontaneity (↑) Coherence (↑) Intelligibility (↑) Quality (↑) Similarity (↑) SIM-O (↑) CER (↓)
+Cosyvoice2 3.63 3.38 3.98 3.70 3.78 0.85 2.
+Concatenation Baseline 3.85 3.80 4.33 3.68 3.75 0.86 1.
+MoonCast 4.25 4.13 4.38 3.80 3.98 0.77 2.
+
+Table 2.The performance comparison on the English podcast generation.Boldfor the best result, andunderlinefor the second-best result.
+Subjective Objective
+Models Spontaneity (↑) Coherence (↑) Intelligibility (↑) Quality (↑) Similarity (↑) SIM-O (↑) CER (↓)
+Cosyvoice2 3.78 3.80 4.55 4.33 4.38 0.73 2.
+Concatenation baseline 3.58 3.58 3.93 3.83 3.98 0.75 2.
+MoonCast 4.63 4.50 4.63 4.25 4.08 0.53 1.
+
+4.2.1. EVALUATION ONPODCASTGENERATION
+To assess the efficacy of MoonCast, we evaluate podcast
+quality by comparing it with the two single-speraker base-
+line using the collected input knowledge sources. We report
+the evaluation results of the Chinese and English podcast
+generation in Table 1 and 2. We make the following obser-
+vations:
+
+MoonCast consistently surpasses the two concatenation
+baselines in terms of coherence and spontaneity metrics
+for both Chinese and English podcast generation. Thus re-
+sult demonstrates that the long-context two-speaker audio
+modeling captures contextual dependencies, thereby validat-
+ing the effectiveness of our proposed method in generating
+high-quality results.
+
+Despite the inherent systematic errors in the ASR model
+when handling proper nouns and filler words, MoonCast
+still achieves a CER of 2.15 for Chinese and 1.91 for English
+podcast generation, further demonstrating the robustness of
+the proposed system.
+
+Furthermore, we observe a certain degree of discrepancy
+between the SIM-O and subjective similarity metrics, pos-
+sibly because the single speaker embedding used by the
+SIM-O score may not fully capture all speaker characteris-
+tics, such as temporal features like prosody. In addition, the
+relatively lower SIM-O score for English podcast generation
+suggests a potential limitation of our model. We speculate
+that this may because we only adopt conversational sources
+to develop the capability of long-context English speech
+generation, while audiobook sources, which are lacking,
+seem to be more efficient for improving the SIM-O score.
+
+4.2.2. IMPACT OFSPONTANEOUSSCRIPT
+To investigate the impact of spontaneous script texts on
+the generation of spontaneous podcasts, we compare the
+generated speech using three types of input podcast scripts:
+
+1) GT script: the ground-truth script obtained through our
+data preparation pipeline from the collected, unseen pod-
+cast speech. 2) Written script: We ask LLM to filter out
+spontaneous details from the GT script, resulting in the
+corresponding written version. 3) Spontaneous script: We
+ask LLM to reintroduce spontaneous details to the written
+script, resulting in the corresponding spontaneous version.
+To ensure a fair comparison, the same text-to-speech model
+is consistently applied across all script variations.
+The comparative results of the generated audio against the
+ground-truth audio are presented in Table 3. Notably, CER
+results are excluded from this table due to recognition errors
+inherent in the ASR-derived transcripts. Our findings reveal
+several key insights:
+1) The GT script, being the most spontaneous, achieves the
+highest spontaneity score. This score significantly decreases
+(-0.95 compared to the GT script) when spontaneous details
+are removed in the written script. Upon reintroducing these
+details in the spontaneous script, the score partially recovers,
+approaching that of the GT script (-0.13 compared to the
+GT script). This underscores the critical role of spontaneity
+in podcast text quality.
+2) Generally, written scripts exhibit a larger training-
+inference mismatch compared to spontaneous scripts (both
+GT script and spontaneous script settings), often resulting
+in poorer performance. This is evidenced by a consistent
+performance deficit exceeding 0.3 across metrics of quality,
+similarity, and coherence, further emphasizing the impor-
+tance of spontaneous scripting.
+3) The system consistently achieves commendable sim-o
+and intelligibility scores across various settings, demon-
+strating its robust capability for long-context generation.
+Nonetheless, we note that the intelligibility of the GT script
+is marginally affected by recognition inaccuracies in the
+ASR transcripts.
+Table 3.The influence of spontaneous scripts for podcast generation.Boldfor the best result, and underlinefor the second-best result.
+Subjective Objective
+Models Spontaneity (↑) Coherence (↑) Intelligibility (↑) Quality (↑) Similarity (↑) SIM-O (↑)
+GT 4.73 4.63 4.57 4.48 4.57 0.
+GT script 4.16 3.84 3.96 3.96 3.99 0.
+Written Script 3.21 3.53 4.26 3.61 3.67 0.
+Spontaneous Script 4.03 3.99 4.53 4.04 4.04 0.
+
+Even with the use of the GT script, there remains a notice-
+able disparity in the quality of our generated audio compared
+to the GT audio, highlighting potential areas for future re-
+search. We hypothesize that several factors contribute to this
+performance gap: First, the data preparation pipeline may
+not be sufficiently refined, as the GT script still contains
+some recognition and diarization errors. Second, the GT
+audio contains numerous spontaneous non-speech details,
+such as throat clearings, which are not adequately captured
+in the script.
+5. Discussions
+5.1. Phoneme vs. BPE for Text Representation
+
+Traditional TTS systems tend to use phonemes as the
+text representation to enhance intelligibility, but this
+pronunciation-based approach strips away semantic infor-
+mation needed for long-form, multi-speaker scenarios, hin-
+dering natural speaker transitions, emotion, and prosody. In
+contrast, we opt for BPE, which preserves semantic con-
+tent and aligns with the text representation used in LLMs,
+thereby enabling more straightforward future integration.
+Empirically, BPE maintains intelligibility while improving
+prosody and spontaneously generating paralinguistic phe-
+nomena like laughter based on context.
+
+5.2. Hallucination Issues
+
+We observe that hallucinations sometimes occur in the gener-
+ated speech, that is, the synthesized output may confuse the
+identity of speakers, leading to incorrect attributions of ut-
+terances. These issues stem from the interplay of three main
+factors: First, the semantic tokens retain some timbre infor-
+mation, enabling reconstructed speech to deviate from the
+prompt’s timbre. Second, the data pipeline may introduce
+errors, such as speaker identification errors or diarization
+errors, especially in distinguishing rapid transitions between
+speakers. Third, ambiguous text interpretations complicate
+the generation process. For example, the sentence ‘Today,
+we’re discussing climate change um and its impact on global
+biodiversity.’ can be interpreted in several ways. It might be
+understood as a single speaker using ‘um’ as a filler, such
+as: ‘Host: Today, we’re discussing climate change, um, and
+its impact on global biodiversity.’ Alternatively, it could
+
+be interpreted as a dialogue between two speakers, such as:
+‘Host: Today, we’re discussing climate change. Guest: Um.
+Host: And its impact on global biodiversity.’ Therefore, the
+model struggles to determine whether the ‘um’ is a filler
+word from the same speaker, or a response word from an-
+other speaker, even with adequate semantic understanding.
+Additionally, we find that the trade-off between increasing
+sampling diversity (i.e., increasing temperature, top-k and
+top-p values) to enhance spontaneity and the consequent
+aggravation of hallucinations restricts the model’s ability to
+achieve higher levels of spontaneity.
+6. Conclusion
+Our work presents MoonCast, a novel solution for high-
+quality zero-shot podcast generation, addressing the key
+challenges of long speech duration and spontaneity that
+limit traditional text-to-speech systems. By adopting a long-
+context language model-based audio modeling approach
+and integrating a podcast generation module, our system
+effectively synthesizes natural, podcast-style speech from
+text-only sources using unseen speakers’ voices. Experi-
+ments demonstrate that MoonCast consistently outperforms
+existing baselines in terms of speech quality, speaker sim-
+ilarity, intelligibility, coherence, and spontaneity. This ap-
+proach advances the state-of-the-art in text-to-speech for
+long and spontaneous dialogues, paving the way for more
+realistic and engaging podcast generation. We discuss our
+limitations and future work in Appendix D.
+7. Impact Statements
+Given our model’s ability to generate speech with high
+fidelity to the original speaker’s voice, there is a risk of
+improper application, including deceptive voice recognition
+or mimicking an individual’s speech. To mitigate potential
+abuse, it is crucial to devise a reliable method for detecting
+synthetic speech and implement a mechanism for flagging
+suspected malicious use.
+References
+Achiam, J., Adler, S., Agarwal, S., Ahmad, L., Akkaya, I.,
+Aleman, F. L., Almeida, D., Altenschmidt, J., Altman, S.,
+Anadkat, S., et al. Gpt-4 technical report.arXivpreprint
+arXiv:2303.08774, 2023.
+Adiwardana, D., Luong, M.-T., So, D. R., Hall, J., Fiedel,
+N., Thoppilan, R., Yang, Z., Kulshreshtha, A., Nemade,
+G., Lu, Y., et al. Towards a human-like open-domain
+chatbot.arXivpreprintarXiv:2001.09977, 2020.
+
+Anastassiou, P., Chen, J., Chen, J., Chen, Y., Chen, Z., Chen,
+Z., Cong, J., Deng, L., Ding, C., Gao, L., et al. Seed-
+tts: A family of high-quality versatile speech generation
+models.arXivpreprintarXiv:2406.02430, 2024.
+
+Baevski, A., Zhou, Y., Mohamed, A., and Auli, M.
+wav2vec 2.0: A framework for self-supervised learning of
+speech representations.AdvancesinNeuralInformation
+ProcessingSystems, 33:12449–12460, 2020.
+
+Barrault, L., Chung, Y.-A., Meglioli, M. C., Dale, D., Dong,
+N., Duppenthaler, M., Duquenne, P.-A., Ellis, B., Elsahar,
+H., Haaheim, J., et al. Seamless: Multilingual expres-
+sive and streaming speech translation. arXivpreprint
+arXiv:2312.05187, 2023.
+
+Borsos, Z., Marinier, R., Vincent, D., Kharitonov, E.,
+Pietquin, O., Sharifi, M., Teboul, O., Grangier, D.,
+Tagliasacchi, M., and Zeghidour, N. Audiolm: a lan-
+guage modeling approach to audio generation. arXiv
+preprintarXiv:2209.03143, 2022.
+
+Borsos, Z., Sharifi, M., Vincent, D., Kharitonov, E., Zeghi-
+dour, N., and Tagliasacchi, M. Soundstorm: Efficient par-
+allel audio generation.arXivpreprintarXiv:2305.09636,
+
+Chen, S., Liu, S., Zhou, L., Liu, Y., Tan, X., Li, J., Zhao,
+S., Qian, Y., and Wei, F. Vall-e 2: Neural codec lan-
+guage models are human parity zero-shot text to speech
+synthesizers.arXivpreprintarXiv:2406.05370, 2024.
+
+Chung, Y.-A., Zhang, Y., Han, W., Chiu, C.-C., Qin, J., Pang,
+R., and Wu, Y. W2v-bert: Combining contrastive learn-
+ing and masked language modeling for self-supervised
+speech pre-training. In 2021 IEEEAutomaticSpeech
+RecognitionandUnderstandingWorkshop(ASRU), pp.
+244–250. IEEE, 2021.
+
+Cieri, C. Fisher english training speech part 1 transcripts
+ldc2004t19. Web Download, 2004. LDC2004T19.
+
+Du, Z., Chen, Q., Zhang, S., Hu, K., Lu, H., Yang, Y.,
+Hu, H., Zheng, S., Gu, Y., Ma, Z., et al. Cosyvoice: A
+scalable multilingual zero-shot text-to-speech synthesizer
+based on supervised semantic tokens. arXivpreprint
+arXiv:2407.05407, 2024a.
+
+Du, Z., Wang, Y., Chen, Q., Shi, X., Lv, X., Zhao, T., Gao,
+Z., Yang, Y., Gao, C., Wang, H., et al. Cosyvoice 2:
+
+Scalable streaming speech synthesis with large language
+models.arXivpreprintarXiv:2412.10117, 2024b.
+Gao, Z., Zhang, S., McLoughlin, I., and Yan, Z.
+Paraformer: Fast and accurate parallel transformer for
+non-autoregressive end-to-end speech recognition.arXiv
+preprintarXiv:2206.08317, 2022.
+He, H., Shang, Z., Wang, C., Li, X., Gu, Y., Hua, H., Liu, L.,
+Yang, C., Li, J., Shi, P., et al. Emilia: An extensive, multi-
+lingual, and diverse speech dataset for large-scale speech
+generation. In 2024 IEEESpokenLanguageTechnology
+Workshop(SLT), pp. 885–890. IEEE, 2024.
+Ju, Z., Wang, Y., Shen, K., Tan, X., Xin, D., Yang, D., Liu,
+Y., Leng, Y., Song, K., Tang, S., et al. Naturalspeech 3:
+Zero-shot speech synthesis with factorized codec and dif-
+fusion models.arXivpreprintarXiv:2403.03100, 2024.
+Kumar, R., Seetharaman, P., Luebs, A., Kumar, I., and Ku-
+mar, K. High-fidelity audio compression with improved
+rvqgan.arXivpreprintarXiv:2306.06546, 2023.
+Łajszczak, M., C ́ambara, G., Li, Y., Beyhan, F., van Korlaar,
+A., Yang, F., Joly, A., Mart ́ın-Cortinas,A., Abbas, A., ́
+Michalski, A., et al. Base tts: Lessons from building a
+billion-parameter text-to-speech model on 100k hours of
+data.arXivpreprintarXiv:2402.08093, 2024.
+Le, M., Vyas, A., Shi, B., Karrer, B., Sari, L., Moritz,
+R., Williamson, M., Manohar, V., Adi, Y., Mahadeokar,
+J., et al. Voicebox: Text-guided multilingual univer-
+sal speech generation at scale. Advancesinneural
+informationprocessingsystems, 36, 2024.
+Lee, S.-g., Ping, W., Ginsburg, B., Catanzaro, B., and Yoon,
+S. Bigvgan: A universal neural vocoder with large-scale
+training.arXivpreprintarXiv:2206.04658, 2022.
+Lewis, P., Perez, E., Piktus, A., Petroni, F., Karpukhin, V.,
+Goyal, N., Kuttler, H., Lewis, M., Yih, W.-t., Rockt ̈ ̈aschel,
+T., et al. Retrieval-augmented generation for knowledge-
+intensive nlp tasks. AdvancesinNeuralInformation
+ProcessingSystems, 33:9459–9474, 2020.
+Li, H., Zhu, X., Xue, L., Song, Y., Chen, Y., and Xie,
+L. Spontts: modeling and transferring spontaneous
+style for tts. InICASSP2024-2024IEEEInternational
+ConferenceonAcoustics,SpeechandSignalProcessing
+(ICASSP), pp. 12171–12175. IEEE, 2024a.
+Li, W., Yang, P., Zhong, Y., Zhou, Y., Wang, Z., Wu, Z.,
+Wu, X., and Meng, H. Spontaneous style text-to-speech
+synthesis with controllable spontaneous behaviors based
+on language models. arXivpreprintarXiv:2407.13509,
+2024b.
+Liu, Z., Wang, S., Inoue, S., Bai, Q., and Li, H. Autoregres-
+sive diffusion transformer for text-to-speech synthesis.
+arXivpreprintarXiv:2406.05551, 2024.
+
+Lu, H., Cheng, G., Luo, L., Zhang, L., Qian, Y., and Zhang,
+P. Slide: Integrating speech language model with llm for
+spontaneous spoken dialogue generation.arXivpreprint
+arXiv:2501.00805, 2025.
+
+Mitsui, K., Hono, Y., and Sawada, K. Towards human-like
+spoken dialogue generation between ai agents from writ-
+ten dialogue.arXivpreprintarXiv:2310.01088, 2023.
+
+Nguyen, T. A., Kharitonov, E., Copet, J., Adi, Y., Hsu,
+W.-N., Elkahky, A., Tomasello, P., Algayres, R., Sagot,
+B., Mohamed, A., et al. Generative spoken dialogue
+language modeling.TransactionsoftheAssociationfor
+ComputationalLinguistics, 11:250–266, 2023.
+
+Peebles, W. and Xie, S. Scalable diffusion models with trans-
+formers. InProceedingsoftheIEEE/CVFInternational
+ConferenceonComputerVision, pp. 4195–4205, 2023.
+
+Poli, M., Massaroli, S., Yamashita, A., Asama, H., Park,
+J., and Ermon, S. Torchdyn: Implicit models and neural
+numerical methods in pytorch.
+
+Schneider, S., Baevski, A., Collobert, R., and Auli, M.
+wav2vec: Unsupervised pre-training for speech recog-
+nition.Proc.Interspeech2019, pp. 3465–3469, 2019.
+
+Schuller, B., Steidl, S., Batliner, A., Burkhardt, F., Devillers,
+L., MuLler, C., and Narayanan, S. Paralinguistics in ̈
+speech and language—state-of-the-art and the challenge.
+ComputerSpeech&Language, 27(1):4–39, 2013.
+
+Shen, K., Ju, Z., Tan, X., Liu, Y., Leng, Y., He, L., Qin,
+T., Zhao, S., and Bian, J. Naturalspeech 2: Latent diffu-
+sion models are natural and zero-shot speech and singing
+synthesizers.arXivpreprintarXiv:2304.09116, 2023.
+
+Wang, C., Chen, S., Wu, Y., Zhang, Z., Zhou, L., Liu, S.,
+Chen, Z., Liu, Y., Wang, H., Li, J., et al. Neural codec
+language models are zero-shot text to speech synthesizers.
+arXivpreprintarXiv:2301.02111, 2023.
+
+Wang, Y., Zhan, H., Liu, L., Zeng, R., Guo, H., Zheng, J.,
+Zhang, Q., Zhang, X., Zhang, S., and Wu, Z. Maskgct:
+Zero-shot text-to-speech with masked generative codec
+transformer.arXivpreprintarXiv:2409.00750, 2024.
+
+Xu, J. Beyond goldfish memory: Long-term open-domain
+conversation.arXivpreprintarXiv:2107.07567, 2021.
+
+Yan, Y., Tan, X., Li, B., Zhang, G., Qin, T., Zhao, S., Shen,
+Y., Zhang, W.-Q., and Liu, T.-Y. AdaSpeech 3: Adaptive
+text to speech for spontaneous style. InINTERSPEECH,
+
+Yang, A., Yang, B., Zhang, B., Hui, B., Zheng, B., Yu,
+B., Li, C., Liu, D., Huang, F., Wei, H., et al. Qwen2. 5
+technical report.arXivpreprintarXiv:2412.15115, 2024.
+Yu, J., Li, X., Koh, J. Y., Zhang, H., Pang, R., Qin, J., Ku,
+A., Xu, Y., Baldridge, J., and Wu, Y. Vector-quantized
+image modeling with improved vqgan. arXivpreprint
+arXiv:2110.04627, 2021.
+Yu, J., Luo, Y., Chen, H., Gu, R., and Weng, C. High fidelity
+speech enhancement with band-split rnn.arXivpreprint
+arXiv:2212.00406, 2022.
+Yu, J., Chen, H., Bian, Y., Li, X., Luo, Y., Tian, J., Liu,
+M., Jiang, J., and Wang, S. Autoprep: An automatic
+preprocessing framework for in-the-wild speech data. In
+ICASSP2024-2024IEEEInternationalConferenceon
+Acoustics,SpeechandSignalProcessing(ICASSP), pp.
+1136–1140. IEEE, 2024.
+Zhang, L., Qian, Y., Zhou, L., Liu, S., Wang, D., Wang, X.,
+Yousefi, M., Qian, Y., Li, J., He, L., et al. Covomix: Ad-
+vancing zero-shot speech generation for human-like multi-
+talker conversations. arXivpreprintarXiv:2404.06690,
+2024.
+Zhang, Y., Sun, S., Galley, M., Chen, Y.-C., Brockett, C.,
+Gao, X., Gao, J., Liu, J., and Dolan, B. DIALOGPT
+: Large-scale generative pre-training for conversational
+response generation. In Celikyilmaz, A. and Wen, T.-
+H. (eds.),Proceedingsofthe58thAnnualMeetingof
+theAssociationforComputationalLinguistics:System
+Demonstrations, pp. 270–278, Online, July 2020. Asso-
+ciation for Computational Linguistics. doi: 10.18653/v1/
+2020.acl-demos.30. URLhttps://aclanthology.
+org/2020.acl-demos.30/.
+A. Speech Semantic Codec Details
+We adopt the semantic speech tokens (Borsos et al., 2022; Wang et al., 2024; Du et al., 2024a) which are discretized
+from the self-supervised learning (SSL) features due to the superiority of robustness (Wang et al., 2024). Following the
+MaskGCT (Wang et al., 2024), we choose the 50-HZ SSL features and adopt the VQ-VAE approach to maintain the loss
+contained in the discrete semantic codes, thereby enhancing the reconstruction quality.
+
+In detail, we train a VQ-VAE model to learn the discrete speech semantic representation by reconstructing the SSL features.
+For the SSL feature, we adopt the 17th layer of the pretrained W2v-BERT 2.0 (Schneider et al., 2019; Baevski et al., 2020;
+Chung et al., 2021; Barrault et al., 2023), and normalize it to mitigate the impact of varying scales across differnt feature
+dimensions. For the VQ-VAE model, we first encode the SSL featureSby an encoder and obtainE(S). Then we discrete
+the encoded feature by a VQ-VAE with a codebook and obtain the quantized speech featureEˆ(S). Finally, we apply a
+speech decoder to reconstruct the SSL featureSwith a reconstruction loss. To enhance the codebook utilization and improve
+the reconstruction quality, we follow the design of improved VQ-GAN (Yu et al., 2021) and DAC (Kumar et al., 2023) to
+project theE(S)into an 8-dimension latent space.
+
+B. Data Preparation
+Since the raw audio data contain artifacts such as background noise, overlapping speech, and reverberation, we first apply an
+automated data processing pipeline as described in (Yu et al., 2024; He et al., 2024). Specifically, to improve speech quality,
+we use a band-split RNN speech enhancement model (Yu et al., 2022) to suppress background noise. Subsequently, speech
+diarization is performed using the Pyannotate toolkit^5 to segment the audio into distinct speaker segments. Finally, the
+Paraformer ASR model (Gao et al., 2022) from the FunASR toolkit^6 is utilized to generate pseudo-transcriptions for each
+segment. The DNSMOS toolkit^7 is also employed to evaluate speech quality. Additionally, to mitigate recognition errors
+introduced by the ASR system, a DNN-HMM-based forced alignment system is employed to align the pseudo-transcriptions
+with the speech audio, using a narrow beam size of 5. Only the speech segments with successful alignment are retained
+for subsequent processing. For curriculum learning training, we use all speech segments with a DNSMOS score greater
+than 2.6 to obtain single-speaker, single-turn speech. For long-context, two-speaker, multi-turn training data, we select
+two-speaker data based on our diarization results. Specifically, for conversational sources, we retain speech data involving
+exactly two speakers, with more than 10 conversational turns, and where the average duration of each turn is less than 30
+seconds. This process results in a dataset comprising 300,000 hours from Chinese audiobook sources, 15,000 hours from
+Chinese conversational sources, and 200,000 hours from English conversational sources. Notably, to preserve the contextual
+information in the long speech data, we did not filter any segments based on DNSMOS scores or alignment results.
+
+C. Prompts
+We choose ‘Gemini 2.0 Pro Experimental 02-05’^8 for script generation because of its more conversational language style,
+natural dialogue design, and better topic coverage. We open-source LLM prompts to enhance reproducibility, covering brief
+generation and brief-to-script generation.
+
+C.1. English Prompt For Brief Generation
+
+### Task Description
+Please summarize the input document in plain text format according to the
+following structure. The summary should be creative, comprehensive, and
+include all interesting, uncommon, and valuable viewpoints and information.
+**- **Text Requirements**** :
+1. Directly output the result without any additional information.
+
+(^5) https://github.com/pyannote/pyannote-audio.git
+(^6) https://github.com/modelscope/FunASR
+(^7) https://github.com/microsoft/DNS-Challenge
+(^8) https://cloud.google.com/vertex-ai/generative-ai/docs/gemini-v2#2.0-pro
+
+2. The summary should be in English. Retain a small number of proper
+nouns, names, and abbreviations in their original form (e.g., Chinese
+characters).
+3. Do not include any mathematical formulas.
+4. Do not alter any proper nouns, names, or abbreviations from the
+original text. Unless there is a common translation, do not translate
+proper nouns. Do not attempt to modify the meaning of proper nouns.
+**5. **Intelligently convert numbers in abbreviations. For example, "a2b"
+should be interpreted as "a to b," not "a two b"; "a4b" as "a for b,"
+not "a four b"; "v2" may represent "version two" or "second generation."
+Provide the original abbreviation and your suggested English
+translation.****
+
+### Title and Author
+
+**- **Language Requirements**** : English, formal written language.
+**- **Content Requirements**** : Provide the title and author of the document.
+Briefly summarize the theme of the document and the author's background.
+Ensure all important information is included without omission and sufficient
+context is retained.
+
+### Abstract
+
+**- **Language Requirements**** : English, formal written language.
+**- **Content Requirements**** :
+1. What this document has done.
+2. Whether similar work has been done before.
+3. If similar work exists, why this document is still necessary.
+4. How this document specifically addresses the topic.
+5. How well this document achieves its goals.
+**- **Additional Requirements**** : Include an additional paragraph to explain
+any terms, concepts, or methods that may confuse readers unfamiliar with the
+field. Ensure proper nouns are explained consistently with the original
+text, covering all potential points of confusion, including abbreviations
+and entity names.
+
+### Main Themes and Concepts
+
+**- **Language Requirements**** : English, formal written language.
+**- **Content Requirements**** : Each theme and concept should be organized
+according to the 3W principle:
+**- **What**** : Clearly define the problem.
+**- **Why**** : Analyze the problem and identify its root causes.
+**- **How**** : Explain how the document addresses the problem.
+**- **Additional Requirements**** :
+1. Ensure each theme and concept is comprehensive and includes all
+important details. Fully elaborate on the "What" and "Why" sections.
+2. Avoid technical details such as mathematical formulas in the "How"
+section. Use language that is easily understood by a general audience.
+3. Ensure themes and concepts do not overlap and maintain clear logic.
+4. Include an additional paragraph to explain any terms, concepts, or
+methods that may confuse readers unfamiliar with the field. Ensure
+proper nouns are explained consistently with the original text, covering
+all potential points of confusion, including abbreviations and entity
+names.
+
+### Key Citations
+**- **Language Requirements**** : English, formal written language.
+**- **Content Requirements**** : Organize the content according to the following
+structure:
+**1. **Argument**** : State what needs to be proven.
+**2. **Evidence**** : Provide the material used to support the argument.
+**3. **Reasoning**** : Describe the process of using evidence to prove the
+argument.
+**- **Additional Requirements**** :
+1. Ensure all evidence and reasoning are directly sourced from the
+original text without fabrication.
+2. Ensure citation content is complete and retains sufficient context
+without simplification. Avoid using mathematical formulas in citations.
+3. Include an additional paragraph to explain any terms, concepts, or
+methods that may confuse readers unfamiliar with the field. Ensure
+proper nouns are explained consistently with the original text, covering
+all potential points of confusion, including abbreviations and entity
+names.
+
+### Conclusion
+**- **Language Requirements**** : English, formal written language.
+**- **Content Requirements**** : Highlight the most important and impactful
+aspects of the document. Compared to the abstract, this section should
+provide more detailed insights related to the main themes and concepts. It
+may also include future directions for improvement, current application
+scenarios, and existing challenges.
+
+C.2. Chinese Prompt For Brief Generation
