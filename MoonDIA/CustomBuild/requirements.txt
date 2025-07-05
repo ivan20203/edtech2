@@ -10,4 +10,7 @@ huggingface_hub>=0.16.0
 einops
 scipy
 timm>=1.0.7
-flash-attn 
+flash-attn
+librosa>=0.10.0
+tqdm>=4.64.0
+safetensors>=0.3.0 
