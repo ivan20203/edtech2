@@ -1,0 +1,5 @@
+Requirement already satisfied: einx in /home/ivan/miniconda3/envs/mooncast/lib/python3.10/site-packages (0.3.0)
+Requirement already satisfied: numpy in /home/ivan/miniconda3/envs/mooncast/lib/python3.10/site-packages (from einx) (2.2.6)
+Requirement already satisfied: sympy in /home/ivan/miniconda3/envs/mooncast/lib/python3.10/site-packages (from einx) (1.14.0)
+Requirement already satisfied: frozendict in /home/ivan/miniconda3/envs/mooncast/lib/python3.10/site-packages (from einx) (2.4.6)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /home/ivan/miniconda3/envs/mooncast/lib/python3.10/site-packages (from sympy->einx) (1.3.0)
