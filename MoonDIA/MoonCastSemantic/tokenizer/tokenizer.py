@@ -236,7 +236,15 @@ def instantiate_extra_tokens(tokenizer: AbstractTokenizer):
     )
 
 def get_tokenizer_and_extra_tokens():
-    sp_model_path = "resources/tokenizer/160k.model"
+    # Get the correct path to the tokenizer model
+    import os
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    sp_model_path = os.path.join(current_dir, "..", "..", "CustomBuild", "resources", "tokenizer", "160k.model")
+    sp_model_path = os.path.abspath(sp_model_path)
+    
+    if not os.path.exists(sp_model_path):
+        raise FileNotFoundError(f"Tokenizer model not found at: {sp_model_path}")
+    
     tokenizer = SPieceTokenizer(sp_model_path)
     tokenizer.set_add_dummy_prefix(False)
     extra_tokens = instantiate_extra_tokens(tokenizer)
