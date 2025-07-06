@@ -61,18 +61,7 @@ def main():
             print(f"  → Starting DIA generation...")
             start_time = time.time()
             
-            # Calculate max_tokens based on sentence length
-            word_count = len(line.split())
-            if word_count <= 5:
-                max_tokens = 200  # Short sentences
-            elif word_count <= 8:
-                max_tokens = 300  # Medium sentences
-            elif word_count <= 12:
-                max_tokens = 400  # Long sentences
-            else:
-                max_tokens = 500  # Very long sentences
-            
-            print(f"    → Sentence: {word_count} words, max_tokens: {max_tokens}")
+            print(f"    → Sentence: {len(line.split())} words")
             
             # Add timeout for generation (30 seconds)
             def timeout_handler(signum, frame):
@@ -85,7 +74,6 @@ def main():
                 # This call returns raw DAC codes (not audio) because load_dac=False
                 dac_codes = tts.generate(
                     text=line,
-                    max_tokens=max_tokens,  # Dynamic based on sentence length
                     cfg_scale=2.0,   # Reduced for faster generation
                     temperature=0.8, # Reduced for more deterministic generation
                     top_p=0.9,       # Slightly reduced
