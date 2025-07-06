@@ -24,7 +24,7 @@ class TextToSemantic:
         if model_path is None:
             # Get absolute path to local resources in CustomBuild
             current_dir = os.path.dirname(os.path.abspath(__file__))
-            model_path = os.path.join(current_dir, "resources", "text2semantic")
+            model_path = os.path.join(current_dir, "..", "CustomBuild", "resources", "text2semantic")
             model_path = os.path.abspath(model_path)
         
         # Initialize tokenizer
