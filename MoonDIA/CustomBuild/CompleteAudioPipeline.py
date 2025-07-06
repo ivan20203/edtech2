@@ -1,18 +1,15 @@
 #!/usr/bin/env python3
 """
-MoonCast Pipeline: Text → Mel-Spectrograms
-Copies MoonCast's exact working pipeline to generate mel-spectrograms from text.
+Complete Audio Pipeline: Text → MoonCast Audio → DAC Tokens → DIA Audio
+Uses audio domain throughout to avoid mel-spectrogram conversion issues.
 """
 
 import sys
 import os
 import torch
 import numpy as np
-import librosa
-import torchaudio
-import io
-import base64
-from tqdm import tqdm
+import soundfile as sf
+import time
 
 # Add MoonCast to path
 sys.path.append("../../MoonCast")
@@ -22,16 +19,41 @@ from modules.tokenizer.tokenizer import get_tokenizer_and_extra_tokens
 from modules.audio_detokenizer.audio_detokenizer import get_audio_detokenizer, detokenize_noref
 from transformers import AutoModelForCausalLM, GenerationConfig
 
+# Import our audio bridge
+from AudioToDACBridge import AudioToDACBridge
 
-class MoonCastPipeline:
+# Import DIA decoder
+from SimpleDIAPipeline import SimpleDIADACDecoder
+
+
+class CompleteAudioPipeline:
     """
-    MoonCast's exact pipeline: Text → Semantic Tokens → Audio → Mel-Spectrograms
+    Complete pipeline: Text → MoonCast Audio → DAC Tokens → DIA Audio
     """
     
     def __init__(self):
-        """Initialize MoonCast's complete pipeline."""
-        print("Initializing MoonCast Pipeline...")
+        """Initialize the complete audio pipeline."""
+        print("Initializing Complete Audio Pipeline...")
         
+        # Initialize MoonCast components
+        print("Loading MoonCast components...")
+        self._init_mooncast()
+        
+        # Initialize Audio to DAC Bridge
+        print("Loading Audio to DAC Bridge...")
+        self.audio_bridge = AudioToDACBridge(
+            token_rate=100,
+            semantic_vocab_size=16384
+        )
+        
+        # Initialize DIA DAC decoder
+        print("Loading DIA DAC decoder...")
+        self.dia_decoder = SimpleDIADACDecoder()
+        
+        print("✅ Complete Audio Pipeline initialized")
+    
+    def _init_mooncast(self):
+        """Initialize MoonCast components."""
         # Initialize tokenizer (same as MoonCast)
         self.tokenizer, self.extra_tokens = get_tokenizer_and_extra_tokens()
         self.speech_token_offset = 163840
@@ -65,11 +87,11 @@ class MoonCastPipeline:
         
         # Generation config (improved for longer generation)
         self.generate_config = GenerationConfig(
-            max_new_tokens=200 * 200,  # Increased from 200*50 for longer generation
+            max_new_tokens=200 * 200,  # Increased for longer generation
             do_sample=True,
             top_k=30,
             top_p=0.8,
-            temperature=0.6,  # Lowered from 0.8 for more consistent generation
+            temperature=0.6,  # Lowered for more consistent generation
             eos_token_id=self.media_end,
             pad_token_id=self.media_end,  # Add pad token
             repetition_penalty=1.1,  # Add repetition penalty
@@ -81,8 +103,6 @@ class MoonCastPipeline:
         
         # Set device
         self.device = torch.cuda.current_device()
-        
-        print("✅ MoonCast Pipeline initialized")
     
     def _clean_text(self, text):
         """Clean input text (same as MoonCast)."""
@@ -108,10 +128,7 @@ class MoonCastPipeline:
     
     @torch.inference_mode()
     def text_to_semantic_tokens(self, dialogue):
-        """
-        Convert text to semantic tokens using MoonCast's exact pipeline.
-        This is the missing method that was causing the error.
-        """
+        """Convert text to semantic tokens using MoonCast's exact pipeline."""
         print("Converting text to semantic tokens...")
         
         # Process text (same as MoonCast)
@@ -173,140 +190,158 @@ class MoonCastPipeline:
         return semantic_tokens_list
     
     @torch.inference_mode()
-    def text_to_mel_direct(self, dialogue):
-        """
-        Convert text to mel-spectrograms using MoonCast's exact pipeline.
-        This uses their exact approach: Text → Semantic Tokens → Audio → Mel-Spectrograms
-        """
-        print("Converting text to mel-spectrograms using MoonCast's exact pipeline...")
+    def text_to_audio(self, dialogue):
+        """Convert text to audio using MoonCast's exact pipeline."""
+        print("Converting text to audio using MoonCast...")
         
         # Generate semantic tokens using MoonCast's exact method
         semantic_tokens_list = self.text_to_semantic_tokens(dialogue)
         
-        # Convert semantic tokens to audio, then extract mel-spectrograms
-        mel_list = []
+        # Convert semantic tokens to audio
+        audio_list = []
         
         for i, torch_token in enumerate(semantic_tokens_list):
             print(f"Processing turn {i+1}/{len(semantic_tokens_list)}")
             
             # Use MoonCast's exact detokenize_noref function to generate audio
             audio = detokenize_noref(self.audio_detokenizer, torch_token)
-            
-            # Extract mel-spectrogram from audio using the vocoder
-            mel_spec = self.audio_detokenizer.vocoder.extract_mel_from_wav(wav_data=audio.squeeze(0))
-            mel_list.append(mel_spec)
+            audio_list.append(audio.squeeze(0))  # Remove batch dimension
         
-        return mel_list
+        return audio_list
     
-    def audio_to_mel(self, audio, sample_rate=24000, n_mels=128, n_fft=1024, hop_length=256):
-        """
-        Convert audio tensor to mel-spectrogram.
+    def audio_to_dac_tokens(self, audio_list):
+        """Convert MoonCast audio to DAC tokens using the audio bridge."""
+        print("Converting MoonCast audio to DAC tokens...")
         
-        Args:
-            audio: Audio tensor (1, samples)
-            sample_rate: Audio sample rate
-            n_mels: Number of mel frequency bins
-            n_fft: FFT window size
-            hop_length: Hop length for STFT
+        dac_tokens_list = []
+        
+        for i, audio in enumerate(audio_list):
+            print(f"Processing audio turn {i+1}/{len(audio_list)}")
             
-        Returns:
-            mel_spectrogram: Mel-spectrogram as numpy array (n_mels, time_frames)
-        """
-        # Convert to numpy
-        if isinstance(audio, torch.Tensor):
-            audio = audio.numpy()
+            # Convert to DAC tokens using the audio bridge
+            dac_tokens = self.audio_bridge.mooncast_audio_to_dac_tokens(audio)
+            dac_tokens_list.append(dac_tokens)
+            
+            # Save intermediate DAC tokens
+            tokens_path = f"turn_{i}_audio_dac_tokens.npy"
+            np.save(tokens_path, dac_tokens.cpu().numpy())
+            print(f"  Saved DAC tokens to {tokens_path}")
         
-        # Ensure audio is 1D
-        if audio.ndim > 1:
-            audio = audio.squeeze()
-        
-        # Extract mel-spectrogram using librosa
-        mel_spectrogram = librosa.feature.melspectrogram(
-            y=audio,
-            sr=sample_rate,
-            n_mels=n_mels,
-            n_fft=n_fft,
-            hop_length=hop_length,
-            window='hann'
-        )
-        
-        # Convert to log scale
-        mel_spectrogram = librosa.power_to_db(mel_spectrogram, ref=np.max)
-        
-        return mel_spectrogram
+        return dac_tokens_list
     
-    def text_to_mel(self, dialogue, save_mel=True):
+    def dac_tokens_to_audio(self, dac_tokens_list):
+        """Convert DAC tokens to audio using DIA decoder."""
+        print("Converting DAC tokens to audio using DIA...")
+        
+        audio_list = []
+        
+        for i, dac_tokens in enumerate(dac_tokens_list):
+            print(f"Processing DAC tokens turn {i+1}/{len(dac_tokens_list)}")
+            
+            # Use DIA decoder to convert tokens to audio
+            audio = self.dia_decoder.decode(dac_tokens)
+            audio_list.append(audio)
+            
+            # Save intermediate audio
+            audio_path = f"turn_{i}_dia_generated_audio.wav"
+            sf.write(audio_path, audio.cpu().numpy(), 44100)
+            print(f"  Saved audio to {audio_path}")
+        
+        return audio_list
+    
+    def text_to_dia_audio(self, dialogue, save_intermediate=True):
         """
-        Complete pipeline: Text → Mel-Spectrograms (Direct)
+        Complete pipeline: Text → MoonCast Audio → DAC Tokens → DIA Audio
         
         Args:
             dialogue: List of dialogue turns, each with 'role' and 'text' keys
-            save_mel: Whether to save mel-spectrograms
+            save_intermediate: Whether to save intermediate files
             
         Returns:
-            mel_list: List of mel-spectrogram tensors
+            final_audio_list: List of final audio tensors
         """
-        print("Running MoonCast pipeline: Text → Mel-Spectrograms (Direct)")
-        mel_list = self.text_to_mel_direct(dialogue)
+        print("Running complete audio pipeline: Text → DIA Audio")
+        print("=" * 60)
         
-        if save_mel:
-            # Save mel-spectrograms
-            for i, mel in enumerate(mel_list):
-                mel_path = f"mel_spectrogram_turn_{i}.npy"
-                np.save(mel_path, mel.cpu().numpy())
-                print(f"Saved mel-spectrogram to {mel_path}")
+        # Step 1: Text → MoonCast Audio
+        print("\nStep 1: Text → MoonCast Audio")
+        mooncast_audio_list = self.text_to_audio(dialogue)
+        print(f"Generated {len(mooncast_audio_list)} audio clips")
         
-        return mel_list
+        if save_intermediate:
+            for i, audio in enumerate(mooncast_audio_list):
+                audio_path = f"turn_{i}_mooncast_audio.wav"
+                sf.write(audio_path, audio.cpu().numpy(), 24000)
+                print(f"  Saved MoonCast audio to {audio_path}")
+        
+        # Step 2: MoonCast Audio → DAC Tokens
+        print("\nStep 2: MoonCast Audio → DAC Tokens")
+        dac_tokens_list = self.audio_to_dac_tokens(mooncast_audio_list)
+        print(f"Generated {len(dac_tokens_list)} DAC token sets")
+        
+        # Step 3: DAC Tokens → DIA Audio
+        print("\nStep 3: DAC Tokens → DIA Audio")
+        final_audio_list = self.dac_tokens_to_audio(dac_tokens_list)
+        print(f"Generated {len(final_audio_list)} final audio clips")
+        
+        # Save concatenated final audio
+        if len(final_audio_list) > 1:
+            concatenated_audio = torch.cat(final_audio_list, dim=0)
+            sf.write("concatenated_dia_audio.wav", concatenated_audio.cpu().numpy(), 44100)
+            print("  Saved concatenated final audio to concatenated_dia_audio.wav")
+        
+        print("\n✅ Complete audio pipeline finished successfully!")
+        return final_audio_list
     
-    def single_text_to_mel(self, text, role="0", save_mel=True):
+    def single_text_to_dia_audio(self, text, role="0", save_intermediate=True):
         """
-        Convert single text to mel-spectrogram.
+        Convert single text to DIA audio.
         
         Args:
             text: Input text string
             role: Speaker role ("0" or "1")
-            save_mel: Whether to save mel-spectrogram
+            save_intermediate: Whether to save intermediate files
             
         Returns:
-            mel: Mel-spectrogram tensor
+            final_audio: Final audio tensor
         """
         # Create dialogue format
         dialogue = [{"role": role, "text": text}]
         
-        # Run pipeline
-        mel_list = self.text_to_mel(dialogue, save_mel)
+        # Run complete pipeline
+        final_audio_list = self.text_to_dia_audio(dialogue, save_intermediate)
         
-        return mel_list[0] if mel_list else None
+        return final_audio_list[0] if final_audio_list else None
 
 
 def main():
-    """Test the MoonCast pipeline."""
-    print("Testing MoonCast Pipeline (Direct Mel-Spectrogram Generation)")
+    """Test the complete audio pipeline."""
+    print("Testing Complete Audio Pipeline")
     print("=" * 60)
     
     # Initialize pipeline
-    pipeline = MoonCastPipeline()
+    pipeline = CompleteAudioPipeline()
     
     # Test data
-    text = "Hello, this is a test of the MoonCast pipeline for generating mel-spectrograms from text."
+    text = "Hello, this is a test of the complete audio pipeline. We are now generating longer audio using improved parameters."
     
     print("\n1. Testing single text:")
-    mel = pipeline.single_text_to_mel(text, role="0", save_mel=True)
-    print(f"Generated mel-spectrogram shape: {mel.shape}")
+    final_audio = pipeline.single_text_to_dia_audio(text, role="0", save_intermediate=True)
+    print(f"Generated final audio shape: {final_audio.shape}")
     
     print("\n2. Testing dialogue:")
     dialogue = [
-        {"role": "0", "text": "Hello, how are you today?"},
-        {"role": "1", "text": "I'm doing great, thank you for asking!"},
-        {"role": "0", "text": "That's wonderful to hear."}
+        {"role": "0", "text": "Hello, how are you today? I hope you're having a wonderful day."},
+        {"role": "1", "text": "I'm doing great, thank you for asking! The weather is beautiful and I'm feeling very positive."},
+        {"role": "0", "text": "That's wonderful to hear. I'm glad everything is going well for you."}
     ]
     
-    mel_list = pipeline.text_to_mel(dialogue, save_mel=True)
-    print(f"Generated {len(mel_list)} mel-spectrograms")
-    for i, mel in enumerate(mel_list):
-        print(f"  Turn {i+1}: {mel.shape}")
+    final_audio_list = pipeline.text_to_dia_audio(dialogue, save_intermediate=True)
+    print(f"Generated {len(final_audio_list)} final audio clips")
+    for i, audio in enumerate(final_audio_list):
+        print(f"  Turn {i+1}: {audio.shape}")
     
-    print("\n✅ MoonCast pipeline test completed successfully!")
+    print("\n✅ Complete audio pipeline test completed successfully!")
 
 
 if __name__ == "__main__":

@@ -8,6 +8,6 @@ Mapper
 
 DIA
 
-Mooncast -> semantic Tokens
+Mooncast -> semantic Tokens / Mel-spect
 Mapper -> DAC tokens 
 DIA -> audio 
