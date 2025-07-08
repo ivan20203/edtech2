@@ -63,20 +63,22 @@ def main():
             
             print(f"    → Sentence: {len(line.split())} words")
             
-            # Add timeout for generation (30 seconds)
+            # Add timeout for generation (60 seconds)
             def timeout_handler(signum, frame):
-                raise TimeoutError("Generation timed out after 30 seconds")
+                raise TimeoutError("Generation timed out after 60 seconds")
             
             signal.signal(signal.SIGALRM, timeout_handler)
-            signal.alarm(30)
+            signal.alarm(180)
             
             try:
                 # This call returns raw DAC codes (not audio) because load_dac=False
                 dac_codes = tts.generate(
                     text=line,
-                    cfg_scale=2.0,   # Reduced for faster generation
-                    temperature=0.8, # Reduced for more deterministic generation
-                    top_p=0.9,       # Slightly reduced
+                    cfg_scale=3.0,   # Use DIA app default
+                    temperature=1.3, # Use DIA app default
+                    top_p=0.95,      # Use DIA app default
+                    cfg_filter_top_k=30,  # Use DIA app default
+                    max_tokens=2500,  # Use model config default
                     verbose=False    # Disable verbose to reduce overhead
                 )
                 

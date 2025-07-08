@@ -59,7 +59,7 @@ def analyze_dac_codes(codes: np.ndarray, name: str = "DAC codes") -> dict:
     # Check for potential silence patterns
     silence_candidates = [0, 1, 2, 1023, 1022, 1021]  # Common silence codes
     silence_count = sum(counts[unique_vals == val] for val in silence_candidates if val in unique_vals)
-    silence_percentage = silence_count / codes.size * 100
+    silence_percentage = float(silence_count) / codes.size * 100
     
     print(f"  Potential silence codes: {silence_count} ({silence_percentage:.1f}%)")
     
@@ -89,7 +89,9 @@ def decode_dac_codes(model, codes: np.ndarray, output_path: str) -> Tuple[np.nda
         # Convert to tensor and move to model device
         dac_tensor = torch.tensor(codes, dtype=torch.long, device=model.device)
         
-        # Use DIA's built-in _decode method
+        # The codes from generate_dia_data.py (with load_dac=False) are already 
+        # in the correct format for DAC decoding - they've been processed through
+        # delay pattern reversion in _generate_output
         with torch.no_grad():
             audio = model._decode(dac_tensor)
         
