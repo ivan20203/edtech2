@@ -165,7 +165,7 @@ def main():
     parser.add_argument("--input-dir", default="data/train", help="Input directory with DAC files")
     parser.add_argument("--output-dir", default="dia_audio_output", help="Output directory for audio files")
     parser.add_argument("--files", nargs="+", help="Specific files to process (e.g., 00000.dac.npy)")
-    parser.add_argument("--max-files", type=int, default=10, help="Maximum number of files to process")
+    parser.add_argument("--max-files", type=int, default=None, help="Maximum number of files to process (default: process all files)")
     parser.add_argument("--no-analyze", action="store_true", help="Skip DAC code analysis")
     parser.add_argument("--min-rms", type=float, default=0.01, help="Minimum RMS to consider as voiced")
     
@@ -198,7 +198,7 @@ def main():
     print(f"Found {len(dac_files)} DAC files")
     
     # Limit number of files
-    if len(dac_files) > args.max_files:
+    if args.max_files and len(dac_files) > args.max_files:
         print(f"Processing first {args.max_files} files (use --max-files to change)")
         dac_files = dac_files[:args.max_files]
     
