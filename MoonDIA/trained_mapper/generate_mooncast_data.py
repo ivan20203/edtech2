@@ -26,7 +26,7 @@ def main():
     root = Path("data/train")
     root.mkdir(parents=True, exist_ok=True)
     
-    lines = Path("sentences.txt").read_text(encoding="utf-8").splitlines()
+    lines = Path("ten_thousand_sentences.txt").read_text(encoding="utf-8").splitlines()
     
     # Main loop
     print(f"Processing {len(lines)} sentences for MoonCast semantic tokens...")

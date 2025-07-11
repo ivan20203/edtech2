@@ -44,7 +44,7 @@ def main():
     root = Path("data/train")
     root.mkdir(parents=True, exist_ok=True)
     
-    lines = Path("sentences.txt").read_text(encoding="utf-8").splitlines()
+    lines = Path("ten_thousand_sentences.txt").read_text(encoding="utf-8").splitlines()
     
     # Main loop
     print(f"Processing {len(lines)} sentences for DIA DAC codes...")
@@ -74,13 +74,63 @@ def main():
                 # This call returns raw DAC codes (not audio) because load_dac=False
                 dac_codes = tts.generate(
                     text=line,
-                    cfg_scale=3.0,   # Use DIA app default
-                    temperature=1.3, # Use DIA app default
-                    top_p=0.95,      # Use DIA app default
-                    cfg_filter_top_k=30,  # Use DIA app default
-                    max_tokens=2500,  # Use model config default
+                    cfg_scale=5,
+                    temperature=1.5,
+                    top_p=1,
+                    cfg_filter_top_k=50,
+                    max_tokens=400,  # Use model config default
                     verbose=False    # Disable verbose to reduce overhead
                 )
+
+                """                max_new_tokens = gr.Slider(
+                    label="Max New Tokens (Audio Length)",
+                    minimum=860,
+                    maximum=3072,
+                    value=model.config.data.audio_length,  # Use config default if available, else fallback
+                    step=50,
+                    info="Controls the maximum length of the generated audio (more tokens = longer audio).",
+                )
+                cfg_scale = gr.Slider(
+                    label="CFG Scale (Guidance Strength)",
+                    minimum=1.0,
+                    maximum=5.0,
+                    value=3.0,  # Default from inference.py
+                    step=0.1,
+                    info="Higher values increase adherence to the text prompt.",
+                )
+                temperature = gr.Slider(
+                    label="Temperature (Randomness)",
+                    minimum=1.0,
+                    maximum=1.5,
+                    value=1.3,  # Default from inference.py
+                    step=0.05,
+                    info="Lower values make the output more deterministic, higher values increase randomness.",
+                )
+                top_p = gr.Slider(
+                    label="Top P (Nucleus Sampling)",
+                    minimum=0.80,
+                    maximum=1.0,
+                    value=0.95,  # Default from inference.py
+                    step=0.01,
+                    info="Filters vocabulary to the most likely tokens cumulatively reaching probability P.",
+                )
+                cfg_filter_top_k = gr.Slider(
+                    label="CFG Filter Top K",
+                    minimum=15,
+                    maximum=50,
+                    value=30,
+                    step=1,
+                    info="Top k filter for CFG guidance.",
+                )
+                speed_factor_slider = gr.Slider(
+                    label="Speed Factor",
+                    minimum=0.8,
+                    maximum=1.0,
+                    value=0.94,
+                    step=0.02,
+                    info="Adjusts the speed of the generated audio (1.0 = original speed).",
+                )
+"""
                 
                 signal.alarm(0)  # Cancel the alarm
                 end_time = time.time()

@@ -293,7 +293,7 @@ def main():
     parser.add_argument("--input-dir", default="data/train", help="Input directory with semantic token files")
     parser.add_argument("--output-dir", default="mooncast_audio_output", help="Output directory for audio files")
     parser.add_argument("--files", nargs="+", help="Specific files to process (e.g., 00004.mc.npy)")
-    parser.add_argument("--max-files", type=int, default=10, help="Maximum number of files to process")
+    parser.add_argument("--max-files", type=int, default=None, help="Maximum number of files to process")
     parser.add_argument("--no-analyze", action="store_true", help="Skip token analysis")
     
     args = parser.parse_args()
@@ -327,7 +327,7 @@ def main():
     print(f"Found {len(mc_files)} semantic token files")
     
     # Limit number of files
-    if len(mc_files) > args.max_files:
+    if args.max_files and len(mc_files) > args.max_files:
         print(f"Processing first {args.max_files} files (use --max-files to change)")
         mc_files = mc_files[:args.max_files]
     
