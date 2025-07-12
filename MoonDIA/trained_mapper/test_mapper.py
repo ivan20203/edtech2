@@ -101,7 +101,9 @@ def map_to_dac_codes(model: SemanticToDACMapper, semantic_tokens: np.ndarray):
     """
     print("Mapping semantic tokens to DAC codes...")
     
-    # Convert to tensor
+    print(f"Input semantic tokens: {len(semantic_tokens)}")
+    
+    # Convert to tensor (no padding needed with new regression model)
     semantic_tensor = torch.tensor(semantic_tokens, dtype=torch.long).unsqueeze(0)  # Add batch dimension
     
     # Generate DAC codes
@@ -209,8 +211,8 @@ def test_with_training_data():
     
     # Load a sample from training data
     try:
-        semantic_tokens = np.load("data/train_aligned/00000.mc.npy")
-        true_dac_codes = np.load("data/train_aligned/00000.dac.npy")
+        semantic_tokens = np.load("data/train/00000.mc.npy")
+        true_dac_codes = np.load("data/train/00000.dac.npy")
         
         print(f"Loaded training sample: {len(semantic_tokens)} tokens")
         
@@ -226,16 +228,23 @@ def test_with_training_data():
         print(f"True DAC shape: {true_dac_codes.shape}")
         print(f"Predicted DAC shape: {predicted_dac.shape}")
         
+        # Handle length mismatch by truncating to shorter length
+        min_length = min(predicted_dac.shape[0], true_dac_codes.shape[0])
+        predicted_truncated = predicted_dac[:min_length]
+        true_truncated = true_dac_codes[:min_length]
+        
+        print(f"Comparing first {min_length} frames...")
+        
         # Calculate accuracy (how many frames match exactly)
-        exact_matches = np.sum(predicted_dac == true_dac_codes, axis=1)
+        exact_matches = np.sum(predicted_truncated == true_truncated, axis=1)
         frame_accuracy = np.mean(exact_matches == 9)  # All 9 channels match
-        band_accuracy = np.mean(predicted_dac == true_dac_codes)  # Overall band-wise accuracy
+        band_accuracy = np.mean(predicted_truncated == true_truncated)  # Overall band-wise accuracy
         print(f"Frame accuracy (all 9 bands): {frame_accuracy:.2%}")
         print(f"Band-wise accuracy: {band_accuracy:.2%}")
         
-        # Save comparison
-        np.save("test_true_dac.npy", true_dac_codes)
-        np.save("test_predicted_dac.npy", predicted_dac)
+        # Save truncated comparison
+        np.save("test_true_dac.npy", true_truncated)
+        np.save("test_predicted_dac.npy", predicted_truncated)
         print("✅ Comparison saved to test_true_dac.npy and test_predicted_dac.npy")
         
     except Exception as e:

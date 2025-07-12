@@ -42,3 +42,4 @@ yarn-error.log*
 next-env.d.ts
 
 
+MoonDIA/trained_mapper/s2d.pt
