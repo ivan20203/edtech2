@@ -2,3 +2,4 @@
 /checkpoints
 /mooncast_audio_output
 /dia_audio_output
+.env
