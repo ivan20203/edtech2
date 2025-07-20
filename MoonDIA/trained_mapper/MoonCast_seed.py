@@ -51,6 +51,20 @@ from modules.tokenizer.tokenizer import get_tokenizer_and_extra_tokens
 from modules.audio_detokenizer.audio_detokenizer import get_audio_detokenizer, detokenize_noref
 from transformers import AutoModelForCausalLM, GenerationConfig
 
+# Import MoonCast's text cleaning method
+    
+def _clean_text(text):
+    text = text.replace("“", "")
+    text = text.replace("”", "")
+    text = text.replace("...", " ")
+    text = text.replace("…", " ")
+    text = text.replace("*", "")
+    text = text.replace(":", ",")
+    text = text.replace("‘", "'")
+    text = text.replace("’", "'")
+    text = text.strip()
+    return text
+
 
 def set_seed(seed: int):
     """Set random seeds for reproducible generation.
@@ -194,7 +208,7 @@ class PodcastGenerator:
         
         # Calculate approximate number of turns based on duration
         # Assuming each turn takes about 15-20 seconds
-        target_turns = max(3, min(20, duration_minutes * 5))  # 3-20 turns range
+        target_turns = max(20, int(duration_minutes * 20))
         
         prompt = f"""You are a podcast script writer. Create a SHORT, engaging podcast script about "{topic}" with two speakers having a natural conversation.
 
@@ -234,7 +248,7 @@ Make sure the roles alternate properly and keep the conversation brief and focus
                     {"role": "user", "content": prompt}
                 ],
                 temperature=0.8,
-                max_tokens=2000
+                max_tokens=10000
             )
             
             script_text = response.choices[0].message.content.strip()
@@ -248,12 +262,10 @@ Make sure the roles alternate properly and keep the conversation brief and focus
                     json_str = script_text[start_idx:end_idx]
                     dialogue = json.loads(json_str)
                     
-                    # Strip commas and apostrophes from the text content only
+                    # Clean text using MoonCast's method
                     for turn in dialogue:
                         if 'text' in turn:
-                            # Remove commas and all types of apostrophes/quotes using regex
-                            # This catches all Unicode apostrophes, quotes, and commas
-                            turn['text'] = re.sub(r'[,`\'"\'"′‵]', '', turn['text'])
+                            turn['text'] = _clean_text(turn['text'])
                 else:
                     raise ValueError("No JSON array found in response")
                 
