@@ -28,6 +28,7 @@ import time
 import json
 import openai
 import random
+import re
 from pathlib import Path
 from typing import Optional, List, Dict, Any
 
@@ -58,6 +59,14 @@ def set_seed(seed: int):
         seed: Random seed value
     """
     print(f"Setting random seed to: {seed}")
+    print(f"  - Python random.seed({seed})")
+    print(f"  - NumPy np.random.seed({seed})")
+    print(f"  - PyTorch torch.manual_seed({seed})")
+    print(f"  - CUDA torch.cuda.manual_seed({seed})")
+    print(f"  - CUDA torch.cuda.manual_seed_all({seed})")
+    print(f"  - Setting torch.backends.cudnn.deterministic = True")
+    print(f"  - Setting torch.backends.cudnn.benchmark = False")
+    
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
@@ -83,10 +92,12 @@ class PodcastGenerator:
         
         # Set seed if provided
         if seed is not None:
+            print(f"Using provided seed: {seed}")
             set_seed(seed)
         else:
             # Use a random seed for this session
             random_seed = random.randint(1, 1000000)
+            print(f"No seed provided. Generated random seed: {random_seed}")
             set_seed(random_seed)
         
         # Initialize OpenAI client
@@ -183,7 +194,7 @@ class PodcastGenerator:
         
         # Calculate approximate number of turns based on duration
         # Assuming each turn takes about 15-20 seconds
-        target_turns = max(3, min(20, duration_minutes * 3))  # 3-20 turns range
+        target_turns = max(3, min(20, duration_minutes * 5))  # 3-20 turns range
         
         prompt = f"""You are a podcast script writer. Create a SHORT, engaging podcast script about "{topic}" with two speakers having a natural conversation.
 
@@ -195,7 +206,12 @@ Requirements:
 5. Keep each speaker's turn SHORT (1-2 sentences maximum)
 6. Alternate between speakers naturally
 7. End with a brief conclusion
-8. Keep the total script concise for testing purposes
+8. Keep the total script concise
+
+Only use periods for punctuation. No commas or apostrophes.
+
+make sure to expand all abbreviations. Even chemical abbreviations. 
+
 
 Format the response as a JSON array of objects with 'role' and 'text' fields:
 - 'role': "0" for Speaker 0, "1" for Speaker 1
@@ -231,6 +247,13 @@ Make sure the roles alternate properly and keep the conversation brief and focus
                 if start_idx != -1 and end_idx != -1:
                     json_str = script_text[start_idx:end_idx]
                     dialogue = json.loads(json_str)
+                    
+                    # Strip commas and apostrophes from the text content only
+                    for turn in dialogue:
+                        if 'text' in turn:
+                            # Remove commas and all types of apostrophes/quotes using regex
+                            # This catches all Unicode apostrophes, quotes, and commas
+                            turn['text'] = re.sub(r'[,`\'"\'"′‵]', '', turn['text'])
                 else:
                     raise ValueError("No JSON array found in response")
                 
