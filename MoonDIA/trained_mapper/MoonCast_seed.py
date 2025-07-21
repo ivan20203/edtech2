@@ -217,11 +217,10 @@ Requirements:
 2. Target duration: {duration_minutes} minutes (approximately {target_turns} dialogue turns)
 3. Each speaker should have distinct personality and perspective
 4. The conversation should be natural, engaging, and informative
-5. Keep each speaker's turn SHORT (1-2 sentences maximum)
+5. Keep each speaker's turn SHORT (2 sentences maximum)
 6. Alternate between speakers naturally
 7. End with a brief conclusion
-8. Keep the total script concise
-
+Use alot of ! in order to exude excitement and enthusiasm.
 Only use periods for punctuation. No commas or apostrophes.
 
 make sure to expand all abbreviations. Even chemical abbreviations. 
@@ -297,6 +296,7 @@ Make sure the roles alternate properly and keep the conversation brief and focus
         This follows the exact same approach as MoonCast's infer_without_prompt method.
         """
         print("Generating semantic tokens without voice cloning...")
+        total_start = time.time()
         
         # Build role IDs (same as MoonCast)
         user_role_0_ids = [self.user_msg_start] + self.user_ids + self.spk_0_ids + [self.name_end]
@@ -331,7 +331,15 @@ Make sure the roles alternate properly and keep the conversation brief and focus
         # Generate semantic tokens for each turn (same as MoonCast)
         semantic_tokens_list = []
         
-        for turn in dialogue:
+        for i, turn in enumerate(dialogue):
+            start = time.time()
+            print(f"  Turn {i+1}/{len(dialogue)}...")
+            
+            # Clear GPU memory before each turn
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+                print(f"    Cleared GPU cache before turn")
+            
             role_id = turn["role"]
             cur_assistant_ids = assistant_role_0_ids if role_id == "0" else assistant_role_1_ids
             
@@ -356,7 +364,14 @@ Make sure the roles alternate properly and keep the conversation brief and focus
             
             # Add to results
             semantic_tokens_list.append(semantic_tokens.cpu().numpy())
+            print(f"    Done in {time.time() - start:.1f}s")
+            
+            # Clear GPU memory after each turn
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+                print(f"    Cleared GPU cache after turn")
         
+        print(f"Total time: {time.time() - total_start:.1f}s")
         return semantic_tokens_list
     
     def semantic_tokens_to_audio(self, tokens_list: List[np.ndarray], dialogue: List[Dict[str, str]]) -> torch.Tensor:
@@ -376,6 +391,11 @@ Make sure the roles alternate properly and keep the conversation brief and focus
         
         for i, tokens in enumerate(tokens_list):
             print(f"  Processing turn {i+1}/{len(tokens_list)}...")
+            
+            # Clear GPU memory before processing each turn
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+                print(f"    Cleared GPU cache")
             
             # Convert to tensor format expected by MoonCast
             if isinstance(tokens, np.ndarray):
@@ -403,6 +423,11 @@ Make sure the roles alternate properly and keep the conversation brief and focus
             print(f"    Audio max: {gen_speech_fm.abs().max().item():.4f}")
             
             audio_segments.append(gen_speech_fm)
+            
+            # Clear GPU memory after processing each turn
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+                print(f"    Cleared GPU cache after processing")
         
         # Combine all audio segments
         if audio_segments:
