@@ -193,38 +193,68 @@ class PodcastGenerator:
             os.chdir(original_cwd)
             print(f"  Restored working directory to: {original_cwd}")
     
-    def generate_podcast_script(self, topic: str, duration_minutes: int = 5) -> List[Dict[str, str]]:
+    def read_input_text(self, input_file: str = "input_text.txt") -> str:
+        """
+        Read topic from input_text.txt file.
+        
+        Args:
+            input_file: Path to the input file (default: input_text.txt)
+            
+        Returns:
+            The topic text from the file
+        """
+        try:
+            with open(input_file, 'r', encoding='utf-8') as f:
+                topic = f.read().strip()
+            
+            if not topic:
+                raise ValueError("Input file is empty")
+            
+            print(f"Read topic from {input_file}: {topic[:100]}{'...' if len(topic) > 100 else ''}")
+            return topic
+            
+        except FileNotFoundError:
+            raise FileNotFoundError(f"Input file '{input_file}' not found")
+        except Exception as e:
+            raise Exception(f"Error reading input file: {e}")
+
+    def generate_podcast_script(self, topic: str, duration_minutes: int = 5, save_to_file: bool = True) -> List[Dict[str, str]]:
         """
         Generate a podcast script using GPT-4o-mini.
         
         Args:
             topic: The podcast topic
             duration_minutes: Target duration in minutes (default: 5)
+            save_to_file: Whether to save the generated script to script.txt
             
         Returns:
             List of dialogue turns with 'role' and 'text' keys
         """
         print(f"Generating podcast script for topic: '{topic}' (target duration: {duration_minutes} minutes)")
         
-        # Calculate approximate number of turns based on duration
-        # Assuming each turn takes about 15-20 seconds
-        target_turns = max(20, int(duration_minutes * 20))
+        # Calculate target tokens based on duration
+        # Assuming each turn is ~20 tokens and we want ~20 turns per minute
+        target_tokens = max(1400, int(duration_minutes * 1000))  # 1000 tokens per minute
+        target_turns = target_tokens // 20  # Each turn is approximately 20 tokens
         
-        prompt = f"""You are a podcast script writer. Create a SHORT, engaging podcast script about "{topic}" with two speakers having a natural conversation.
+        prompt = f"""You are a podcast script writer. Create an engaging podcast script about "{topic}" with two speakers having a natural conversation.
 
-Requirements:
+CRITICAL REQUIREMENTS:
 1. Create a dialogue between two speakers (Speaker 0 and Speaker 1)
-2. Target duration: {duration_minutes} minutes (approximately {target_turns} dialogue turns)
-3. Each speaker should have distinct personality and perspective
-4. The conversation should be natural, engaging, and informative
-5. Keep each speaker's turn SHORT (2 sentences maximum)
-6. Alternate between speakers naturally
-7. End with a brief conclusion
-Use alot of ! in order to exude excitement and enthusiasm.
-Only use periods for punctuation. No commas or apostrophes.
+2. Target: {target_tokens} tokens total ({target_turns} dialogue turns)
+3. Each turn should be approximately 20 tokens (1-2 sentences)
+4. Each speaker should have distinct personality and perspective
+5. Keep each speaker's turn SHORT (1-2 sentences maximum)
+6. Alternate between speakers naturally (Speaker 0, then Speaker 1, then Speaker 0, etc.)
+7. Use lots of exclamation marks to show excitement and enthusiasm!
+8. Only use periods for punctuation. No commas or apostrophes.
+9. Expand all abbreviations. Even chemical abbreviations.
 
-make sure to expand all abbreviations. Even chemical abbreviations. 
-
+TOKEN CALCULATION:
+- Target: {target_tokens} tokens
+- Each turn: ~20 tokens
+- Expected turns: {target_turns}
+- Duration: {duration_minutes} minutes
 
 Format the response as a JSON array of objects with 'role' and 'text' fields:
 - 'role': "0" for Speaker 0, "1" for Speaker 1
@@ -232,22 +262,22 @@ Format the response as a JSON array of objects with 'role' and 'text' fields:
 
 Example format:
 [
-    {{"role": "0", "text": "Welcome! Today we're discussing {topic}."}},
-    {{"role": "1", "text": "Thanks! This is fascinating."}},
+    {{"role": "0", "text": "Welcome! Today we're discussing {topic}!"}},
+    {{"role": "1", "text": "Thanks! This is going to be fascinating!"}},
     ...
 ]
 
-Make sure the roles alternate properly and keep the conversation brief and focused."""
+Remember: Aim for {target_tokens} tokens total across {target_turns} dialogue turns!"""
 
         try:
             response = self.openai_client.chat.completions.create(
                 model="gpt-4o-mini",
                 messages=[
-                    {"role": "system", "content": "You are a professional podcast script writer."},
+                    {"role": "system", "content": "You are a professional podcast script writer. You must always generate the exact number of dialogue turns requested."},
                     {"role": "user", "content": prompt}
                 ],
                 temperature=0.8,
-                max_tokens=10000
+                max_tokens=15000
             )
             
             script_text = response.choices[0].message.content.strip()
@@ -279,6 +309,25 @@ Make sure the roles alternate properly and keep the conversation brief and focus
                         raise ValueError("Invalid role, must be '0' or '1'")
                 
                 print(f"Generated podcast script with {len(dialogue)} dialogue turns")
+                
+                # Save script to file if requested
+                if save_to_file:
+                    script_file = "script.txt"
+                    try:
+                        with open(script_file, 'w', encoding='utf-8') as f:
+                            f.write(f"Podcast Script: {topic}\n")
+                            f.write(f"Duration: {duration_minutes} minutes\n")
+                            f.write(f"Total turns: {len(dialogue)}\n")
+                            f.write(f"Seed: {seed}\n")
+                            f.write("=" * 50 + "\n\n")
+                            
+                            for i, turn in enumerate(dialogue):
+                                f.write(f"Turn {i+1} (Speaker {turn['role']}): {turn['text']}\n\n")
+                        
+                        print(f"Script saved to {script_file}")
+                    except Exception as e:
+                        print(f"Warning: Could not save script to {script_file}: {e}")
+                
                 return dialogue
                 
             except json.JSONDecodeError as e:
@@ -439,19 +488,25 @@ Make sure the roles alternate properly and keep the conversation brief and focus
         else:
             raise ValueError("No audio segments generated")
     
-    def generate_podcast(self, topic: str, output_path: Optional[str] = None, duration_minutes: int = 1) -> str:
+    def generate_podcast(self, topic: str, output_path: Optional[str] = None, duration_minutes: int = 1, 
+                        use_input_file: bool = False, save_script: bool = True) -> str:
         """
         Complete podcast generation pipeline without voice cloning.
         
         Args:
-            topic: Podcast topic
+            topic: Podcast topic (ignored if use_input_file is True)
             output_path: Optional output path for audio file
             duration_minutes: Target duration in minutes (default: 1 for testing)
+            use_input_file: Whether to read topic from input_text.txt
+            save_script: Whether to save generated script to script.txt
             
         Returns:
             Path to the generated audio file
         """
-        if not topic.strip():
+        # Read topic from input file if requested
+        if use_input_file:
+            topic = self.read_input_text()
+        elif not topic.strip():
             raise ValueError("Topic cannot be empty")
         
         # Generate output path if not provided
@@ -468,7 +523,7 @@ Make sure the roles alternate properly and keep the conversation brief and focus
         
         try:
             # Step 1: Generate podcast script using GPT-4o-mini
-            dialogue = self.generate_podcast_script(topic, duration_minutes)
+            dialogue = self.generate_podcast_script(topic, duration_minutes, save_script)
             
             # Step 2: Generate semantic tokens without voice prompts
             print(f"Dialogue turns: {len(dialogue)}")
@@ -571,14 +626,17 @@ def main():
     parser.add_argument("--seed", "-s", type=int, help="Random seed for reproducible generation")
     parser.add_argument("--interactive", "-i", action="store_true", help="Run in interactive mode")
     parser.add_argument("--openai-key", help="OpenAI API key (or set OPENAI_API_KEY env var)")
+    parser.add_argument("--input-file", action="store_true", help="Read topic from input_text.txt instead of command line")
+    parser.add_argument("--no-save-script", action="store_true", help="Don't save generated script to script.txt")
     
     args = parser.parse_args()
     
-    # Check if we have topic or interactive mode
-    if not args.topic and not args.interactive:
-        print("Please provide a podcast topic or use --interactive mode.")
+    # Check if we have topic, input file, or interactive mode
+    if not args.topic and not args.input_file and not args.interactive:
+        print("Please provide a podcast topic, use --input-file, or use --interactive mode.")
         print("Example: python MoonCast_seed.py 'The future of artificial intelligence'")
         print("Example: python MoonCast_seed.py 'AI topic' --duration 2 --seed 42")
+        print("Example: python MoonCast_seed.py --input-file")
         print("Example: python MoonCast_seed.py --interactive")
         return
     
@@ -591,7 +649,13 @@ def main():
             interactive_mode(generator)
         else:
             # Generate single podcast
-            output_path = generator.generate_podcast(args.topic, args.output, args.duration)
+            output_path = generator.generate_podcast(
+                topic=args.topic or "", 
+                output_path=args.output, 
+                duration_minutes=args.duration,
+                use_input_file=args.input_file,
+                save_script=not args.no_save_script
+            )
             print(f"\n🎵 Podcast saved to: {output_path}")
             
     except Exception as e:
