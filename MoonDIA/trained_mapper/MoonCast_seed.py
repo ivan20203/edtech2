@@ -230,7 +230,6 @@ class PodcastGenerator:
         Returns:
             List of dialogue turns with 'role' and 'text' keys
         """
-        print(f"Generating podcast script for topic: '{topic}' (target duration: {duration_minutes} minutes)")
         
         # Calculate target tokens based on duration
         # Assuming each turn is ~20 tokens and we want ~20 turns per minute
@@ -271,7 +270,7 @@ Remember: Aim for {target_tokens} tokens total across {target_turns} dialogue tu
 
         try:
             response = self.openai_client.chat.completions.create(
-                model="gpt-4o-mini",
+                model="gpt-4.1-2025-04-14",
                 messages=[
                     {"role": "system", "content": "You are a professional podcast script writer. You must always generate the exact number of dialogue turns requested."},
                     {"role": "user", "content": prompt}
@@ -395,6 +394,10 @@ Remember: Aim for {target_tokens} tokens total across {target_turns} dialogue tu
             # Add assistant role and media start to prompt
             prompt = torch.cat([prompt, cur_assistant_ids, media_start], dim=-1)
             len_prompt = prompt.shape[1]
+
+            print(f"    [DEBUG] Prompt token count before generation: {prompt.shape[1]}")
+            print(f"    [DEBUG] Estimated prompt size: {prompt.element_size() * prompt.nelement() / 1e6:.2f} MB")
+
             generation_config.min_length = len_prompt + 2
             
             # Generate tokens
@@ -517,8 +520,6 @@ Remember: Aim for {target_tokens} tokens total across {target_turns} dialogue tu
         print(f"\n{'='*60}")
         print(f"Generating Podcast (No Voice Cloning)")
         print(f"{'='*60}")
-        print(f"Topic: {topic}")
-        print(f"Target Duration: {duration_minutes} minutes")
         print(f"Output file: {output_path}")
         
         try:

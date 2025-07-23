@@ -233,5 +233,5 @@ The accumulated neutron induced fibre damage was quantified: insertion losses in
 The system also critically depends on the discrimination of the light emitted from the plasma from the Doppler shifted Balmer-α from beam emission, and as far as possible, filtering out the plasma emission. Previously we have measured beam emission in the duct without significant background using a different line of sight [4]. It was not possible to use that for the ODI due to installation of other equipment. It is therefore likely that plasma background could be reduced if an optimised window location and line of sight is used.
 
 It is important to have regular checks of light transmission from the beamline during system operations and a strategy to clean the windows. Vacuum windows can be obscured. Due to the tight JET schedule, we did not have the opportunity to clean these windows in the august 2017–2023 period, this is the reason why the whole octant 8 ODI system was blind during the JET-DTE2 campaign. However, we also emphasise that with the JET-EP2 duct with improved cooling, it was very easy to condition the beamlines and the risk of operating without the octant 8 ODI system active was deemed acceptable (relying on a Penning gauge duct pressure interlock).
-Duration: 10 minutes
-Total turns: 81
+Duration: 3 minutes
+Total turns: 140
