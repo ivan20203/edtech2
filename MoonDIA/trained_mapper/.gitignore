@@ -3,3 +3,7 @@
 /mooncast_audio_output
 /dia_audio_output
 .env
+
+
+debug_full_prompt_turn_*.txt
+podcast_1753502772.wav
