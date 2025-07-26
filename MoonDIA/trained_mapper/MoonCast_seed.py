@@ -338,6 +338,7 @@ Remember: Aim for {target_tokens} tokens total across {target_turns} dialogue tu
             print(f"Error generating podcast script: {e}")
             raise
     
+
     def generate_semantic_tokens_no_reference(self, dialogue: List[Dict[str, str]]) -> List[np.ndarray]:
         """
         Generate semantic tokens from dialogue without voice cloning.
@@ -363,7 +364,12 @@ Remember: Aim for {target_tokens} tokens total across {target_turns} dialogue tu
         
         # Build initial prompt (following MoonCast's exact pattern for no-reference)
         prompt = []
-        
+
+        trim_every = 10
+        script_window = 20
+        base_script_segments = []  # user messages split by turn
+        assistant_output_segments = []  # assistant outputs
+
         # Add dialogue turns (no voice prompts)
         for turn in dialogue:
             role_id = turn["role"]
@@ -371,9 +377,20 @@ Remember: Aim for {target_tokens} tokens total across {target_turns} dialogue tu
             text_bpe_ids = self.tokenizer.encode(turn["text"])
             cur_start_ids = cur_user_ids + text_bpe_ids + [self.msg_end]
             prompt = prompt + cur_start_ids
-        
+            base_script_segments.append(cur_start_ids)
+
+        # Flatten base prompt
+        prompt_ids = [tid for segment in base_script_segments for tid in segment]
+
+        # Store lengths for later slicing
+        base_script_segment_lengths = [len(seg) for seg in base_script_segments]
+        base_script_total_length = sum(base_script_segment_lengths)   
+
+
         prompt = torch.LongTensor(prompt).unsqueeze(0).to(torch.cuda.current_device())
-        
+
+        base_script_end_idx = prompt.shape[1]
+
         generation_config = self.generate_config
         
         # Generate semantic tokens for each turn (same as MoonCast)
@@ -382,6 +399,73 @@ Remember: Aim for {target_tokens} tokens total across {target_turns} dialogue tu
         for i, turn in enumerate(dialogue):
             start = time.time()
             print(f"  Turn {i+1}/{len(dialogue)}...")
+
+
+            if i >= script_window and (i - script_window) % trim_every == 0 and i % 2 == 0:
+
+                with open(f"debug_trim_before_turn_{i+1}.txt", "w", encoding="utf-8") as f:
+                    f.write(f"=== TURN {i+1}/{len(dialogue)} • PROMPT BEFORE TRIM ===\n")
+                    f.write(f"Script‑turns in prompt: {len(base_script_segment_lengths)}\n")
+                    f.write(f"Assistant‑turns in prompt: {len(assistant_output_segments)}\n")
+                    f.write(f"Total prompt tokens: {prompt.shape[1]}\n\n")
+
+                    f.write("Decoded prompt:\n")
+                    try:
+                        decoded_ids = prompt.squeeze(0)[:base_script_end_idx].tolist()
+                        f.write(self.tokenizer.decode(decoded_ids) + "\n\n")
+                    except Exception as e:
+                        f.write(f"[Failed to decode: {e}]\n\n")
+
+                    f.write("Prompt token IDs:\n")
+                    f.write(" ".join(map(str, prompt.squeeze(0).tolist())))
+                    f.write("\n")
+
+
+                remove_count = trim_every  # trim 20 full dialogue turns
+                remove_script_len = sum(base_script_segment_lengths[:remove_count])
+                remove_output_len = sum(len(x) for x in assistant_output_segments[:remove_count])
+
+                #prompt = prompt[:, remove_script_len + remove_output_len:]
+
+                script_len = sum(base_script_segment_lengths)
+                script_part  = prompt[:, :script_len]
+                output_part  = prompt[:, script_len:]
+
+                script_part  = script_part[:, remove_script_len:]
+                output_part  = output_part[:, remove_output_len:]
+
+                prompt = torch.cat([script_part, output_part], dim=-1)
+                
+                base_script_segments = base_script_segments[remove_count:]
+                base_script_segment_lengths = base_script_segment_lengths[remove_count:]
+                assistant_output_segments = assistant_output_segments[remove_count:]
+                base_script_end_idx = script_part.shape[1] 
+
+
+                #base_script_segments = base_script_segments[remove_count:]
+                #base_script_segment_lengths = base_script_segment_lengths[remove_count:]
+                #base_script_end_idx = prompt.shape[1]
+                #assistant_output_segments = assistant_output_segments[remove_count:]
+
+
+                with open(f"debug_trim_after_turn_{i+1}.txt", "w", encoding="utf-8") as f:
+                    f.write(f"=== TURN {i+1}/{len(dialogue)} • PROMPT AFTER TRIM ===\n")
+                    f.write(f"Removed script turns: {remove_count}\n")
+                    f.write(f"Remaining script‑turns: {len(base_script_segment_lengths)}\n")
+                    f.write(f"Remaining assistant‑turns: {len(assistant_output_segments)}\n")
+                    f.write(f"Total prompt tokens: {prompt.shape[1]}\n\n")
+
+                    f.write("Decoded prompt:\n")
+                    try:
+                        decoded_ids = prompt.squeeze(0)[:base_script_end_idx].tolist()
+                        f.write(self.tokenizer.decode(decoded_ids) + "\n\n")
+                    except Exception as e:
+                        f.write(f"[Failed to decode: {e}]\n\n")
+
+                    f.write("Prompt token IDs:\n")
+                    f.write(" ".join(map(str, prompt.squeeze(0).tolist())))
+                    f.write("\n")
+
             
             # Clear GPU memory before each turn
             if torch.cuda.is_available():
@@ -409,7 +493,36 @@ Remember: Aim for {target_tokens} tokens total across {target_turns} dialogue tu
             
             # Extract generated tokens
             output_token = outputs[:, len_prompt:]
+
+            output_segment = (
+                cur_assistant_ids.squeeze(0).tolist() +
+                media_start.squeeze(0).tolist() +
+                output_token.squeeze(0).tolist() +
+                media_end.squeeze(0).tolist()
+            )
+            assistant_output_segments.append(output_segment)
+
+
             prompt = torch.cat([outputs, media_end], dim=-1)
+
+
+            with open(f"debug_full_prompt_turn_{i+1}.txt", "w", encoding="utf-8") as f:
+                f.write(f"=== TURN {i+1}/{len(dialogue)} • FULL PROMPT AFTER GENERATION ===\n")
+                f.write(f"Script‑turns now: {len(base_script_segment_lengths)}\n")
+                f.write(f"Assistant‑turns now: {len(assistant_output_segments)}\n")
+                f.write(f"Total prompt tokens: {prompt.shape[1]}\n")
+                f.write(f"Generated semantic token count this turn: {output_token.numel()}\n\n")
+
+                f.write("Decoded prompt:\n")
+                try:
+                    decoded_ids = prompt.squeeze(0)[:base_script_end_idx].tolist()
+                    f.write(self.tokenizer.decode(decoded_ids) + "\n\n")
+                except Exception as e:
+                    f.write(f"[Failed to decode: {e}]\n\n")
+
+                f.write("Prompt token IDs:\n")
+                f.write(" ".join(map(str, prompt.squeeze(0).tolist())))
+                f.write("\n")
             
             # Convert to semantic tokens (remove speech token offset)
             semantic_tokens = output_token - self.speech_token_offset
@@ -425,7 +538,8 @@ Remember: Aim for {target_tokens} tokens total across {target_turns} dialogue tu
         
         print(f"Total time: {time.time() - total_start:.1f}s")
         return semantic_tokens_list
-    
+
+
     def semantic_tokens_to_audio(self, tokens_list: List[np.ndarray], dialogue: List[Dict[str, str]]) -> torch.Tensor:
         """
         Convert semantic tokens to audio using MoonCast's no-reference pipeline.

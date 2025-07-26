@@ -234,4 +234,4 @@ The system also critically depends on the discrimination of the light emitted fr
 
 It is important to have regular checks of light transmission from the beamline during system operations and a strategy to clean the windows. Vacuum windows can be obscured. Due to the tight JET schedule, we did not have the opportunity to clean these windows in the august 2017–2023 period, this is the reason why the whole octant 8 ODI system was blind during the JET-DTE2 campaign. However, we also emphasise that with the JET-EP2 duct with improved cooling, it was very easy to condition the beamlines and the risk of operating without the octant 8 ODI system active was deemed acceptable (relying on a Penning gauge duct pressure interlock).
 Duration: 1 minutes
-Total turns: 47
+Total turns: 68
