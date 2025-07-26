@@ -174,7 +174,7 @@ class PodcastGenerator:
             
             # Generation config
             self.generate_config = GenerationConfig(
-                max_new_tokens=200 * 50,
+                max_new_tokens=1024,
                 do_sample=True,
                 top_k=30,
                 top_p=0.8,
@@ -313,16 +313,8 @@ Remember: Aim for {target_tokens} tokens total across {target_turns} dialogue tu
                 if save_to_file:
                     script_file = "script.txt"
                     try:
-                        with open(script_file, 'w', encoding='utf-8') as f:
-                            f.write(f"Podcast Script: {topic}\n")
-                            f.write(f"Duration: {duration_minutes} minutes\n")
-                            f.write(f"Total turns: {len(dialogue)}\n")
-                            f.write(f"Seed: {seed}\n")
-                            f.write("=" * 50 + "\n\n")
-                            
-                            for i, turn in enumerate(dialogue):
-                                f.write(f"Turn {i+1} (Speaker {turn['role']}): {turn['text']}\n\n")
-                        
+                        with open(script_file, "w", encoding="utf-8") as f:
+                            f.write(script_text)   # <- write the raw GPT response
                         print(f"Script saved to {script_file}")
                     except Exception as e:
                         print(f"Warning: Could not save script to {script_file}: {e}")
