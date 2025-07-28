@@ -1,0 +1,13 @@
+# prevent secret leaks
+.env
+**/.env
+.env*
+
+# no need to include Git stuff
+.git
+.gitignore
+
+# OS noise
+.DS_Store
+Thumbs.db
+
