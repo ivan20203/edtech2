@@ -1,28 +1,59 @@
-# AI SDK Python Streaming Preview
+//////
 
-This template demonstrates the usage of [Data Stream Protocol](https://sdk.vercel.ai/docs/ai-sdk-ui/stream-protocol#data-stream-protocol) to stream chat completions from a Python endpoint ([FastAPI](https://fastapi.tiangolo.com)) and display them using the [useChat](https://sdk.vercel.ai/docs/ai-sdk-ui/chatbot#chatbot) hook in your Next.js application.
+This is my Education Technology project
 
-## Deploy your own
+there are essentially 2 codebases here. 
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel-labs%2Fai-sdk-preview-python-streaming&env=OPENAI_API_KEY&envDescription=API%20keys%20needed%20for%20application&envLink=https%3A%2F%2Fgithub.com%2Fvercel-labs%2Fai-sdk-preview-python-streaming%2Fblob%2Fmain%2F.env.example)
+1 for Front end ui
 
-## How to use
+another one for the TTS generation
 
-Run [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+I could not get the docker container to work on RunPod
 
-```bash
-npx create-next-app --example https://github.com/vercel-labs/ai-sdk-preview-python-streaming ai-sdk-preview-python-streaming-example
-```
+So the frontend sadly does not allow the user to generate TTS
 
-```bash
-yarn create next-app --example https://github.com/vercel-labs/ai-sdk-preview-python-streaming ai-sdk-preview-python-streaming-example
-```
+In any case the front end code is a ui design of what it should be
 
-```bash
-pnpm create next-app --example https://github.com/vercel-labs/ai-sdk-preview-python-streaming ai-sdk-preview-python-streaming-example
-```
+And the TTS code is under MoonDIA
 
-To run the example locally you need to:
+Specifically under MoonDIA/trained_mapper
+
+In trained_mapper if the environment is set up correctly 
+
+it allows the generation of TTS audio. 
+
+The limiting factor is the 15,000 output token limit in the code currently
+
+but since its 4.1 you can easily edit that up to 60,000 for 1 hour+ audio.
+
+
+In this TTS system generation we use MoonCast.
+In my code a user inputs text and it calls GPT 4.1
+
+GPT4.1 returns a script.
+
+That script is then read line by line with MoonCast. 
+
+It converts the script into Semantic Tokens and then creates audio. 
+
+The hard part was making it scalable locally. 
+
+I had to come up with a sliding window of 10 turns to maintain speaker consistency 
+while not overflowing the prompt  and nuking my GPU.
+
+
+Overall I am proud of my work. I was able to create a TTS system.
+
+However I ran out of time and need to write 10 pages so I could not 
+get the docker container to work and connect to the vercel front end. 
+
+
+
+////////////////////////////
+
+
+FRONT END CODE:
+========================================
 
 1. Sign up for accounts with the AI providers you want to use (e.g., OpenAI, Anthropic).
 2. Obtain API keys for each provider.
@@ -33,9 +64,72 @@ To run the example locally you need to:
 7. `pip install -r requirements.txt` to install the required Python dependencies.
 8. `pnpm dev` to launch the development server.
 
-## Learn More
 
-To learn more about the AI SDK or Next.js by Vercel, take a look at the following resources:
 
-- [AI SDK Documentation](https://sdk.vercel.ai/docs)
-- [Next.js Documentation](https://nextjs.org/docs)
+
+TTS Code:
+MoonDIA is the code.
+need to install everything in environment.yml
+
+there is requirements.txt in /MoonCast
+requirements_mooncast_2wice.txt in /MoonDIA/trained_mapper
+requirements_seq2seq.txt in /MoonDIA/trained_mapper
+
+it uses the MoonCast conda environment which is under the MoonCast/Readme 
+instructions. 
+
+the main code is in /MoonDIA/trained_mapper
+
+MoonCast_seed.py function call is :
+python MoonCast_seed.py --input-file --duration 5
+
+same standard for MoonCast_no_prompt.py 
+and for MoonCast_seed_explainer.py
+
+MoonCast_seed.py generates audio with 2 speakers.
+MoonCast_no_prompt.py generates audio with random speakers throughout
+MoonCast_seed_explainer.py generates audio with 2 speakers but explains more. 
+
+
+
+This uses GPT4.1
+
+
+Do this under MoonCast/
+folder
+
+conda create -n mooncast -y python=3.10
+conda activate mooncast
+pip install -r requirements.txt 
+pip install flash-attn --no-build-isolation
+pip install huggingface_hub
+pip install gradio==5.22.0
+
+python download_pretrain.py
+
+ 
+flash-attn takes 5 hours to install
+
+once everything is good pip install the 3 requirements
+there is requirements.txt in /MoonCast
+requirements_mooncast_2wice.txt in /MoonDIA/trained_mapper
+requirements_seq2seq.txt in /MoonDIA/trained_mapper
+
+
+You will need to switch to MoonDIA/CustomBuild
+copy in the /resources/ from MoonCast
+
+Also fill out the .env in the directory of /trained_mapper
+
+
+
+
+
+
+
+
+
+
+
+
+
