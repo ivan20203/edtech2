@@ -5,4 +5,13 @@ dia/
 models/
 MoonDIA/
 SemantiCodec-inference/
-/edtechpodcast
+edtechpodcast/
+
+.DS_Store
+*.log
+
+.next/
+dist/
+out/
+
+node_modules/
