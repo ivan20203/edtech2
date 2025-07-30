@@ -18,6 +18,11 @@ export const Navbar = () => {
             Demos
           </Button>
         </Link>
+        <Link href="/library">
+          <Button variant="ghost" size="sm">
+            Library
+          </Button>
+        </Link>
       </div>
     </div>
   );

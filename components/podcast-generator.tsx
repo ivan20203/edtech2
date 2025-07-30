@@ -247,6 +247,7 @@ function AnimatedInput({
           >
             {placeholder === "Duration" && (
               <>
+                <option value="1">1 minutes</option>
                 <option value="5">5 minutes</option>
                 <option value="10">10 minutes</option>
                 <option value="15">15 minutes</option>
@@ -254,11 +255,6 @@ function AnimatedInput({
                 <option value="30">30 minutes</option>
                 <option value="45">45 minutes</option>
                 <option value="60">60 minutes</option>
-                <option value="90">90 minutes</option>
-                <option value="120">120 minutes</option>
-                <option value="180">180 minutes</option>
-                <option value="240">240 minutes</option>
-                <option value="300">300 minutes</option>
               </>
             )}
             {placeholder === "Tone" && (
@@ -411,19 +407,115 @@ function AnimatedButton({ onClick, children, isGenerating = false }: { onClick: 
 export function PodcastGenerator() {
   const [input, setInput] = useState('');
   const [duration, setDuration] = useState('5');
-  const [tone, setTone] = useState('casual');
-  const [framework, setFramework] = useState('mooncast');
   const [isGenerating, setIsGenerating] = useState(false);
+  const [jobId, setJobId] = useState<string | null>(null);
+  const [status, setStatus] = useState<string>('');
+  const [error, setError] = useState<string>('');
+  const [result, setResult] = useState<any>(null);
+  const [isCheckingStatus, setIsCheckingStatus] = useState(false);
+
+  const startGeneration = async () => {
+    try {
+      setIsGenerating(true);
+      setError('');
+      setStatus('Starting generation...');
+      setResult(null);
+
+      const response = await fetch('/api/MoonCast/start', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          topic: input,
+          duration: parseInt(duration),
+          seed: Math.floor(Math.random() * 1000000), // Random seed
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to start generation');
+      }
+
+      const data = await response.json();
+      console.log('Start API response:', data); // Debug log
+      
+      // Handle different possible response formats
+      const jobId = data.id || data.jobId || data.job_id || data.taskId || data.task_id;
+      
+      if (!jobId) {
+        console.error('No job ID found in response:', data);
+        throw new Error('No job ID received from server');
+      }
+      
+      setJobId(jobId);
+      setStatus('Generation started! Click "Check Status" to see progress.');
+      setIsGenerating(false);
+    } catch (err) {
+      console.error('Error starting generation:', err);
+      setError(err instanceof Error ? err.message : 'Failed to start generation');
+      setIsGenerating(false);
+      setStatus('');
+    }
+  };
+
+  const checkStatus = async () => {
+    if (!jobId) {
+      setError('No job ID available');
+      return;
+    }
+
+    try {
+      setIsCheckingStatus(true);
+      setError('');
+      
+      console.log('Checking status for job ID:', jobId); // Debug log
+      const response = await fetch(`/api/MoonCast/status/${jobId}`);
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Status API error:', response.status, errorText);
+        throw new Error(`Status check failed: ${response.status} - ${errorText}`);
+      }
+
+      const data = await response.json();
+      console.log('Status API response:', data); // Debug log
+      
+      if (data.status === 'COMPLETED') {
+        setStatus('Generation completed!');
+        setResult(data);
+      } else if (data.status === 'FAILED') {
+        setError('Generation failed');
+        setStatus('');
+      } else {
+        setStatus(`Status: ${data.status || 'Processing...'}`);
+      }
+    } catch (err) {
+      console.error('Error checking status:', err);
+      setError(err instanceof Error ? err.message : 'Failed to check status');
+    } finally {
+      setIsCheckingStatus(false);
+    }
+  };
 
   const handleGenerate = () => {
-    setIsGenerating(true);
-    // TODO: Implement podcast generation logic
-    console.log('Generating podcast with input:', input, 'Duration:', duration, 'Tone:', tone, 'Framework:', framework);
-    
-    // Simulate generation delay
-    setTimeout(() => {
-      setIsGenerating(false);
-    }, 3000);
+    if (!input.trim()) {
+      setError('Please enter a podcast topic');
+      return;
+    }
+    startGeneration();
+  };
+
+  const resetForm = () => {
+    setInput('');
+    setDuration('5');
+    setIsGenerating(false);
+    setJobId(null);
+    setStatus('');
+    setError('');
+    setResult(null);
+    setIsCheckingStatus(false);
   };
 
   return (
@@ -473,6 +565,47 @@ export function PodcastGenerator() {
           </motion.p>
         </motion.div>
 
+        {/* Error display */}
+        {error && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-red-500/20 border border-red-500/50 rounded-lg p-4 text-red-300"
+          >
+            <p className="font-semibold">Error:</p>
+            <p>{error}</p>
+          </motion.div>
+        )}
+
+        {/* Status display */}
+        {status && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-blue-500/20 border border-blue-500/50 rounded-lg p-4 text-blue-300"
+          >
+            <p className="font-semibold">Status:</p>
+            <p>{status}</p>
+            {jobId && (
+              <p className="text-sm text-blue-400 mt-2">Job ID: {jobId}</p>
+            )}
+          </motion.div>
+        )}
+
+        {/* Result display */}
+        {result && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-green-500/20 border border-green-500/50 rounded-lg p-4 text-green-300"
+          >
+            <p className="font-semibold">Generation Complete!</p>
+            <pre className="mt-2 text-sm overflow-auto max-h-64">
+              {JSON.stringify(result, null, 2)}
+            </pre>
+          </motion.div>
+        )}
+
         {/* Main form */}
         <motion.div 
           className="space-y-6"
@@ -496,42 +629,78 @@ export function PodcastGenerator() {
               placeholder="Duration"
               className="flex-1"
             />
-            <AnimatedInput
-              value={tone}
-              onChange={setTone}
-              placeholder="Tone"
-              className="flex-1"
-            />
           </div>
 
-          {/* Framework selector */}
-          <AnimatedInput
-            value={framework}
-            onChange={setFramework}
-            placeholder="Framework"
-          />
-
-          {/* Generate button */}
-          <AnimatedButton onClick={handleGenerate} isGenerating={isGenerating}>
-            {isGenerating ? (
-              <motion.span
-                key="generating"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="flex items-center gap-2"
+          {/* Action buttons */}
+          <div className="flex gap-4">
+            <AnimatedButton onClick={handleGenerate} isGenerating={isGenerating}>
+              {isGenerating ? (
+                <motion.span
+                  key="generating"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="flex items-center gap-2"
+                >
+                  Generating Podcast...
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="generate"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                >
+                  Generate Podcast
+                </motion.span>
+              )}
+            </AnimatedButton>
+            
+            {jobId && !result && (
+              <motion.button
+                onClick={checkStatus}
+                disabled={isCheckingStatus}
+                className="px-8 py-6 text-xl font-bold text-white bg-green-600 hover:bg-green-700 disabled:bg-green-800 disabled:cursor-not-allowed rounded-xl transition-colors"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                whileHover={{ scale: isCheckingStatus ? 1 : 1.02 }}
+                whileTap={{ scale: isCheckingStatus ? 1 : 0.98 }}
               >
-                Generating Podcast...
-              </motion.span>
-            ) : (
-              <motion.span
-                key="generate"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-              >
-                Generate Podcast
-              </motion.span>
+                {isCheckingStatus ? (
+                  <motion.span
+                    className="flex items-center gap-2"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                  >
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                    />
+                    Checking...
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                  >
+                    Check Status
+                  </motion.span>
+                )}
+              </motion.button>
             )}
-          </AnimatedButton>
+            
+            {(result || error) && (
+              <motion.button
+                onClick={resetForm}
+                className="px-8 py-6 text-xl font-bold text-white bg-gray-600 hover:bg-gray-700 rounded-xl transition-colors"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Start New
+              </motion.button>
+            )}
+          </div>
         </motion.div>
 
         {/* Floating elements */}

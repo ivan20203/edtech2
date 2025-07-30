@@ -4,10 +4,10 @@ const RUNPOD_POD_URL = process.env.RUNPOD_POD_URL;
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { jobId: string } }
+  { params }: { params: Promise<{ jobId: string }> }
 ) {
   try {
-    const { jobId } = params;
+    const { jobId } = await params;
 
     if (!RUNPOD_POD_URL) {
       return NextResponse.json({ error: 'RunPod pod URL not configured' }, { status: 500 });
