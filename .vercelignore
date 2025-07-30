@@ -1,17 +1,25 @@
-PodAgent/
-MoonCast/
-dia/
+MoonCast/**
+MoonDIA/**
+dia/**
+models/**
+SemantiCodec-inference/**
+PodAgent/**
+edtechpodcast/**
 
-models/
-MoonDIA/
-SemantiCodec-inference/
-edtechpodcast/
 
 .DS_Store
 *.log
+*.tar
+*.pt
+*.safetensors
+
+
+*.flac
+*.zip
+
 
 .next/
 dist/
 out/
-
 node_modules/
+
