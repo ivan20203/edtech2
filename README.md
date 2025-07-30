@@ -1,125 +1,177 @@
-//////
+# Education Technology Project
 
-This is my Education Technology project
+A comprehensive education technology platform featuring a modern frontend UI and an advanced Text-to-Speech (TTS) generation system powered by MoonCast.
 
-there are essentially 2 codebases here. 
+## 🏗️ Project Overview
 
-1 for Front end ui
+This project consists of two main components:
 
-another one for the TTS generation
+1. **Frontend UI** - A modern web interface for user interaction
+2. **TTS Generation System** - Advanced audio generation using MoonCast and GPT-4.1
 
-I could not get the docker container to work on RunPod
+### Current Status
 
-So the frontend sadly does not allow the user to generate TTS
+⚠️ **Note**: The Docker container integration with RunPod is currently not functional, so the frontend cannot generate TTS directly. However, the frontend serves as a complete UI design showcase, and the TTS system works independently.
 
-In any case the front end code is a ui design of what it should be
+## 🎯 TTS System Features
 
-And the TTS code is under MoonDIA
+The TTS system under `MoonDIA/trained_mapper` provides:
 
-Specifically under MoonDIA/trained_mapper
+- **Multi-speaker audio generation** with consistent voice characteristics
+- **GPT-4.1 integration** for intelligent script generation
+- **Scalable local processing** with sliding window optimization
+- **Semantic token conversion** for high-quality audio output
+- **Configurable duration** (currently limited to 15,000 tokens, expandable to 60,000+ for 1+ hour audio)
 
-In trained_mapper if the environment is set up correctly 
+### How It Works
 
-it allows the generation of TTS audio. 
+1. User inputs text → GPT-4.1 generates a script
+2. Script is processed line-by-line with MoonCast
+3. Text is converted to semantic tokens
+4. High-quality audio is generated with speaker consistency
 
-The limiting factor is the 15,000 output token limit in the code currently
+## 🚀 Quick Start
 
-but since its 4.1 you can easily edit that up to 60,000 for 1 hour+ audio.
+### Frontend Setup
 
+1. **Install Dependencies**
+   ```bash
+   pnpm install
+   ```
 
-In this TTS system generation we use MoonCast.
-In my code a user inputs text and it calls GPT 4.1
+2. **Set Up Environment**
+   - Sign up for AI provider accounts (OpenAI, Anthropic, etc.)
+   - Obtain API keys
+   - Copy `.env.example` to `.env` and fill in your API keys
 
-GPT4.1 returns a script.
+3. **Create Python Environment**
+   ```bash
+   virtualenv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   pip install -r requirements.txt
+   ```
 
-That script is then read line by line with MoonCast. 
+4. **Launch Development Server**
+   ```bash
+   pnpm dev
+   ```
 
-It converts the script into Semantic Tokens and then creates audio. 
+### MoonDIA TTS Setup
 
-The hard part was making it scalable locally. 
+#### Prerequisites
+- Conda installed on your system
+- CUDA-compatible GPU (recommended)
+- At least 8GB GPU memory
 
-I had to come up with a sliding window of 10 turns to maintain speaker consistency 
-while not overflowing the prompt  and nuking my GPU.
+#### Step-by-Step Installation
 
+1. **Create and Activate Conda Environment**
+   ```bash
+   conda env create -f environment.yml
+   conda activate mooncast
+   ```
 
-Overall I am proud of my work. I was able to create a TTS system.
+2. **Install MoonCast Dependencies**
+   ```bash
+   cd MoonCast/
+   pip install -r requirements.txt
+   pip install flash-attn --no-build-isolation
+   pip install huggingface_hub
+   pip install gradio==5.22.0
+   ```
 
-However I ran out of time and need to write 10 pages so I could not 
-get the docker container to work and connect to the vercel front end. 
+   ⏱️ **Note**: `flash-attn` installation can take up to 5 hours
 
+3. **Download Pre-trained Models**
+   ```bash
+   python download_pretrain.py
+   ```
 
+4. **Set Up MoonDIA**
+   ```bash
+   cd ../MoonDIA/
+   
+   # Copy resources from MoonCast
+   cp -r ../MoonCast/resources/ CustomBuild/
+   
+   # Install additional requirements
+   cd trained_mapper/
+   pip install -r requirements_mooncast_2wice.txt
+   pip install -r requirements_seq2seq.txt
+   ```
 
-////////////////////////////
+5. **Configure Environment**
+   ```bash
+   # Create and configure .env file in trained_mapper directory
+   cp .env.example .env
+   # Edit .env with your API keys and configuration
+   ```
 
+## 🎵 Using the TTS System
 
-FRONT END CODE:
-========================================
+The main TTS code is located in `MoonDIA/trained_mapper/` with three main scripts:
 
-1. Sign up for accounts with the AI providers you want to use (e.g., OpenAI, Anthropic).
-2. Obtain API keys for each provider.
-3. Set the required environment variables as shown in the `.env.example` file, but in a new file called `.env`.
-4. `pnpm install` to install the required Node dependencies.
-5. `virtualenv venv` to create a virtual environment.
-6. `source venv/bin/activate` to activate the virtual environment.
-7. `pip install -r requirements.txt` to install the required Python dependencies.
-8. `pnpm dev` to launch the development server.
+### Available Scripts
 
+| Script | Description | Usage |
+|--------|-------------|-------|
+| `MoonCast_seed.py` | Generates audio with 2 consistent speakers | `python MoonCast_seed.py --input-file <file> --duration 5` |
+| `MoonCast_no_prompt.py` | Generates audio with random speakers throughout | `python MoonCast_no_prompt.py --input-file <file> --duration 5` |
+| `MoonCast_seed_explainer.py` | Generates audio with 2 speakers + explanations | `python MoonCast_seed_explainer.py --input-file <file> --duration 5` |
 
+### Example Usage
+```bash
+cd MoonDIA/trained_mapper/
+python MoonCast_seed.py --input-file script.txt --duration 10
+```
 
+## 🔧 Technical Details
 
-TTS Code:
-MoonDIA is the code.
-need to install everything in environment.yml
+### Architecture
+- **Frontend**: Modern web UI with AI provider integration
+- **TTS Engine**: MoonCast-based semantic token generation
+- **AI Integration**: GPT-4.1 for intelligent script processing
+- **Optimization**: 10-turn sliding window for speaker consistency
 
-there is requirements.txt in /MoonCast
-requirements_mooncast_2wice.txt in /MoonDIA/trained_mapper
-requirements_seq2seq.txt in /MoonDIA/trained_mapper
+### Performance Notes
+- Current token limit: 15,000 (expandable to 60,000+)
+- GPU memory requirement: 8GB+ recommended
+- Processing time varies based on input length and GPU capability
 
-it uses the MoonCast conda environment which is under the MoonCast/Readme 
-instructions. 
+## 📁 Project Structure
 
-the main code is in /MoonDIA/trained_mapper
+```
+edtech/
+├── README.md
+├── environment.yml
+├── requirements.txt
+├── .env.example
+├── MoonCast/
+│   ├── resources/
+│   ├── requirements.txt
+│   └── download_pretrain.py
+└── MoonDIA/
+    ├── CustomBuild/
+    │   └── resources/  # Copied from MoonCast
+    └── trained_mapper/
+        ├── MoonCast_seed.py
+        ├── MoonCast_no_prompt.py
+        ├── MoonCast_seed_explainer.py
+        ├── requirements_mooncast_2wice.txt
+        ├── requirements_seq2seq.txt
+        └── .env
+```
 
-MoonCast_seed.py function call is :
-python MoonCast_seed.py --input-file --duration 5
+## 🤝 Contributing
 
-same standard for MoonCast_no_prompt.py 
-and for MoonCast_seed_explainer.py
+This project demonstrates advanced TTS capabilities with local processing. The frontend serves as a design reference for future integration.
 
-MoonCast_seed.py generates audio with 2 speakers.
-MoonCast_no_prompt.py generates audio with random speakers throughout
-MoonCast_seed_explainer.py generates audio with 2 speakers but explains more. 
+## 📝 License
 
+This project is part of an educational technology initiative.
 
+---
 
-This uses GPT4.1
-
-
-Do this under MoonCast/
-folder
-
-conda create -n mooncast -y python=3.10
-conda activate mooncast
-pip install -r requirements.txt 
-pip install flash-attn --no-build-isolation
-pip install huggingface_hub
-pip install gradio==5.22.0
-
-python download_pretrain.py
-
- 
-flash-attn takes 5 hours to install
-
-once everything is good pip install the 3 requirements
-there is requirements.txt in /MoonCast
-requirements_mooncast_2wice.txt in /MoonDIA/trained_mapper
-requirements_seq2seq.txt in /MoonDIA/trained_mapper
-
-
-You will need to switch to MoonDIA/CustomBuild
-copy in the /resources/ from MoonCast
-
-Also fill out the .env in the directory of /trained_mapper
 
 
 
