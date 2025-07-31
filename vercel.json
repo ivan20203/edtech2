@@ -1,7 +1,4 @@
 {
-  "functions": {
-    "api/**": {
-      "excludeFiles": "{.next,.git,node_modules}/**"
-    }
-  }
+  "buildCommand": "pnpm build",
+  "installCommand": "pnpm install"
 }
